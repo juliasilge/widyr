@@ -1,0 +1,72 @@
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+### widyr: Widen, process, and re-tidy a dataset
+
+**License:** [MIT](https://opensource.org/licenses/MIT)
+
+[![Travis-CI Build Status](https://travis-ci.org/.svg?branch=master)](https://travis-ci.org/)
+[![Coverage Status](https://img.shields.io/codecov/c/github//master.svg)](https://codecov.io/github/?branch=master)
+
+This package wraps the pattern of un-tidying data into a wide matrix, performing some processing, then turning it back into a tidy form. This is useful for several mathematical operations such as co-occurence counts, correlations, or clustering that are best done on a wide matrix.
+
+### Installation
+
+Install from Github with [devtools](https://github.com/hadley/devtools):
+
+```{r, eval = FALSE}
+library(devtools)
+install_github("dgrtwo/widyr")
+```
+
+### Examples
+
+#### Pair functions
+
+The package has pre-wrapped some common functions that operate on pairs of items. For example, suppose we have a text dataset.
+
+```{r}
+library(dplyr)
+library(tidytext)
+library(stringr)
+library(janeaustenr)
+
+w <- data_frame(text = prideprejudice) %>%
+  mutate(chapter = cumsum(str_detect(text, "^Chapter"))) %>%
+  ungroup() %>%
+  unnest_tokens(word, text) %>%
+  filter(chapter > 0, !(word %in% stop_words$word))
+
+w
+
+# words used at least 10 times
+w_count <- w %>%
+  count(word, chapter) %>%
+  filter(sum(n) >= 10) %>%
+  ungroup()
+```
+
+We can then find words that tend to co-appear:
+
+```{r}
+w_count %>%
+  pair_cor(chapter, word, n, sort = TRUE)
+```
+
+If we don't want to include duplicates, we can add `upper = FALSE` (in that we are no longer including the "upper triangle" of the correlation):
+
+```{r}
+w_count %>%
+  pair_cor(chapter, word, n, sort = TRUE, upper = FALSE)
+```
+
+### Code of Conduct
+
+Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.

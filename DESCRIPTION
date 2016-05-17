@@ -1,0 +1,30 @@
+Package: widyr
+Type: Package
+Title: Widen, Process, then Re-Tidy Data
+Version: 0.1.0
+Authors@R: person("David", "Robinson", email = "admiral.david@gmail.com", role = c("aut", "cre"))
+Description: Encapsulates the pattern of un-tidying data into a wide matrix,
+  performing some processing, then turning it back into a tidy form. This
+  is useful for several operations such as co-occurence counts,
+  correlations, or clustering that are mathematically convenient on wide matrices.
+License: MIT + file LICENSE
+LazyData: TRUE
+Maintainer: David Robinson <admiral.david@gmail.com>
+URL: http://github.com/dgrtwo/widyr
+BugReports: http://github.com/dgrtwo/widyr/issues
+VignetteBuilder: knitr
+Imports:
+    dplyr,
+    tidyr,
+    reshape2,
+    tidytext,
+    purrr,
+    Matrix,
+    broom
+Suggests:
+    gapminder,
+    testthat,
+    covr,
+    knitr,
+    topicmodels
+RoxygenNote: 5.0.1
