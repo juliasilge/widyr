@@ -26,5 +26,6 @@ Suggests:
     testthat,
     covr,
     knitr,
-    topicmodels
+    topicmodels,
+    tidytext
 RoxygenNote: 5.0.1
