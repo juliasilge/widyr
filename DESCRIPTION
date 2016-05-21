@@ -20,7 +20,8 @@ Imports:
     tidytext,
     purrr,
     Matrix,
-    broom
+    broom,
+    methods
 Suggests:
     gapminder,
     testthat,

@@ -17,6 +17,7 @@
 #'
 #' @import dplyr
 #' @import Matrix
+#' @importFrom broom tidy
 #'
 #' @examples
 #'

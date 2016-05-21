@@ -10,7 +10,9 @@
 #' such as \code{diag} and \code{upper}
 #'
 #' @examples
+#'
 #' library(gapminder)
+#' library(dplyr)
 #'
 #' # closest countries in terms of life expectancy over time
 #' closest <- gapminder %>%

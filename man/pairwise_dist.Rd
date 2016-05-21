@@ -27,4 +27,29 @@ such as \code{diag} and \code{upper}}
 \description{
 Distances of pairs of items
 }
+\examples{
+
+library(gapminder)
+library(dplyr)
+
+# closest countries in terms of life expectancy over time
+closest <- gapminder \%>\%
+  pairwise_dist(year, country, lifeExp) \%>\%
+  arrange(distance)
+
+closest
+
+closest \%>\% filter(item1 == "United States")
+
+# to remove duplicates, use upper = FALSE
+gapminder \%>\%
+  pairwise_dist(year, country, lifeExp, upper = FALSE) \%>\%
+  arrange(distance)
+
+# Can also use Manhattan distance
+gapminder \%>\%
+  pairwise_dist(year, country, lifeExp, method = "manhattan", upper = FALSE) \%>\%
+  arrange(distance)
+
+}
 
