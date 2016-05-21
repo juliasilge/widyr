@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 
 **License:** [MIT](https://opensource.org/licenses/MIT)
 
-[![Travis-CI Build Status](https://travis-ci.org/widyr.svg?branch=master)](https://travis-ci.org/dgrtwo/widyr)
+[![Travis-CI Build Status](https://travis-ci.org/dgrtwo/widyr.svg?branch=master)](https://travis-ci.org/dgrtwo/widyr)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/dgrtwo/widyr?branch=master&svg=true)](https://ci.appveyor.com/project/dgrtwo/widyr)
 [![Coverage Status](https://img.shields.io/codecov/c/github//master.svg)](https://codecov.io/github/?branch=master)
 
@@ -27,45 +27,61 @@ library(devtools)
 install_github("dgrtwo/widyr")
 ```
 
-### Examples
+### Example: gapminder
 
-#### Pair functions
-
-The package has pre-wrapped some common functions that operate on pairs of items. For example, suppose we have a text dataset.
+Consider the gapminder dataset in the [gapminder package](https://cran.r-project.org/web/packages/gapminder/index.html).
 
 ```{r}
 library(dplyr)
-library(tidytext)
-library(stringr)
-library(janeaustenr)
+library(gapminder)
 
-w <- data_frame(text = prideprejudice) %>%
-  mutate(chapter = cumsum(str_detect(text, "^Chapter"))) %>%
-  ungroup() %>%
-  unnest_tokens(word, text) %>%
-  filter(chapter > 0, !(word %in% stop_words$word))
-
-w
-
-# words used at least 10 times
-w_count <- w %>%
-  count(word, chapter) %>%
-  filter(sum(n) >= 10) %>%
-  ungroup()
+gapminder
 ```
 
-We can then find words that tend to co-appear:
+This tidy format (one-row-per-country-per-year) is very useful for grouping, summarizing, and filtering operations. For example, 
 
 ```{r}
-w_count %>%
-  pair_cor(chapter, word, n, sort = TRUE)
+library(ggplot2)
+
+ggplot(gapminder, aes(year, lifeExp, color = continent, group = country)) +
+  geom_line()
 ```
 
-If we don't want to include duplicates, we can add `upper = FALSE` (in that we are no longer including the "upper triangle" of the correlation):
+But if we want to *compare* countries (for example, to find countries that are similar to each other), we would have to reshape this dataset.
+
+#### Pairwise operations
+
+The widyr package has pre-wrapped some common functions that operate on such pairs. An example is `pair_dist`:
 
 ```{r}
-w_count %>%
-  pair_cor(chapter, word, n, sort = TRUE, upper = FALSE)
+library(widyr)
+
+gapminder %>%
+  pairwise_dist(year, country, lifeExp)
+```
+
+In a single step, this finds the Euclidean distance between the `lifeExp` value in each pair of countries by year. We could find the closest pairs of countries overall:
+
+```{r}
+gapminder %>%
+  pairwise_dist(year, country, lifeExp) %>%
+  arrange(distance)
+```
+
+Notice that this includes duplicates (Germany/Belgium . To avoid those (the upper triangle of the distance matrix), use `upper = FALSE`:
+
+```{r}
+gapminder %>%
+  pairwise_dist(year, country, lifeExp, upper = FALSE) %>%
+  arrange(distance)
+```
+
+In some analyses, we may be interested in correlation rather than distance of pairs. For this we would use `pairwise_cor`:
+
+```{r}
+gapminder %>%
+  pairwise_cor(year, country, lifeExp, upper = FALSE) %>%
+  arrange(desc(correlation))
 ```
 
 ### Code of Conduct

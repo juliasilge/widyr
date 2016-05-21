@@ -28,5 +28,6 @@ Suggests:
     covr,
     knitr,
     topicmodels,
-    janeaustenr
+    janeaustenr,
+    rmarkdown
 RoxygenNote: 5.0.1
