@@ -8,7 +8,7 @@
 
 [![Travis-CI Build Status](https://travis-ci.org/dgrtwo/widyr.svg?branch=master)](https://travis-ci.org/dgrtwo/widyr)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/dgrtwo/widyr?branch=master&svg=true)](https://ci.appveyor.com/project/dgrtwo/widyr)
-[![Coverage Status](https://img.shields.io/codecov/c/github//master.svg)](https://codecov.io/github/?branch=master)
+[![Coverage Status](https://img.shields.io/codecov/c/github/dgrtwo/widyr/master.svg)](https://codecov.io/github/dgrtwo/widyr?branch=master)
 
 This package wraps the pattern of un-tidying data into a wide matrix, performing some processing, then turning it back into a tidy form. This is useful for several mathematical operations such as co-occurence counts, correlations, or clustering that are best done on a wide matrix.
 
@@ -49,19 +49,7 @@ gapminder
 #> ..         ...       ...   ...     ...      ...       ...
 ```
 
-This tidy format (one-row-per-country-per-year) is very useful for grouping, summarizing, and filtering operations. For example, 
-
-
-```r
-library(ggplot2)
-
-ggplot(gapminder, aes(year, lifeExp, color = continent, group = country)) +
-  geom_line()
-```
-
-![plot of chunk unnamed-chunk-4](README-unnamed-chunk-4-1.png)
-
-But if we want to *compare* countries (for example, to find countries that are similar to each other), we would have to reshape this dataset.
+This tidy format (one-row-per-country-per-year) is very useful for grouping, summarizing, and filtering operations. But if we want to *compare* countries (for example, to find countries that are similar to each other), we would have to reshape this dataset.
 
 #### Pairwise operations
 
