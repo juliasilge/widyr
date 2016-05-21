@@ -1,6 +1,6 @@
 # tests for pairwise_count function
 
-context("Counting pairs")
+context("pairwise_count")
 
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(tidytext))
@@ -14,7 +14,7 @@ test_that("pairing and counting works", {
     unnest_tokens(char, txt, token = "characters")
 
   d <- original %>%
-    pairwise_count(line, char, sort = TRUE, upper = FALSE, diag = FALSE)
+    pairwise_count(char, line, sort = TRUE, upper = FALSE, diag = FALSE)
 
   expect_equal(nrow(d), 164)
   expect_equal(ncol(d), 3)
@@ -30,7 +30,7 @@ test_that("pairing and counting works", {
   # for self-pairs, the number of occurences should be the number of distinct
   # lines
   d2 <- original %>%
-    pairwise_count(line, char, sort = TRUE, upper = FALSE, diag = TRUE)
+    pairwise_count(char, line, sort = TRUE, upper = FALSE, diag = TRUE)
 
   expect_equal(nrow(d2), nrow(d) + 20)
 
@@ -48,7 +48,7 @@ test_that("pairing and counting works", {
 
   # when upper is TRUE, should include twice as many items as original
   d3 <- original %>%
-    pairwise_count(line, char, sort = TRUE, upper = TRUE)
+    pairwise_count(char, line, sort = TRUE, upper = TRUE)
 
   expect_equal(nrow(d) * 2, nrow(d3))
   expect_true(all(sort(d3$item1) == sort(d3$item2)))
@@ -62,7 +62,7 @@ test_that("Counts co-occurences of words in Pride & Prejudice", {
       unnest_tokens(word, text)
 
     pairs <- words %>%
-      pairwise_count(line, word, upper = TRUE, diag = TRUE, sort = TRUE)
+      pairwise_count(word, line, upper = TRUE, diag = TRUE, sort = TRUE)
 
     # check it is sorted in descending order
     expect_false(is.unsorted(rev(pairs$n)))

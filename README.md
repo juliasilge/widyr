@@ -53,14 +53,14 @@ This tidy format (one-row-per-country-per-year) is very useful for grouping, sum
 
 #### Pairwise operations
 
-The widyr package has pre-wrapped some common functions that operate on such pairs. An example is `pair_dist`:
+The widyr package offers `pairwise_` functions that operate on pairs of items within groups. An example is `pairwise_dist`:
 
 
 ```r
 library(widyr)
 
 gapminder %>%
-  pairwise_dist(year, country, lifeExp)
+  pairwise_dist(country, year, lifeExp)
 #> Source: local data frame [20,022 x 3]
 #> 
 #>         item1       item2  distance
@@ -78,12 +78,12 @@ gapminder %>%
 #> ..        ...         ...       ...
 ```
 
-In a single step, this finds the Euclidean distance between the `lifeExp` value in each pair of countries by year. We could find the closest pairs of countries overall:
+In a single step, this finds the Euclidean distance between the `lifeExp` value in each pair of countries, matching by year. We could find the closest pairs of countries overall:
 
 
 ```r
 gapminder %>%
-  pairwise_dist(year, country, lifeExp) %>%
+  pairwise_dist(country, year, lifeExp) %>%
   arrange(distance)
 #> Source: local data frame [20,022 x 3]
 #> 
@@ -107,7 +107,7 @@ Notice that this includes duplicates (Germany/Belgium . To avoid those (the uppe
 
 ```r
 gapminder %>%
-  pairwise_dist(year, country, lifeExp, upper = FALSE) %>%
+  pairwise_dist(country, year, lifeExp, upper = FALSE) %>%
   arrange(distance)
 #> Source: local data frame [10,011 x 3]
 #> 
@@ -131,7 +131,7 @@ In some analyses, we may be interested in correlation rather than distance of pa
 
 ```r
 gapminder %>%
-  pairwise_cor(year, country, lifeExp, upper = FALSE) %>%
+  pairwise_cor(country, year, lifeExp, upper = FALSE) %>%
   arrange(desc(correlation))
 #> Source: local data frame [10,011 x 3]
 #> 

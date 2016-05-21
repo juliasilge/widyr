@@ -7,6 +7,18 @@ test_that("widely can widen, operate, and re-tidy", {
 
     expect_is(ret$item1, "character")
     expect_is(ret$item2, "character")
+
+    expect_true(all(c("Afghanistan", "United States") %in% ret$item1))
+    expect_true(all(c("Afghanistan", "United States") %in% ret$item2))
+    expect_true(all(ret$value <= 1))
+    expect_true(all(ret$value >= -1))
+
+    expect_equal(nrow(ret), length(unique(gapminder$country)) ^ 2)
+
+    ret2 <- gapminder %>%
+      widely(cor, year, country, lifeExp, sort = TRUE)()
+
+    expect_equal(sort(ret$value, decreasing = TRUE), ret2$value)
   }
 })
 

@@ -1,4 +1,4 @@
-context("pairwise_dist")
+context("pairwise_cor")
 
 suppressPackageStartupMessages(library(dplyr))
 
@@ -8,7 +8,7 @@ d <- data_frame(col = rep(c("a", "b", "c"), each = 3),
 
 test_that("pairwise_cor computes pairwise correlations", {
   ret <- d %>%
-    pairwise_cor(row, col, value)
+    pairwise_cor(col, row, value)
 
   ret1 <- ret$correlation[ret$item1 == "a" & ret$item2 == "b"]
   expect_equal(ret1, cor(1:3, 6:4))
@@ -21,7 +21,7 @@ test_that("pairwise_cor computes pairwise correlations", {
 
 test_that("pairwise_cor can compute Spearman correlations", {
   ret <- d %>%
-    pairwise_cor(row, col, value, method = "spearman")
+    pairwise_cor(col, row, value, method = "spearman")
 
   ret1 <- ret$correlation[ret$item1 == "a" & ret$item2 == "b"]
   expect_equal(ret1, -1)

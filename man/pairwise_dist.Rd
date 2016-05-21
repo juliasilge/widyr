@@ -5,17 +5,17 @@
 \alias{pairwise_dist_}
 \title{Distances of pairs of items}
 \usage{
-pairwise_dist(tbl, group, item, value, method = "euclidean", ...)
+pairwise_dist(tbl, item, feature, value, method = "euclidean", ...)
 
-pairwise_dist_(tbl, group, item, value, method = "euclidean", ...)
+pairwise_dist_(tbl, item, feature, value, method = "euclidean", ...)
 }
 \arguments{
 \item{tbl}{Table}
 
-\item{group}{Group within which to look for correlations}
-
 \item{item}{Item to compare; will end up in \code{item1} and
 \code{item2} columns}
+
+\item{feature}{Column describing the feature that links one item to others}
 
 \item{value}{Value}
 
@@ -25,7 +25,7 @@ pairwise_dist_(tbl, group, item, value, method = "euclidean", ...)
 such as \code{diag} and \code{upper}}
 }
 \description{
-Distances of pairs of items
+Compute distances of all pairs of items in a tidy table.
 }
 \examples{
 
@@ -34,21 +34,22 @@ library(dplyr)
 
 # closest countries in terms of life expectancy over time
 closest <- gapminder \%>\%
-  pairwise_dist(year, country, lifeExp) \%>\%
+  pairwise_dist(country, year, lifeExp) \%>\%
   arrange(distance)
 
 closest
 
-closest \%>\% filter(item1 == "United States")
+closest \%>\%
+  filter(item1 == "United States")
 
 # to remove duplicates, use upper = FALSE
 gapminder \%>\%
-  pairwise_dist(year, country, lifeExp, upper = FALSE) \%>\%
+  pairwise_dist(country, year, lifeExp, upper = FALSE) \%>\%
   arrange(distance)
 
 # Can also use Manhattan distance
 gapminder \%>\%
-  pairwise_dist(year, country, lifeExp, method = "manhattan", upper = FALSE) \%>\%
+  pairwise_dist(country, year, lifeExp, method = "manhattan", upper = FALSE) \%>\%
   arrange(distance)
 
 }

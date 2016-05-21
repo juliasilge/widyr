@@ -8,7 +8,7 @@ test_that("pairwise_dist computes a distance matrix", {
                   value = c(1, 2, 3, 6, 5, 4, 7, 9, 8))
 
   ret <- d %>%
-    pairwise_dist(row, col, value)
+    pairwise_dist(col, row, value)
 
   ret1 <- ret$distance[ret$item1 == "a" & ret$item2 == "b"]
   expect_equal(ret1, sqrt(sum((1:3 - 6:4) ^ 2)))

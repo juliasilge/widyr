@@ -5,19 +5,19 @@
 \alias{pairwise_cor_}
 \title{Correlations of pairs of items}
 \usage{
-pairwise_cor(tbl, group, item, value, method = c("pearson", "kendall",
+pairwise_cor(tbl, item, feature, value, method = c("pearson", "kendall",
   "spearman"), use = "everything", ...)
 
-pairwise_cor_(tbl, group, item, value, method = c("pearson", "kendall",
+pairwise_cor_(tbl, item, feature, value, method = c("pearson", "kendall",
   "spearman"), use = "everything", ...)
 }
 \arguments{
 \item{tbl}{Table}
 
-\item{group}{Group within which to look for correlations}
-
 \item{item}{Item to compare; will end up in \code{item1} and
 \code{item2} columns}
+
+\item{feature}{Column describing the feature that links one item to others}
 
 \item{value}{Value}
 
@@ -35,15 +35,13 @@ Correlations of pairs of items
 \examples{
 
 library(dplyr)
-library(tidytext)
+library(gapminder)
 
-data(AssociatedPress, package = "topicmodels")
-ap_terms <- tidy(AssociatedPress) \%>\%
-  group_by(term) \%>\%
-  filter(n() >= 50)
+gapminder \%>\%
+  pairwise_cor(country, year, lifeExp)
 
-ap_terms \%>\%
-  pairwise_cor(document, term, count, sort = TRUE, upper = FALSE)
+gapminder \%>\%
+  pairwise_cor(country, year, lifeExp, sort = TRUE)
 
 }
 

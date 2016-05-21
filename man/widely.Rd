@@ -23,7 +23,7 @@ widely_(.f, row, column, value, sort = FALSE, sparse = FALSE,
 
 \item{sort}{Whether to sort in descending order of \code{value}}
 
-\item{sparse}{Whether to use a sparse matrix}
+\item{sparse}{Whether to cast to a sparse matrix}
 
 \item{maximum_size}{To prevent crashing, a maximum size of a
 non-sparse matrix to be created. Set to NULL to allow any size
@@ -32,7 +32,7 @@ matrix.}
 \description{
 Modify a function in order to pre-cast the input into a wide
 matrix format, perform the function, and then
-re-tidy the output.
+re-tidy (e.g. melt) the output.
 }
 \examples{
 
@@ -42,8 +42,17 @@ library(gapminder)
 gapminder
 
 gapminder \%>\%
-  widely(cor, year, country, lifeExp)()
+  widely(dist, country, year, lifeExp)()
 
+# can perform within groups
+closest_continent <- gapminder \%>\%
+  group_by(continent) \%>\%
+  widely(dist, country, year, lifeExp)()
+closest_continent
+
+# for example, find the closest pair in each
+closest_continent \%>\%
+  top_n(1, -value)
 
 }
 

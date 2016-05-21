@@ -6,16 +6,16 @@
 \title{A special case of the widely adverb for creating tidy
 square matrices}
 \usage{
-squarely(.f, row, column, value, diag = FALSE, upper = TRUE, ...)
+squarely(.f, item, feature, value, diag = FALSE, upper = TRUE, ...)
 
-squarely_(.f, row, column, value, diag = FALSE, upper = TRUE, ...)
+squarely_(.f, item, feature, value, diag = FALSE, upper = TRUE, ...)
 }
 \arguments{
 \item{.f}{Function to wrap}
 
-\item{row}{Name of column to use as rows in wide matrix}
+\item{item}{Name of column to use as rows in wide matrix}
 
-\item{column}{Name of column to use as columns in wide matrix}
+\item{feature}{Name of column to use as columns in wide matrix}
 
 \item{value}{Name of column to use as values in wide matrix}
 
@@ -24,15 +24,16 @@ squarely_(.f, row, column, value, diag = FALSE, upper = TRUE, ...)
 \item{upper}{Whether to include upper triangle, which may be
 duplicated}
 
-\item{...}{Extra arguments passed on to widely}
+\item{...}{Extra arguments passed on to \code{widely}}
 }
 \description{
 A special case of \code{\link{widely}}. Used to pre-prepare and
-post-tidy functions that return a square matrix, such as a
+post-tidy functions that take an m x n (m items, n features)
+matrix and return an m x m (item x item) matrix, such as a
 distance or correlation matrix.
 }
 \seealso{
 \code{\link{widely}}, \code{\link{pairwise_count}},
-\code{\link{pairwise_cor}}
+\code{\link{pairwise_cor}}, \code{\link{pairwise_dist}}
 }
 

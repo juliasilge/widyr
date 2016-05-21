@@ -39,3 +39,25 @@ tidy.dgTMatrix <- function(x, ...) {
 tidy.dgCMatrix <- function(x, ...) {
   tidy(methods::as(x, "dgTMatrix"))
 }
+
+
+#' Also from development broom
+#' @noRd
+tidy.dist <- function(x, diag = attr(x, "Diag"),
+                      upper = attr(x, "Upper"), ...) {
+  m <- as.matrix(x)
+
+  ret <- reshape2::melt(m, varnames = c("item1", "item2"),
+                        value.name = "distance",
+                        as.is = TRUE)
+
+  if (!upper) {
+    ret <- ret[!upper.tri(m), ]
+  }
+
+  if (!diag) {
+    # filter out the diagonal
+    ret <- filter(ret, item1 != item2)
+  }
+  ret
+}

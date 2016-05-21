@@ -3,7 +3,7 @@
 #'
 #' Modify a function in order to pre-cast the input into a wide
 #' matrix format, perform the function, and then
-#' re-tidy the output.
+#' re-tidy (e.g. melt) the output.
 #'
 #' @param .f Function being wrapped
 #' @param row Name of column to use as rows in wide matrix
@@ -13,7 +13,7 @@
 #' @param maximum_size To prevent crashing, a maximum size of a
 #' non-sparse matrix to be created. Set to NULL to allow any size
 #' matrix.
-#' @param sparse Whether to use a sparse matrix
+#' @param sparse Whether to cast to a sparse matrix
 #'
 #' @import dplyr
 #' @import Matrix
@@ -27,8 +27,17 @@
 #' gapminder
 #'
 #' gapminder %>%
-#'   widely(cor, year, country, lifeExp)()
+#'   widely(dist, country, year, lifeExp)()
 #'
+#' # can perform within groups
+#' closest_continent <- gapminder %>%
+#'   group_by(continent) %>%
+#'   widely(dist, country, year, lifeExp)()
+#' closest_continent
+#'
+#' # for example, find the closest pair in each
+#' closest_continent %>%
+#'   top_n(1, -value)
 #'
 #' @export
 widely <- function(.f, row, column, value,
@@ -52,6 +61,17 @@ widely_ <- function(.f, row, column, value,
                     sparse = FALSE,
                     maximum_size = 1e7) {
   f <- function(tbl, ...) {
+    if (inherits(tbl, "grouped_df")) {
+      # perform within each group, then restore groups
+      ret <- tbl %>%
+        tidyr::nest_("..data", nest_cols = c(row, column, value)) %>%
+        mutate(..data = purrr::map(..data, f)) %>%
+        tidyr::unnest_("..data") %>%
+        group_by_(.dots = dplyr::groups(tbl))
+
+      return(ret)
+    }
+
     if (!sparse) {
       if (!is.null(maximum_size)) {
         matrix_size <- (length(unique(tbl[[row]])) *
@@ -81,6 +101,7 @@ widely_ <- function(.f, row, column, value,
     }
     ret
   }
+
   f
 }
 
@@ -96,9 +117,9 @@ custom_melt <- function(m) {
     return(ret)
   }
   # default to broom/tidytext's tidy
-  ret <- purrr::possibly(broom::tidy, NULL)(m)
+  ret <- suppressWarnings(purrr::possibly(broom::tidy, NULL)(m))
   if (is.null(ret)) {
-    ret <- tidytext::tidy(m)
+    ret <- tidy(m)
   }
   colnames(ret) <- c("item1", "item2", "value")
   ret

@@ -5,16 +5,17 @@
 \alias{pairwise_count_}
 \title{Count pairs of items within a group}
 \usage{
-pairwise_count(tbl, group, item, ...)
+pairwise_count(tbl, item, feature, ...)
 
-pairwise_count_(tbl, group, item, ...)
+pairwise_count_(tbl, item, feature, ...)
 }
 \arguments{
 \item{tbl}{Table}
 
-\item{group}{Column within which to count pairs}
+\item{item}{Item to count pairs of; will end up in \code{item1} and
+\code{item2} columns}
 
-\item{item}{Item to compare; will end up in \code{item1} and
+\item{feature}{Column within which to count pairs
 \code{item2} columns}
 
 \item{...}{Extra arguments passed on to \code{squarely},

@@ -1,9 +1,9 @@
 #' Correlations of pairs of items
 #'
 #' @param tbl Table
-#' @param group Group within which to look for correlations
 #' @param item Item to compare; will end up in \code{item1} and
 #' \code{item2} columns
+#' @param feature Column describing the feature that links one item to others
 #' @param value Value
 #' @param method Correlation method
 #' @param use Character string specifying the behavior of correlations
@@ -14,23 +14,21 @@
 #' @examples
 #'
 #' library(dplyr)
-#' library(tidytext)
+#' library(gapminder)
 #'
-#' data(AssociatedPress, package = "topicmodels")
-#' ap_terms <- tidy(AssociatedPress) %>%
-#'   group_by(term) %>%
-#'   filter(n() >= 50)
+#' gapminder %>%
+#'   pairwise_cor(country, year, lifeExp)
 #'
-#' ap_terms %>%
-#'   pairwise_cor(document, term, count, sort = TRUE, upper = FALSE)
+#' gapminder %>%
+#'   pairwise_cor(country, year, lifeExp, sort = TRUE)
 #'
 #' @export
-pairwise_cor <- function(tbl, group, item, value,
+pairwise_cor <- function(tbl, item, feature, value,
                      method = c("pearson", "kendall", "spearman"),
                      use = "everything", ...) {
   pairwise_cor_(tbl,
-            col_name(substitute(group)),
             col_name(substitute(item)),
+            col_name(substitute(feature)),
             col_name(substitute(value)),
             method = method, use = use, ...)
 }
@@ -38,7 +36,7 @@ pairwise_cor <- function(tbl, group, item, value,
 
 #' @rdname pairwise_cor
 #' @export
-pairwise_cor_ <- function(tbl, group, item, value,
+pairwise_cor_ <- function(tbl, item, feature, value,
                       method = c("pearson", "kendall", "spearman"),
                       use = "everything",
                       ...) {
@@ -49,11 +47,11 @@ pairwise_cor_ <- function(tbl, group, item, value,
       stop("Currently cannot support any use argument besides everything ",
            "when method = 'pearson'")
     }
-    cor_sparse
+    function(x) cor_sparse(t(x))
   } else {
-    function(x) stats::cor(x, method = method, use = use)
+    function(x) stats::cor(t(x), method = method, use = use)
   }
-  cor_func <- squarely_(f, group, item, value,
+  cor_func <- squarely_(f, item, feature, value,
                         sparse = (method == "pearson"), ...)
 
   tbl %>%
