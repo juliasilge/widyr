@@ -6,7 +6,8 @@
 
 **License:** [MIT](https://opensource.org/licenses/MIT)
 
-[![Travis-CI Build Status](https://travis-ci.org/.svg?branch=master)](https://travis-ci.org/)
+[![Travis-CI Build Status](https://travis-ci.org/widyr.svg?branch=master)](https://travis-ci.org/dgrtwo/widyr)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/dgrtwo/widyr?branch=master&svg=true)](https://ci.appveyor.com/project/dgrtwo/widyr)
 [![Coverage Status](https://img.shields.io/codecov/c/github//master.svg)](https://codecov.io/github/?branch=master)
 
 This package wraps the pattern of un-tidying data into a wide matrix, performing some processing, then turning it back into a tidy form. This is useful for several mathematical operations such as co-occurence counts, correlations, or clustering that are best done on a wide matrix.
@@ -70,21 +71,7 @@ We can then find words that tend to co-appear:
 ```r
 w_count %>%
   pair_cor(chapter, word, n, sort = TRUE)
-#> Source: local data frame [742,182 x 3]
-#> 
-#>          item1       item2 correlation
-#>          (chr)       (chr)       (dbl)
-#> 1           de      bourgh   0.9800135
-#> 2       bourgh          de   0.9800135
-#> 3     reynolds housekeeper   0.9721131
-#> 4  housekeeper    reynolds   0.9721131
-#> 5     reynolds      master   0.9473136
-#> 6       master    reynolds   0.9473136
-#> 7       master housekeeper   0.9464619
-#> 8  housekeeper      master   0.9464619
-#> 9     reynolds     picture   0.9395403
-#> 10     picture    reynolds   0.9395403
-#> ..         ...         ...         ...
+#> Error in function_list[[k]](value): could not find function "pair_cor"
 ```
 
 If we don't want to include duplicates, we can add `upper = FALSE` (in that we are no longer including the "upper triangle" of the correlation):
@@ -93,21 +80,7 @@ If we don't want to include duplicates, we can add `upper = FALSE` (in that we a
 ```r
 w_count %>%
   pair_cor(chapter, word, n, sort = TRUE, upper = FALSE)
-#> Source: local data frame [371,091 x 3]
-#> 
-#>          item1    item2 correlation
-#>          (chr)    (chr)       (dbl)
-#> 1       bourgh       de   0.9800135
-#> 2  housekeeper reynolds   0.9721131
-#> 3       master reynolds   0.9473136
-#> 4  housekeeper   master   0.9464619
-#> 5      picture reynolds   0.9395403
-#> 6  housekeeper  picture   0.9217574
-#> 7       master  picture   0.9020628
-#> 8    catherine     lady   0.8964611
-#> 9       dances  partner   0.8921980
-#> 10     dancing  partner   0.8805563
-#> ..         ...      ...         ...
+#> Error in function_list[[k]](value): could not find function "pair_cor"
 ```
 
 ### Code of Conduct

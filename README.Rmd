@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 
 **License:** [MIT](https://opensource.org/licenses/MIT)
 
-[![Travis-CI Build Status](https://travis-ci.org/.svg?branch=master)](https://travis-ci.org/)
+[![Travis-CI Build Status](https://travis-ci.org/widyr.svg?branch=master)](https://travis-ci.org/dgrtwo/widyr)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/dgrtwo/widyr?branch=master&svg=true)](https://ci.appveyor.com/project/dgrtwo/widyr)
 [![Coverage Status](https://img.shields.io/codecov/c/github//master.svg)](https://codecov.io/github/?branch=master)
 
