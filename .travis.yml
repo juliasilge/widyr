@@ -4,5 +4,10 @@ language: R
 sudo: false
 cache: packages
 
+addons:
+  apt:
+    packages:
+      - libgsl0-dev # for topicmodels
+
 after_success:
   - Rscript -e 'covr::codecov()'
