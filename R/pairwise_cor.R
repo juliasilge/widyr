@@ -22,6 +22,12 @@
 #' gapminder %>%
 #'   pairwise_cor(country, year, lifeExp, sort = TRUE)
 #'
+#' library(unvotes)
+#'
+#' country_cors <- un_votes %>%
+#'   mutate(vote = as.numeric(vote)) %>%
+#'   pairwise_cor(country, rcid, vote)
+#'
 #' @export
 pairwise_cor <- function(tbl, item, feature, value,
                      method = c("pearson", "kendall", "spearman"),

@@ -29,5 +29,6 @@ Suggests:
     knitr,
     topicmodels,
     janeaustenr,
-    rmarkdown
+    rmarkdown,
+    unvotes
 RoxygenNote: 5.0.1

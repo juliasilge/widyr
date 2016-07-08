@@ -22,7 +22,7 @@ test_that("pairing and counting works", {
   expect_equal(d$item2[10], "r")
   expect_equal(d$n[20], 3)
 
-  expect_false(any(d$value1 == d$value2))
+  expect_false(any(d$item1 == d$item2))
   expect_false(is.unsorted(rev(d$n)))
 
   # test additional arguments
