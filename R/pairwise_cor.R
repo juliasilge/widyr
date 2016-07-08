@@ -42,17 +42,14 @@ pairwise_cor_ <- function(tbl, item, feature, value,
                       ...) {
   method <- match.arg(method)
 
-  f <- if (method == "pearson") {
-    if (use != "everything") {
-      stop("Currently cannot support any use argument besides everything ",
-           "when method = 'pearson'")
-    }
+  sparse <- (method == "pearson" & use == "everything")
+  f <- if (sparse) {
     function(x) cor_sparse(t(x))
   } else {
     function(x) stats::cor(t(x), method = method, use = use)
   }
   cor_func <- squarely_(f, item, feature, value,
-                        sparse = (method == "pearson"), ...)
+                        sparse = sparse, ...)
 
   tbl %>%
     ungroup() %>%
