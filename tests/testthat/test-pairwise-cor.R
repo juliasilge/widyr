@@ -26,3 +26,15 @@ test_that("pairwise_cor can compute Spearman correlations", {
   ret1 <- ret$correlation[ret$item1 == "a" & ret$item2 == "b"]
   expect_equal(ret1, -1)
 })
+
+test_that("pairwise_cor retains factor levels", {
+  d$col <- factor(d$col, levels = c("b", "c", "a"))
+
+  ret <- d %>%
+    pairwise_cor(col, row, value, method = "spearman")
+
+  expect_is(ret$item1, "factor")
+  expect_is(ret$item2, "factor")
+  expect_equal(levels(ret$item1), c("b", "c", "a"))
+  expect_equal(levels(ret$item2), c("b", "c", "a"))
+})

@@ -37,21 +37,27 @@ squarely_ <- function(.f, item, feature, value,
   extra_args <- list(...)
 
   f <- function(tbl, ...) {
+    item_vals <- tbl[[item]]
+    item_u <- unique(item_vals)
+
+    tbl[[item]] <- match(item_vals, item_u)
+
     new_f <- do.call(widely_, c(list(.f, item, feature, value),
                                 extra_args))
     ret <- new_f(tbl, ...)
 
-    colnames(ret) <- c("item1", "item2", "value")
-
-    item_vals <- tbl[[item]]
+    ret$item1 <- as.integer(ret$item1)
+    ret$item2 <- as.integer(ret$item2)
 
     if (!upper) {
-      ret <- ret %>%
-        filter(match(item1, item_vals) <= match(item2, item_vals))
+      ret <- filter(ret, item1 <= item2)
     }
     if (!diag) {
       ret <- filter(ret, item1 != item2)
     }
+
+    ret$item1 <- item_u[ret$item1]
+    ret$item2 <- item_u[ret$item2]
 
     ret
   }
