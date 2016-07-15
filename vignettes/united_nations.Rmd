@@ -1,0 +1,94 @@
+---
+title: "United Nations Voting Correlations"
+author: "David Robinson"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{United Nations Voting Correlations}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, echo = FALSE}
+library(knitr)
+
+options(width = 102)
+opts_chunk(message = FALSE, warning = FALSE)
+
+library(ggplot2)
+theme_set(theme_bw())
+```
+
+Here we'll examine an example application of the widyr package, particularly the `pairwise_cor` and `pairwise_dist` functions. We'll use the data on United Nations General Assembly voting from the `unvotes` package:
+
+```{r}
+library(dplyr)
+library(unvotes)
+
+un_votes
+```
+
+This contains votes by 
+
+### Pairwise correlations
+
+Notice that the `vote` column is a factor, with levels (in order) "yes", "abstain", and "no":
+
+```{r}
+levels(un_votes$vote)
+```
+
+This allows us to get a fast measure of country-to-country agreement, using the `pairwise_cor` function.
+
+```{r cors}
+library(widyr)
+
+cors <- un_votes %>%
+  mutate(vote = as.numeric(vote)) %>%
+  pairwise_cor(country, rcid, vote, use = "pairwise.complete.obs", sort = TRUE)
+
+cors
+```
+
+We could, for example, find the countries that the US is most and least in agreement with:
+
+```{r US_cors}
+US_cors <- cors %>%
+  filter(item1 == "United States")
+
+US_cors
+US_cors %>% arrange(correlation)
+```
+
+This is a useful visualization on a map:
+
+```{r world_data}
+library(maps)
+library(fuzzyjoin)
+library(countrycode)
+
+world_data <- map_data("world") %>%
+  regex_full_join(iso3166, by = c("region" = "mapname")) %>%
+  filter(region != "Antarctica")
+```
+
+```{r US_cors_map}
+US_cors %>%
+  mutate(a2 = countrycode(item2, "country.name", "iso2c")) %>%
+  full_join(world_data, by = "a2") %>%
+  ggplot(aes(long, lat, group = group, fill = correlation)) +
+  geom_polygon() +
+  scale_fill_gradient2() +
+  coord_fixed(ratio = 2) +
+  theme_void()
+```
+
+### Other options
+
+Notice that there is a pair of rows for each country pair (e.g. USA to Canada and Canada to USA as separate rows). This is useful if we want to filter for one country's connections, but if we just wanted to examine the highest or lowest connections we could use `upper = FALSE` to remove these:
+
+```{r}
+US_cors <- cors %>%
+  filter(item1 == "United States")
+```
+

@@ -5,3 +5,4 @@
 ^\.travis\.yml$
 ^CONDUCT\.md$
 ^appveyor\.yml$
+^data-raw$

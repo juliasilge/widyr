@@ -1,5 +1,9 @@
 #' Count pairs of items within a group
 #'
+#' Count the number of times each pair of items appear together within a group
+#' defined by "feature." For example, this could count the number of times
+#' two words appear within documents).
+#'
 #' @param tbl Table
 #' @param item Item to count pairs of; will end up in \code{item1} and
 #' \code{item2} columns
@@ -7,6 +11,23 @@
 #' \code{item2} columns
 #' @param ... Extra arguments passed on to \code{squarely},
 #' such as \code{diag}, \code{upper}, and \code{sort}
+#'
+#' @seealso \code{\link{squarely}}
+#'
+#' @examples
+#'
+#' library(dplyr)
+#' dat <- data_frame(group = rep(1:5, each = 2),
+#'                   letter = c("a", "b",
+#'                              "a", "c",
+#'                              "a", "c",
+#'                              "b", "e",
+#'                              "b", "f"))
+#'
+#' # count the number of times two letters appear together
+#' pairwise_count(dat, letter, group)
+#' pairwise_count(dat, letter, group, sort = TRUE)
+#' pairwise_count(dat, letter, group, sort = TRUE, diag = FALSE)
 #'
 #' @export
 pairwise_count <- function(tbl, item, feature, ...) {

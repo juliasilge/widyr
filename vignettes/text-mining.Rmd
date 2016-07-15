@@ -1,0 +1,41 @@
+---
+title: "Vignette Title"
+author: "Vignette Author"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r echo = FALSE}
+library(knitr)
+opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+The `pairwise_` functions offered by widyr are also useful in tidy text mining, as implemented by the [tidytext package](https://github.com/juliasilge/tidytext).
+
+```{r}
+library(janeaustenr)
+library(tidytext)
+
+pride_prejudice_words <- data_frame(text = prideprejudice) %>%
+  unnest_tokens(text, text, token = "paragraphs") %>%
+  mutate(paragraph = row_number()) %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words) %>%
+  group_by(word) %>%
+  filter(n() > 50) %>%
+  ungroup() %>%
+  arrange(paragraph)
+
+pride_prejudice_words
+```
+
+We can, for example, 
+
+```{r}
+pride_prejudice_word_pairs <- pride_prejudice_words %>%
+  pairwise_cor(word, paragraph, sort = TRUE)
+```

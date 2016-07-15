@@ -11,6 +11,8 @@
 #' @param ... Extra arguments passed on to \code{\link{squarely}},
 #' such as \code{diag} and \code{upper}
 #'
+#' @seealso \code{\link{squarely}}
+#'
 #' @examples
 #'
 #' library(gapminder)

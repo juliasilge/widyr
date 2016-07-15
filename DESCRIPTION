@@ -30,5 +30,6 @@ Suggests:
     topicmodels,
     janeaustenr,
     rmarkdown,
-    unvotes
+    unvotes,
+    tidytext
 RoxygenNote: 5.0.1
