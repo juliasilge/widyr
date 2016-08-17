@@ -9,6 +9,8 @@
 #' \code{item2} columns
 #' @param feature Column within which to count pairs
 #' \code{item2} columns
+#' @param wt Optionally a weight column, which should have a consistent weight
+#' for each feature
 #' @param ... Extra arguments passed on to \code{squarely},
 #' such as \code{diag}, \code{upper}, and \code{sort}
 #'
@@ -30,21 +32,28 @@
 #' pairwise_count(dat, letter, group, sort = TRUE, diag = FALSE)
 #'
 #' @export
-pairwise_count <- function(tbl, item, feature, ...) {
+pairwise_count <- function(tbl, item, feature, wt = NULL, ...) {
   pairwise_count_(tbl,
               col_name(substitute(item)),
-              col_name(substitute(feature)), ...)
+              col_name(substitute(feature)),
+              wt = col_name(substitute(wt)),
+              ...)
 }
 
 
 #' @rdname pairwise_count
 #' @export
-pairwise_count_ <- function(tbl, item, feature, ...) {
-  func <- squarely_(function(m) m %*% t(m), item, feature,
-                    "..value", sparse = TRUE, ...)
+pairwise_count_ <- function(tbl, item, feature, wt = NULL, ...) {
+  if (is.null(wt)) {
+    func <- squarely_(function(m) m %*% t(m), item, feature,
+                      "..value", sparse = TRUE, ...)
+  } else {
+    func <- squarely_(function(m) m %*% t(m > 0), item, feature,
+                      wt, sparse = TRUE, ...)
+  }
 
   tbl %>%
-    distinct_(item, feature) %>%
+    distinct_(item, feature, .keep_all = TRUE) %>%
     mutate(..value = 1) %>%
     func() %>%
     rename(n = value)

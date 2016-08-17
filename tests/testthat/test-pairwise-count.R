@@ -5,14 +5,14 @@ context("pairwise_count")
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(tidytext))
 
-test_that("pairing and counting works", {
-  original <- data_frame(txt = c("I felt a funeral in my brain,",
-                                 "And mourners, to and fro,",
-                                 "Kept treading, treading, till it seemed",
-                                 "That sense was breaking through.")) %>%
-    mutate(line = row_number()) %>%
-    unnest_tokens(char, txt, token = "characters")
+original <- data_frame(txt = c("I felt a funeral in my brain,",
+                               "And mourners, to and fro,",
+                               "Kept treading, treading, till it seemed",
+                               "That sense was breaking through.")) %>%
+  mutate(line = row_number()) %>%
+  unnest_tokens(char, txt, token = "characters")
 
+test_that("pairing and counting works", {
   d <- original %>%
     pairwise_count(char, line, sort = TRUE, upper = FALSE, diag = FALSE)
 
@@ -52,6 +52,21 @@ test_that("pairing and counting works", {
 
   expect_equal(nrow(d) * 2, nrow(d3))
   expect_true(all(sort(d3$item1) == sort(d3$item2)))
+})
+
+
+test_that("We can count with a weight column", {
+  d <- data_frame(col1 = c("a", "a", "a", "b", "b", "b"),
+                  col2 = c("x", "y", "z", "x", "x", "z"),
+                  weight = c(1, 1, 1, 5, 5, 5))
+
+  ret1 <- pairwise_count(d, col2, col1)
+  expect_equal(ret1$n[ret1$item1 == "z" & ret1$item2 == "y"], 1)
+  expect_equal(ret1$n[ret1$item1 == "z" & ret1$item2 == "x"], 2)
+
+  ret2 <- pairwise_count(d, col2, col1, wt = weight)
+  expect_equal(ret2$n[ret1$item1 == "z" & ret1$item2 == "y"], 1)
+  expect_equal(ret2$n[ret1$item1 == "z" & ret1$item2 == "x"], 6)
 })
 
 
