@@ -5,9 +5,9 @@
 \alias{pairwise_count_}
 \title{Count pairs of items within a group}
 \usage{
-pairwise_count(tbl, item, feature, ...)
+pairwise_count(tbl, item, feature, wt = NULL, ...)
 
-pairwise_count_(tbl, item, feature, ...)
+pairwise_count_(tbl, item, feature, wt = NULL, ...)
 }
 \arguments{
 \item{tbl}{Table}
@@ -18,10 +18,34 @@ pairwise_count_(tbl, item, feature, ...)
 \item{feature}{Column within which to count pairs
 \code{item2} columns}
 
+\item{wt}{Optionally a weight column, which should have a consistent weight
+for each feature}
+
 \item{...}{Extra arguments passed on to \code{squarely},
 such as \code{diag}, \code{upper}, and \code{sort}}
 }
 \description{
-Count pairs of items within a group
+Count the number of times each pair of items appear together within a group
+defined by "feature." For example, this could count the number of times
+two words appear within documents).
+}
+\examples{
+
+library(dplyr)
+dat <- data_frame(group = rep(1:5, each = 2),
+                  letter = c("a", "b",
+                             "a", "c",
+                             "a", "c",
+                             "b", "e",
+                             "b", "f"))
+
+# count the number of times two letters appear together
+pairwise_count(dat, letter, group)
+pairwise_count(dat, letter, group, sort = TRUE)
+pairwise_count(dat, letter, group, sort = TRUE, diag = FALSE)
+
+}
+\seealso{
+\code{\link{squarely}}
 }
 

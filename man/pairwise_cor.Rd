@@ -19,7 +19,8 @@ pairwise_cor_(tbl, item, feature, value, method = c("pearson", "kendall",
 
 \item{feature}{Column describing the feature that links one item to others}
 
-\item{value}{Value}
+\item{value}{Value column. If not given, defaults to all values being 1 (thus
+a binary correlation)}
 
 \item{method}{Correlation method}
 
@@ -30,7 +31,8 @@ with missing values; passed on to \code{cor}}
 such as \code{diag} and \code{upper}}
 }
 \description{
-Correlations of pairs of items
+Find correlations of pairs of items in a column, based on a "feature" column
+that links them together. This is an example of the spread-operate-retidy pattern.
 }
 \examples{
 
@@ -42,6 +44,16 @@ gapminder \%>\%
 
 gapminder \%>\%
   pairwise_cor(country, year, lifeExp, sort = TRUE)
+
+
+# United Nations voting data
+library(unvotes)
+
+country_cors <- un_votes \%>\%
+  mutate(vote = as.numeric(vote)) \%>\%
+  pairwise_cor(country, rcid, vote, sort = TRUE)
+
+country_cors
 
 }
 

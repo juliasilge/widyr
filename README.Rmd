@@ -27,6 +27,20 @@ library(devtools)
 install_github("dgrtwo/widyr")
 ```
 
+
+### Towards a precise definition of "wide" data
+
+The term "wide data" has gone out of fashion as being "imprecise" [(Wickham 2014)](http://vita.had.co.nz/papers/tidy-data.pdf)). I think the term 
+
+A **wide** dataset is a matrix where:
+
+* Each row is one **item**
+* Each column is one **feature**
+* Each value is one **observation**
+* A separate matrix for each **variable**
+
+When would you want data to be wide rather than tidy? Notable examples include classification, clustering, factorization, or other operations that can take advantage of a matrix structure. In general, when you want to **compare across items** rather than compare between variables, this is a useful structure.
+
 ### Example: gapminder
 
 Consider the gapminder dataset in the [gapminder package](https://cran.r-project.org/web/packages/gapminder/index.html).
@@ -38,11 +52,11 @@ library(gapminder)
 gapminder
 ```
 
-This tidy format (one-row-per-country-per-year) is very useful for grouping, summarizing, and filtering operations. But if we want to *compare* countries (for example, to find countries that are similar to each other), we would have to reshape this dataset.
+This tidy format (one-row-per-country-per-year) is very useful for grouping, summarizing, and filtering operations. But if we want to *compare* countries (for example, to find countries that are similar to each other), we would have to reshape this dataset. Note that here, country is the **item**, while year is the **feature** column.
 
 #### Pairwise operations
 
-The widyr package offers `pairwise_` functions that operate on pairs of items within groups. An example is `pairwise_dist`:
+The widyr package offers `pairwise_` functions that operate on pairs of items. An example is `pairwise_dist`:
 
 ```{r}
 library(widyr)

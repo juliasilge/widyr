@@ -53,4 +53,7 @@ gapminder \%>\%
   arrange(distance)
 
 }
+\seealso{
+\code{\link{squarely}}
+}
 

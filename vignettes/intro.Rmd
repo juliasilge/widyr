@@ -1,0 +1,38 @@
+---
+title: "widyr: Widen, process, and re-tidy a dataset"
+author: "David Robinson"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+This package wraps the pattern of un-tidying data into a wide matrix, performing some processing, then turning it back into a tidy form. This is useful for several mathematical operations such as co-occurence counts, correlations, or clustering that are best done on a wide matrix.
+
+### Installation
+
+Install from Github with [devtools](https://github.com/hadley/devtools):
+
+```{r, eval = FALSE}
+library(devtools)
+install_github("dgrtwo/widyr")
+```
+
+
+### Towards a precise definition of "wide" data
+
+The term "wide data" has rightly gone out of fashion as "imprecise" [(Wickham 2014)](http://vita.had.co.nz/papers/tidy-data.pdf)), but I think the term is powerful when used carefully. Many operations 
+
+A **wide** dataset is a matrix where:
+
+* Each row is one **item**
+* Each column is one **feature**
+* Each value is one **observation**
+* A separate matrix for each **variable**
+
+Note that this structure is *very* different from a tidy dataset; most notably that it specifies a matrix rather than a table or data frame.
+
+When would you want data to be wide rather than tidy? Notable examples include classification, clustering, factorization, or other operations that can take advantage of a matrix structure. In general, when you want to **compare across items** rather than compare between variables, this is a useful structure.

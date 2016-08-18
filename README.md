@@ -22,6 +22,20 @@ library(devtools)
 install_github("dgrtwo/widyr")
 ```
 
+
+### Towards a precise definition of "wide" data
+
+The term "wide data" has gone out of fashion as being "imprecise" [(Wickham 2014)](http://vita.had.co.nz/papers/tidy-data.pdf)). I think the term 
+
+A **wide** dataset is a matrix where:
+
+* Each row is one **item**
+* Each column is one **feature**
+* Each value is one **observation**
+* A separate matrix for each **variable**
+
+When would you want data to be wide rather than tidy? Notable examples include classification, clustering, factorization, or other operations that can take advantage of a matrix structure. In general, when you want to **compare across items** rather than compare between variables, this is a useful structure.
+
 ### Example: gapminder
 
 Consider the gapminder dataset in the [gapminder package](https://cran.r-project.org/web/packages/gapminder/index.html).
@@ -32,10 +46,9 @@ library(dplyr)
 library(gapminder)
 
 gapminder
-#> Source: local data frame [1,704 x 6]
-#> 
+#> # A tibble: 1,704 x 6
 #>        country continent  year lifeExp      pop gdpPercap
-#>         (fctr)    (fctr) (int)   (dbl)    (int)     (dbl)
+#>         <fctr>    <fctr> <int>   <dbl>    <int>     <dbl>
 #> 1  Afghanistan      Asia  1952  28.801  8425333  779.4453
 #> 2  Afghanistan      Asia  1957  30.332  9240934  820.8530
 #> 3  Afghanistan      Asia  1962  31.997 10267083  853.1007
@@ -46,14 +59,14 @@ gapminder
 #> 8  Afghanistan      Asia  1987  40.822 13867957  852.3959
 #> 9  Afghanistan      Asia  1992  41.674 16317921  649.3414
 #> 10 Afghanistan      Asia  1997  41.763 22227415  635.3414
-#> ..         ...       ...   ...     ...      ...       ...
+#> # ... with 1,694 more rows
 ```
 
-This tidy format (one-row-per-country-per-year) is very useful for grouping, summarizing, and filtering operations. But if we want to *compare* countries (for example, to find countries that are similar to each other), we would have to reshape this dataset.
+This tidy format (one-row-per-country-per-year) is very useful for grouping, summarizing, and filtering operations. But if we want to *compare* countries (for example, to find countries that are similar to each other), we would have to reshape this dataset. Note that here, country is the **item**, while year is the **feature** column.
 
 #### Pairwise operations
 
-The widyr package offers `pairwise_` functions that operate on pairs of items within groups. An example is `pairwise_dist`:
+The widyr package offers `pairwise_` functions that operate on pairs of items. An example is `pairwise_dist`:
 
 
 ```r
@@ -61,10 +74,9 @@ library(widyr)
 
 gapminder %>%
   pairwise_dist(country, year, lifeExp)
-#> Source: local data frame [20,022 x 3]
-#> 
+#> # A tibble: 20,022 x 3
 #>         item1       item2  distance
-#>         (chr)       (chr)     (dbl)
+#>        <fctr>      <fctr>     <dbl>
 #> 1     Albania Afghanistan 107.41825
 #> 2     Algeria Afghanistan  76.75286
 #> 3      Angola Afghanistan   4.64934
@@ -75,44 +87,41 @@ gapminder %>%
 #> 8  Bangladesh Afghanistan  45.33990
 #> 9     Belgium Afghanistan 125.41156
 #> 10      Benin Afghanistan  39.32262
-#> ..        ...         ...       ...
+#> # ... with 20,012 more rows
 ```
 
-In a single step, this finds the Euclidean distance between the `lifeExp` value in each pair of countries, matching by year. We could find the closest pairs of countries overall:
+In a single step, this finds the Euclidean distance between the `lifeExp` value in each pair of countries, matching by year. We could find the closest pairs of countries overall using the `sort = TRUE` argument:
 
 
 ```r
 gapminder %>%
-  pairwise_dist(country, year, lifeExp) %>%
-  arrange(distance)
-#> Source: local data frame [20,022 x 3]
-#> 
-#>             item1          item2 distance
-#>             (chr)          (chr)    (dbl)
-#> 1         Germany        Belgium 1.075702
-#> 2         Belgium        Germany 1.075702
-#> 3  United Kingdom    New Zealand 1.509025
-#> 4     New Zealand United Kingdom 1.509025
-#> 5          Norway    Netherlands 1.557933
-#> 6     Netherlands         Norway 1.557933
-#> 7           Italy         Israel 1.662690
-#> 8          Israel          Italy 1.662690
-#> 9         Finland        Austria 1.936558
-#> 10        Austria        Finland 1.936558
-#> ..            ...            ...      ...
+  pairwise_dist(country, year, lifeExp, sort = TRUE)
+#> # A tibble: 20,022 x 3
+#>           item1        item2 distance
+#>          <fctr>       <fctr>    <dbl>
+#> 1  Sierra Leone      Iceland 137.7497
+#> 2       Iceland Sierra Leone 137.7497
+#> 3        Sweden Sierra Leone 136.5776
+#> 4  Sierra Leone       Sweden 136.5776
+#> 5  Sierra Leone       Norway 135.4974
+#> 6        Norway Sierra Leone 135.4974
+#> 7       Iceland  Afghanistan 135.4626
+#> 8   Afghanistan      Iceland 135.4626
+#> 9  Sierra Leone  Netherlands 134.7925
+#> 10  Netherlands Sierra Leone 134.7925
+#> # ... with 20,012 more rows
 ```
 
-Notice that this includes duplicates (Germany/Belgium . To avoid those (the upper triangle of the distance matrix), use `upper = FALSE`:
+Notice that this includes duplicates (Germany/Belgium and Belgium/Germany). To avoid those (the upper triangle of the distance matrix), use `upper = FALSE`:
 
 
 ```r
 gapminder %>%
   pairwise_dist(country, year, lifeExp, upper = FALSE) %>%
   arrange(distance)
-#> Source: local data frame [10,011 x 3]
-#> 
+#> # A tibble: 10,011 x 3
 #>          item1          item2 distance
-#>          (chr)          (chr)    (dbl)
+#>         <fctr>         <fctr>    <dbl>
 #> 1      Belgium        Germany 1.075702
 #> 2  New Zealand United Kingdom 1.509025
 #> 3  Netherlands         Norway 1.557933
@@ -123,7 +132,7 @@ gapminder %>%
 #> 8      Comoros     Mauritania 2.008199
 #> 9      Belgium  United States 2.092081
 #> 10     Germany        Ireland 2.097239
-#> ..         ...            ...      ...
+#> # ... with 10,001 more rows
 ```
 
 In some analyses, we may be interested in correlation rather than distance of pairs. For this we would use `pairwise_cor`:
@@ -131,12 +140,10 @@ In some analyses, we may be interested in correlation rather than distance of pa
 
 ```r
 gapminder %>%
-  pairwise_cor(country, year, lifeExp, upper = FALSE) %>%
-  arrange(desc(correlation))
-#> Source: local data frame [10,011 x 3]
-#> 
+  pairwise_cor(country, year, lifeExp, upper = FALSE, sort = TRUE)
+#> # A tibble: 10,011 x 3
 #>           item1                 item2 correlation
-#>           (chr)                 (chr)       (dbl)
+#>          <fctr>                <fctr>       <dbl>
 #> 1     Indonesia            Mauritania   0.9996291
 #> 2       Morocco               Senegal   0.9995515
 #> 3  Saudi Arabia    West Bank and Gaza   0.9995156
@@ -147,7 +154,7 @@ gapminder %>%
 #> 8       Bolivia                Gambia   0.9992930
 #> 9     Indonesia               Morocco   0.9992799
 #> 10        Libya               Senegal   0.9992710
-#> ..          ...                   ...         ...
+#> # ... with 10,001 more rows
 ```
 
 ### Code of Conduct

@@ -28,7 +28,7 @@ library(unvotes)
 un_votes
 ```
 
-This contains votes by 
+This dataset has one row for each country for each roll call vote.
 
 ### Pairwise correlations
 
