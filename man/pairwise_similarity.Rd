@@ -30,7 +30,7 @@ Compute cosine similarity of all pairs of items in a tidy table.
 library(janeaustenr)
 library(dplyr)
 
-# text of Jane Austen novels
+# Comparing Jane Austen novels
 austen_words <- austen_books() \%>\%
   unnest_tokens(word, text) \%>\%
   anti_join(stop_words, by = "word") \%>\%
@@ -45,12 +45,7 @@ closest <- austen_words \%>\%
 closest
 
 closest \%>\%
-  filter(item1 == "United States")
-
-# to remove duplicates, use upper = FALSE
-gapminder \%>\%
-  pairwise_dist(country, year, lifeExp, upper = FALSE) \%>\%
-  arrange(similarity)
+  filter(item1 == "Emma")
 
 }
 \seealso{

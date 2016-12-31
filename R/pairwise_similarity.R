@@ -17,7 +17,7 @@
 #' library(janeaustenr)
 #' library(dplyr)
 #'
-#' # text of Jane Austen novels
+#' # Comparing Jane Austen novels
 #' austen_words <- austen_books() %>%
 #'   unnest_tokens(word, text) %>%
 #'   anti_join(stop_words, by = "word") %>%
