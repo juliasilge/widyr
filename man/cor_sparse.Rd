@@ -19,4 +19,3 @@ For large sparse matrix this is more efficient in time and memory than
 \code{cor(as.matrix(x))}. Note that it does not currently work on
 simple_triplet_matrix objects.
 }
-

@@ -45,7 +45,6 @@ gapminder \%>\%
 gapminder \%>\%
   pairwise_cor(country, year, lifeExp, sort = TRUE)
 
-
 # United Nations voting data
 library(unvotes)
 
@@ -56,4 +55,3 @@ country_cors <- un_votes \%>\%
 country_cors
 
 }
-

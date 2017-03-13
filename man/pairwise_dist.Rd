@@ -56,4 +56,3 @@ gapminder \%>\%
 \seealso{
 \code{\link{squarely}}
 }
-

@@ -7,44 +7,66 @@
 #' distance or correlation matrix.
 #'
 #' @param .f Function to wrap
-#' @param item Name of column to use as rows in wide matrix
-#' @param feature Name of column to use as columns in wide matrix
-#' @param value Name of column to use as values in wide matrix
 #' @param diag Whether to include diagonal (i = j) in output
 #' @param upper Whether to include upper triangle, which may be
 #' duplicated
 #' @param ... Extra arguments passed on to \code{widely}
 #'
+#' @return Returns a function that takes at least four arguments:
+#'   \item{tbl}{A table}
+#'   \item{item}{Name of column to use as rows in wide matrix}
+#'   \item{feature}{Name of column to use as columns in wide matrix}
+#'   \item{feature}{Name of column to use as values in wide matrix}
+#'   \item{...}{Arguments passed on to inner function}
+#'
 #' @seealso \code{\link{widely}}, \code{\link{pairwise_count}},
 #' \code{\link{pairwise_cor}}, \code{\link{pairwise_dist}}
 #'
+#' @examples
+#'
+#' closest_continent <- gapminder %>%
+#'   group_by(continent) %>%
+#'   squarely(dist)(country, year, lifeExp)
+#'
 #' @export
-squarely <- function(.f, item, feature, value,
-                     diag = FALSE, upper = TRUE, ...) {
-  squarely_(.f, col_name(substitute(item)),
-            col_name(substitute(feature)),
-            col_name(substitute(value)),
-            diag = diag, upper = upper)
+squarely <- function(.f, diag = FALSE, upper = TRUE, ...) {
+  inner_func <- squarely_(.f, diag = diag, upper = upper, ...)
+  function(tbl, item, feature, value, ...) {
+    inner_func(tbl,
+               col_name(substitute(item)),
+               col_name(substitute(feature)),
+               col_name(substitute(value)),
+               ...)
+  }
 }
 
 
 #' @rdname squarely
 #' @export
-squarely_ <- function(.f, item, feature, value,
-                      diag = FALSE,
+squarely_ <- function(.f, diag = FALSE,
                       upper = TRUE,
                       ...) {
   extra_args <- list(...)
 
-  f <- function(tbl, ...) {
+  f <- function(tbl, item, feature, value, ...) {
+    if (inherits(tbl, "grouped_df")) {
+      # perform within each group, then restore groups
+      ret <- tbl %>%
+        tidyr::nest_("..data", nest_cols = c(item, feature, value)) %>%
+        mutate(..data = purrr::map(..data, f, item, feature, value)) %>%
+        tidyr::unnest_("..data") %>%
+        group_by_(.dots = dplyr::groups(tbl))
+
+      return(ret)
+    }
+
     item_vals <- tbl[[item]]
     item_u <- unique(item_vals)
 
     tbl[[item]] <- match(item_vals, item_u)
 
-    new_f <- do.call(widely_, c(list(.f, item, feature, value),
-                                extra_args))
-    ret <- new_f(tbl, ...)
+    new_f <- do.call(widely_, c(list(.f), extra_args))
+    ret <- new_f(tbl, item, feature, value, ...)
 
     ret$item1 <- as.integer(ret$item1)
     ret$item2 <- as.integer(ret$item2)

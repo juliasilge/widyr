@@ -3,17 +3,24 @@
 #'
 #' Modify a function in order to pre-cast the input into a wide
 #' matrix format, perform the function, and then
-#' re-tidy (e.g. melt) the output.
+#' re-tidy (e.g. melt) the output into a tidy table.
 #'
 #' @param .f Function being wrapped
-#' @param row Name of column to use as rows in wide matrix
-#' @param column Name of column to use as columns in wide matrix
-#' @param value Name of column to use as values in wide matrix
 #' @param sort Whether to sort in descending order of \code{value}
 #' @param maximum_size To prevent crashing, a maximum size of a
 #' non-sparse matrix to be created. Set to NULL to allow any size
 #' matrix.
 #' @param sparse Whether to cast to a sparse matrix
+#'
+#' @return Returns a function that takes at least four arguments:
+#'   \item{tbl}{A table}
+#'   \item{row}{Name of column to use as rows in wide matrix}
+#'   \item{column}{Name of column to use as columns in wide matrix}
+#'   \item{value}{Name of column to use as values in wide matrix}
+#'   \item{...}{Arguments passed on to inner function}
+#'
+#' \code{widely} creates a function that takes those columns as
+#' bare names, \code{widely_} a function that takes them as strings.
 #'
 #' @import dplyr
 #' @import Matrix
@@ -27,12 +34,12 @@
 #' gapminder
 #'
 #' gapminder %>%
-#'   widely(dist, country, year, lifeExp)()
+#'   widely(dist)(country, year, lifeExp)
 #'
 #' # can perform within groups
 #' closest_continent <- gapminder %>%
 #'   group_by(continent) %>%
-#'   widely(dist, country, year, lifeExp)()
+#'   widely(dist)(country, year, lifeExp)
 #' closest_continent
 #'
 #' # for example, find the closest pair in each
@@ -40,32 +47,37 @@
 #'   top_n(1, -value)
 #'
 #' @export
-widely <- function(.f, row, column, value,
+widely <- function(.f,
                    sort = FALSE,
                    sparse = FALSE,
                    maximum_size = 1e7) {
-  widely_(.f,
-          col_name(substitute(row)),
-          col_name(substitute(column)),
-          col_name(substitute(value)),
-          sort = sort,
-          sparse = sparse,
-          maximum_size = maximum_size)
+  function(tbl, row, column, value, ...) {
+    inner_func <- widely_(.f,
+                          sort = sort,
+                          sparse = sparse,
+                          maximum_size = maximum_size)
+
+    inner_func(tbl,
+               col_name(substitute(row)),
+               col_name(substitute(column)),
+               col_name(substitute(value)),
+               ...)
+  }
 }
 
 
 #' @rdname widely
 #' @export
-widely_ <- function(.f, row, column, value,
+widely_ <- function(.f,
                     sort = FALSE,
                     sparse = FALSE,
                     maximum_size = 1e7) {
-  f <- function(tbl, ...) {
+  f <- function(tbl, row, column, value, ...) {
     if (inherits(tbl, "grouped_df")) {
       # perform within each group, then restore groups
       ret <- tbl %>%
         tidyr::nest_("..data", nest_cols = c(row, column, value)) %>%
-        mutate(..data = purrr::map(..data, f)) %>%
+        mutate(..data = purrr::map(..data, f, row, column, value)) %>%
         tidyr::unnest_("..data") %>%
         group_by_(.dots = dplyr::groups(tbl))
 

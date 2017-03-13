@@ -26,7 +26,6 @@
 #' gapminder %>%
 #'   pairwise_cor(country, year, lifeExp, sort = TRUE)
 #'
-#'
 #' # United Nations voting data
 #' library(unvotes)
 #'
@@ -69,11 +68,10 @@ pairwise_cor_ <- function(tbl, item, feature, value,
   } else {
     function(x) stats::cor(t(x), method = method, use = use)
   }
-  cor_func <- squarely_(f, item, feature, value,
-                        sparse = sparse, ...)
+  cor_func <- squarely_(f, sparse = sparse, ...)
 
   tbl %>%
     ungroup() %>%
-    cor_func() %>%
+    cor_func(item, feature, value) %>%
     rename(correlation = value)
 }

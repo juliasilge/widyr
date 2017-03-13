@@ -6,18 +6,12 @@
 \title{A special case of the widely adverb for creating tidy
 square matrices}
 \usage{
-squarely(.f, item, feature, value, diag = FALSE, upper = TRUE, ...)
+squarely(.f, diag = FALSE, upper = TRUE, ...)
 
-squarely_(.f, item, feature, value, diag = FALSE, upper = TRUE, ...)
+squarely_(.f, diag = FALSE, upper = TRUE, ...)
 }
 \arguments{
 \item{.f}{Function to wrap}
-
-\item{item}{Name of column to use as rows in wide matrix}
-
-\item{feature}{Name of column to use as columns in wide matrix}
-
-\item{value}{Name of column to use as values in wide matrix}
 
 \item{diag}{Whether to include diagonal (i = j) in output}
 
@@ -26,14 +20,28 @@ duplicated}
 
 \item{...}{Extra arguments passed on to \code{widely}}
 }
+\value{
+Returns a function that takes at least four arguments:
+  \item{tbl}{A table}
+  \item{item}{Name of column to use as rows in wide matrix}
+  \item{feature}{Name of column to use as columns in wide matrix}
+  \item{feature}{Name of column to use as values in wide matrix}
+  \item{...}{Arguments passed on to inner function}
+}
 \description{
 A special case of \code{\link{widely}}. Used to pre-prepare and
 post-tidy functions that take an m x n (m items, n features)
 matrix and return an m x m (item x item) matrix, such as a
 distance or correlation matrix.
 }
+\examples{
+
+closest_continent <- gapminder \%>\%
+  group_by(continent) \%>\%
+  squarely(dist)(country, year, lifeExp)
+
+}
 \seealso{
 \code{\link{widely}}, \code{\link{pairwise_count}},
 \code{\link{pairwise_cor}}, \code{\link{pairwise_dist}}
 }
-

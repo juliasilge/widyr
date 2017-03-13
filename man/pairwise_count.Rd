@@ -48,4 +48,3 @@ pairwise_count(dat, letter, group, sort = TRUE, diag = FALSE)
 \seealso{
 \code{\link{squarely}}
 }
-

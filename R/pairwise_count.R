@@ -45,16 +45,15 @@ pairwise_count <- function(tbl, item, feature, wt = NULL, ...) {
 #' @export
 pairwise_count_ <- function(tbl, item, feature, wt = NULL, ...) {
   if (is.null(wt)) {
-    func <- squarely_(function(m) m %*% t(m), item, feature,
-                      "..value", sparse = TRUE, ...)
+    func <- squarely_(function(m) m %*% t(m), sparse = TRUE, ...)
+    wt <- "..value"
   } else {
-    func <- squarely_(function(m) m %*% t(m > 0), item, feature,
-                      wt, sparse = TRUE, ...)
+    func <- squarely_(function(m) m %*% t(m > 0), sparse = TRUE, ...)
   }
 
   tbl %>%
     distinct_(item, feature, .keep_all = TRUE) %>%
     mutate(..value = 1) %>%
-    func() %>%
+    func(item, feature, wt) %>%
     rename(n = value)
 }

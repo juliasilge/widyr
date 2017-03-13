@@ -6,20 +6,12 @@
 \title{Adverb for functions that operate on matrices in "wide"
 format}
 \usage{
-widely(.f, row, column, value, sort = FALSE, sparse = FALSE,
-  maximum_size = 1e+07)
+widely(.f, sort = FALSE, sparse = FALSE, maximum_size = 1e+07)
 
-widely_(.f, row, column, value, sort = FALSE, sparse = FALSE,
-  maximum_size = 1e+07)
+widely_(.f, sort = FALSE, sparse = FALSE, maximum_size = 1e+07)
 }
 \arguments{
 \item{.f}{Function being wrapped}
-
-\item{row}{Name of column to use as rows in wide matrix}
-
-\item{column}{Name of column to use as columns in wide matrix}
-
-\item{value}{Name of column to use as values in wide matrix}
 
 \item{sort}{Whether to sort in descending order of \code{value}}
 
@@ -29,10 +21,21 @@ widely_(.f, row, column, value, sort = FALSE, sparse = FALSE,
 non-sparse matrix to be created. Set to NULL to allow any size
 matrix.}
 }
+\value{
+Returns a function that takes at least four arguments:
+  \item{tbl}{A table}
+  \item{row}{Name of column to use as rows in wide matrix}
+  \item{column}{Name of column to use as columns in wide matrix}
+  \item{value}{Name of column to use as values in wide matrix}
+  \item{...}{Arguments passed on to inner function}
+
+\code{widely} creates a function that takes those columns as
+bare names, \code{widely_} a function that takes them as strings.
+}
 \description{
 Modify a function in order to pre-cast the input into a wide
 matrix format, perform the function, and then
-re-tidy (e.g. melt) the output.
+re-tidy (e.g. melt) the output into a tidy table.
 }
 \examples{
 
@@ -42,12 +45,12 @@ library(gapminder)
 gapminder
 
 gapminder \%>\%
-  widely(dist, country, year, lifeExp)()
+  widely(dist)(country, year, lifeExp)
 
 # can perform within groups
 closest_continent <- gapminder \%>\%
   group_by(continent) \%>\%
-  widely(dist, country, year, lifeExp)()
+  widely(dist)(country, year, lifeExp)
 closest_continent
 
 # for example, find the closest pair in each
@@ -55,4 +58,3 @@ closest_continent \%>\%
   top_n(1, -value)
 
 }
-

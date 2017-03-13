@@ -52,10 +52,9 @@ pairwise_dist <- function(tbl, item, feature, value,
 #' @rdname pairwise_dist
 #' @export
 pairwise_dist_ <- function(tbl, item, feature, value, method = "euclidean", ...) {
-  d_func <- squarely_(function(m) as.matrix(stats::dist(m, method = method)),
-                      item, feature, value, ...)
+  d_func <- squarely_(function(m) as.matrix(stats::dist(m, method = method)), ...)
 
   tbl %>%
-    d_func() %>%
+    d_func(item, feature, value) %>%
     rename(distance = value)
 }

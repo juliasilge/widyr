@@ -13,7 +13,7 @@ vignette: >
 library(knitr)
 
 options(width = 102)
-opts_chunk(message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 
 library(ggplot2)
 theme_set(theme_bw())
@@ -54,7 +54,7 @@ We could, for example, find the countries that the US is most and least in agree
 
 ```{r US_cors}
 US_cors <- cors %>%
-  filter(item1 == "United States")
+  filter(item1 == "United States of America")
 
 US_cors
 US_cors %>% arrange(correlation)
@@ -77,18 +77,13 @@ US_cors %>%
   mutate(a2 = countrycode(item2, "country.name", "iso2c")) %>%
   full_join(world_data, by = "a2") %>%
   ggplot(aes(long, lat, group = group, fill = correlation)) +
-  geom_polygon() +
+  geom_polygon(color = "gray", size = .1) +
   scale_fill_gradient2() +
-  coord_fixed(ratio = 2) +
-  theme_void()
+  coord_quickmap() +
+  theme_void() +
+  labs(title = "Correlation of each country's UN votes with the United States",
+       subtitle = "Blue indicates agreement, red indicates disagreement",
+       fill = "Correlation w/ US")
 ```
 
-### Other options
-
-Notice that there is a pair of rows for each country pair (e.g. USA to Canada and Canada to USA as separate rows). This is useful if we want to filter for one country's connections, but if we just wanted to examine the highest or lowest connections we could use `upper = FALSE` to remove these:
-
-```{r}
-US_cors <- cors %>%
-  filter(item1 == "United States")
-```
 

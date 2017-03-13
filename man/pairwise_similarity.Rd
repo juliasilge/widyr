@@ -51,4 +51,3 @@ closest \%>\%
 \seealso{
 \code{\link{squarely}}
 }
-

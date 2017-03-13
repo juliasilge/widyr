@@ -50,9 +50,9 @@ pairwise_similarity_ <- function(tbl, item, feature, value, ...) {
   d_func <- squarely_(function(m) {
     normed <- m / sqrt(rowSums(m ^ 2))
     normed %*% t(normed)
-  }, item, feature, value, sparse = TRUE, ...)
+  }, sparse = TRUE, ...)
 
   tbl %>%
-    d_func() %>%
+    d_func(item, feature, value) %>%
     rename(similarity = value)
 }
