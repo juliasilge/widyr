@@ -99,3 +99,13 @@ test_that("Counts co-occurences of words in Pride & Prejudice", {
     expect_true(all(words_with_elizabeth$n == pairs_with_elizabeth$n))
   }
 })
+
+test_that("Can count within groups", {
+  grouped_result <- mtcars %>%
+    group_by(cyl) %>%
+    pairwise_count(vs, am)
+
+  expect_equal(as.character(groups(grouped_result)), c("cyl"))
+  expect_equal(nrow(grouped_result), 2)
+  expect_equal(colnames(grouped_result), c("cyl", "item1", "item2", "n"))
+})

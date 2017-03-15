@@ -34,10 +34,10 @@
 #' @export
 pairwise_count <- function(tbl, item, feature, wt = NULL, ...) {
   pairwise_count_(tbl,
-              col_name(substitute(item)),
-              col_name(substitute(feature)),
-              wt = col_name(substitute(wt)),
-              ...)
+                  col_name(substitute(item)),
+                  col_name(substitute(feature)),
+                  wt = col_name(substitute(wt)),
+                  ...)
 }
 
 
@@ -52,7 +52,7 @@ pairwise_count_ <- function(tbl, item, feature, wt = NULL, ...) {
   }
 
   tbl %>%
-    distinct_(item, feature, .keep_all = TRUE) %>%
+    distinct_(.dots = c(item, feature), .keep_all = TRUE) %>%
     mutate(..value = 1) %>%
     func(item, feature, wt) %>%
     rename(n = value)
