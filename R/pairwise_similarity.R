@@ -16,6 +16,7 @@
 #'
 #' library(janeaustenr)
 #' library(dplyr)
+#' library(tidytext)
 #'
 #' # Comparing Jane Austen novels
 #' austen_words <- austen_books() %>%
