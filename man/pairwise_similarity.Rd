@@ -29,6 +29,7 @@ Compute cosine similarity of all pairs of items in a tidy table.
 
 library(janeaustenr)
 library(dplyr)
+library(tidytext)
 
 # Comparing Jane Austen novels
 austen_words <- austen_books() \%>\%

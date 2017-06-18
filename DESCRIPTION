@@ -31,5 +31,8 @@ Suggests:
     janeaustenr,
     rmarkdown,
     unvotes,
-    tidytext
+    countrycode,
+    fuzzyjoin,
+    ggplot2,
+    maps
 RoxygenNote: 6.0.1
