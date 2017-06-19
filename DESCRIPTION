@@ -30,7 +30,7 @@ Suggests:
     topicmodels,
     janeaustenr,
     rmarkdown,
-    unvotes,
+    unvotes (>=0.2.0),
     countrycode,
     fuzzyjoin,
     ggplot2,
