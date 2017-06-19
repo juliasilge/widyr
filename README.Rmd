@@ -68,7 +68,9 @@ gapminder %>%
   pairwise_dist(country, year, lifeExp)
 ```
 
-In a single step, this finds the Euclidean distance between the `lifeExp` value in each pair of countries, matching pairs based on year. We could find the closest pairs of countries overall with `arrange()`:
+This finds the Euclidean distance between the `lifeExp` value in each pair of countries. It knows which values to compare between countries with `year`, which is the feature column.
+
+We could find the closest pairs of countries overall with `arrange()`:
 
 ```{r}
 gapminder %>%
