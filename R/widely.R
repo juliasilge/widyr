@@ -130,9 +130,7 @@ custom_melt <- function(m) {
   }
   # default to broom/tidytext's tidy
   ret <- suppressWarnings(purrr::possibly(broom::tidy, NULL)(m))
-  if (is.null(ret)) {
-    ret <- tidy(m)
-  }
+
   colnames(ret) <- c("item1", "item2", "value")
   ret
 }

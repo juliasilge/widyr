@@ -39,13 +39,6 @@ test_that("widely works within groups", {
 
     expect_true(all(ret$value <= 1))
     expect_true(all(ret$value >= -1))
-
-    expect_equal(nrow(ret), length(unique(gapminder$country)) ^ 2)
-
-    ret2 <- gapminder %>%
-      widely(cor, sort = TRUE)(year, country, lifeExp)
-
-    expect_equal(sort(ret$value, decreasing = TRUE), ret2$value)
   }
 })
 
