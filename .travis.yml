@@ -8,6 +8,7 @@ addons:
   apt:
     packages:
       - libgsl0-dev # for topicmodels
+      - libudunits2-dev # for ggraph
 
 after_success:
   - Rscript -e 'covr::codecov()'
