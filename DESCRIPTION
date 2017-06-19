@@ -23,6 +23,8 @@ Imports:
     broom,
     methods
 Suggests:
+    ggraph,
+    igraph,
     gapminder,
     testthat,
     covr,
