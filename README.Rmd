@@ -29,7 +29,7 @@ install_github("dgrtwo/widyr")
 
 ## Towards a precise definition of "wide" data
 
-The term "wide data" has gone out of fashion as being "imprecise" [(Wickham 2014)](http://vita.had.co.nz/papers/tidy-data.pdf)), but I think with a proper definition the term could be entirely meaningful and useful.
+The term "wide data" has gone out of fashion as being "imprecise" [(Wickham 2014)](http://vita.had.co.nz/papers/tidy-data.pdf), but I think with a proper definition the term could be entirely meaningful and useful.
 
 A **wide** dataset is one or more matrices where:
 
