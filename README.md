@@ -2,7 +2,7 @@
 
 
 
-### widyr: Widen, process, and re-tidy a dataset
+# widyr: Widen, process, and re-tidy a dataset
 
 **License:** [MIT](https://opensource.org/licenses/MIT)
 
@@ -24,7 +24,7 @@ install_github("dgrtwo/widyr")
 
 ## Towards a precise definition of "wide" data
 
-The term "wide data" has gone out of fashion as being "imprecise" [(Wickham 2014)](http://vita.had.co.nz/papers/tidy-data.pdf)), but I think with a proper definition the term could be entirely meaningful and useful.
+The term "wide data" has gone out of fashion as being "imprecise" [(Wickham 2014)](http://vita.had.co.nz/papers/tidy-data.pdf), but I think with a proper definition the term could be entirely meaningful and useful.
 
 A **wide** dataset is one or more matrices where:
 
@@ -33,13 +33,13 @@ A **wide** dataset is one or more matrices where:
 * Each value is one **observation**
 * Each matrix is one **variable**
 
-When would you want data to be wide rather than tidy? Notable examples include classification, clustering, correlation, factorization, or other operations that can take advantage of a matrix structure. In general, when you want to **compare between items** rather than compare between variables, this is a useful structure.
+When would you want data to be wide rather than tidy? Notable examples include classification, clustering, correlation, factorization, or other operations that can take advantage of a matrix structure. In general, when you want to **compare between pairs of items** rather than compare between variables or between groups of observations, this is a useful structure.
 
 The widyr package is based on the observation that during a tidy data analysis, you often want data to be wide only *temporarily*, before returning to a tidy structure for visualization and further analysis. widyr makes this easy through a set of `pairwise_` functions.
 
 ## Example: gapminder
 
-Consider the gapminder dataset in the [gapminder package](https://cran.r-project.org/web/packages/gapminder/index.html).
+Consider the gapminder dataset in the [gapminder package](https://CRAN.R-project.org/package=gapminder).
 
 
 ```r
@@ -63,9 +63,7 @@ gapminder
 #> # ... with 1,694 more rows
 ```
 
-This tidy format (one-row-per-country-per-year) is very useful for grouping, summarizing, and filtering operations. But if we want to *compare* countries (for example, to find countries that are similar to each other), we would have to reshape this dataset. Note that here, country is the **item**, while year is the **feature** column.
-
-Having one-row-per-country-per-year is very convenient for many summarizing and visualization operations. However, it makes it challenging to compare one country to another, or compare within all pairs of countries.
+This tidy format (one-row-per-country-per-year) is very useful for grouping, summarizing, and filtering operations. But if we want to *compare* countries (for example, to find countries that are similar to each other), we would have to reshape this dataset. Note that here, each country is an **item**, while each year is the **feature**.
 
 #### Pairwise operations
 
@@ -146,20 +144,20 @@ In some analyses, we may be interested in correlation rather than distance of pa
 
 ```r
 gapminder %>%
-  pairwise_cor(country, year, lifeExp, upper = FALSE, sort = TRUE)
+  pairwise_cor(country, year, lifeExp, upper = FALSE)
 #> # A tibble: 10,011 x 3
-#>           item1                 item2 correlation
-#>          <fctr>                <fctr>       <dbl>
-#>  1    Indonesia            Mauritania   0.9996291
-#>  2      Morocco               Senegal   0.9995515
-#>  3 Saudi Arabia    West Bank and Gaza   0.9995156
-#>  4       Brazil                France   0.9994246
-#>  5      Bahrain               Reunion   0.9993649
-#>  6     Malaysia Sao Tome and Principe   0.9993233
-#>  7         Peru                 Syria   0.9993063
-#>  8      Bolivia                Gambia   0.9992930
-#>  9    Indonesia               Morocco   0.9992799
-#> 10        Libya               Senegal   0.9992710
+#>          item1     item2 correlation
+#>         <fctr>    <fctr>       <dbl>
+#>  1 Afghanistan   Albania   0.9656953
+#>  2 Afghanistan   Algeria   0.9868220
+#>  3     Albania   Algeria   0.9532937
+#>  4 Afghanistan    Angola   0.9855294
+#>  5     Albania    Angola   0.9760571
+#>  6     Algeria    Angola   0.9521563
+#>  7 Afghanistan Argentina   0.9705203
+#>  8     Albania Argentina   0.9488283
+#>  9     Algeria Argentina   0.9909654
+#> 10      Angola Argentina   0.9363440
 #> # ... with 10,001 more rows
 ```
 
