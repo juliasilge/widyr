@@ -28,7 +28,7 @@ library(unvotes)
 un_votes
 ```
 
-This dataset has one row for each country for each roll call vote.
+This dataset has one row for each country for each roll call vote. We're interested in finding pairs of countries that tended to vote similarly.
 
 ### Pairwise correlations
 
@@ -38,7 +38,7 @@ Notice that the `vote` column is a factor, with levels (in order) "yes", "abstai
 levels(un_votes$vote)
 ```
 
-We may then be interested in obtaining a measure of country-to-country agreement for each voie. using the `pairwise_cor` function.
+We may then be interested in obtaining a measure of country-to-country agreement for each vote, using the `pairwise_cor` function.
 
 ```{r cors}
 library(widyr)
@@ -60,7 +60,8 @@ US_cors <- cors %>%
 US_cors
 
 # Least in agreement
-US_cors %>% arrange(correlation)
+US_cors %>%
+  arrange(correlation)
 ```
 
 This can be particularly useful when visualized on a map.
@@ -76,7 +77,7 @@ world_data <- map_data("world") %>%
   filter(region != "Antarctica")
 ```
 
-```{r US_cors_map, dependson = c("world_data", "US_cors"), fig.width = 6, fig.height = 6}
+```{r US_cors_map, fig.width = 6, fig.height = 6}
 US_cors %>%
   mutate(a2 = countrycode(item2, "country.name", "iso2c")) %>%
   full_join(world_data, by = "a2") %>%
@@ -92,7 +93,7 @@ US_cors %>%
 
 ### Visualizing clusters in a network
 
-Another useful kind of visualization is a network plot, with ggraph. We can filter for countries with correlations above a particular threshold.
+Another useful kind of visualization is a network plot, which can be created with Thomas Pedersen's [ggraph package](https://github.com/thomasp85/ggraph). We can filter for pairs of countries with correlations above a particular threshold.
 
 ```{r country_network, fig.width = 6, fig.height = 6}
 library(ggraph)

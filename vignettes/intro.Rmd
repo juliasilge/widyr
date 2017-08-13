@@ -29,7 +29,7 @@ The widyr package is based on the observation that during a tidy data analysis, 
 
 ## Example: gapminder
 
-Consider the gapminder dataset in the [gapminder package](https://cran.r-project.org/web/packages/gapminder/index.html).
+Consider the gapminder dataset in the [gapminder package](https://CRAN.R-project.org/package=gapminder).
 
 ```{r}
 library(dplyr)
@@ -38,9 +38,7 @@ library(gapminder)
 gapminder
 ```
 
-This tidy format (one-row-per-country-per-year) is very useful for grouping, summarizing, and filtering operations. But if we want to *compare* countries (for example, to find countries that are similar to each other), we would have to reshape this dataset. Note that here, country is the **item**, while year is the **feature** column.
-
-Having one-row-per-country-per-year is very convenient for many summarizing and visualization operations. However, it makes it challenging to compare one country to another, or compare within all pairs of countries.
+This tidy format (one-row-per-country-per-year) is very useful for grouping, summarizing, and filtering operations. But if we want to *compare pairs of countries* (for example, to find countries that are similar to each other), we would have to reshape this dataset. Note that here, country is the **item**, while year is the **feature** column.
 
 #### Pairwise operations
 

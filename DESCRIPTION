@@ -1,11 +1,11 @@
 Package: widyr
 Type: Package
 Title: Widen, Process, then Re-Tidy Data
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: person("David", "Robinson", email = "admiral.david@gmail.com", role = c("aut", "cre"))
-Description: Encapsulates the pattern of un-tidying data into a wide matrix,
+Description: Encapsulates the pattern of untidying data into a wide matrix,
   performing some processing, then turning it back into a tidy form. This
-  is useful for several operations such as co-occurence counts,
+  is useful for several operations such as co-occurrence counts,
   correlations, or clustering that are mathematically convenient on wide matrices.
 License: MIT + file LICENSE
 LazyData: TRUE
