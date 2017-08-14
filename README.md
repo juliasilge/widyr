@@ -6,6 +6,7 @@
 
 **License:** [MIT](https://opensource.org/licenses/MIT)
 
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/widyr)](https://cran.r-project.org/package=widyr)
 [![Travis-CI Build Status](https://travis-ci.org/dgrtwo/widyr.svg?branch=master)](https://travis-ci.org/dgrtwo/widyr)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/dgrtwo/widyr?branch=master&svg=true)](https://ci.appveyor.com/project/dgrtwo/widyr)
 [![Coverage Status](https://img.shields.io/codecov/c/github/dgrtwo/widyr/master.svg)](https://codecov.io/github/dgrtwo/widyr?branch=master)
@@ -44,6 +45,14 @@ Consider the gapminder dataset in the [gapminder package](https://CRAN.R-project
 
 ```r
 library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
 library(gapminder)
 
 gapminder
