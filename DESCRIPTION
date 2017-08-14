@@ -1,7 +1,7 @@
 Package: widyr
 Type: Package
 Title: Widen, Process, then Re-Tidy Data
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: person("David", "Robinson", email = "admiral.david@gmail.com", role = c("aut", "cre"))
 Description: Encapsulates the pattern of untidying data into a wide matrix,
   performing some processing, then turning it back into a tidy form. This
