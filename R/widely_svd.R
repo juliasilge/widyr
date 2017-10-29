@@ -25,21 +25,34 @@ widely_svd <- function(tbl, item, feature, value, rank = NULL) {
 #' @export
 widely_svd_ <- function(tbl, item, feature, value, rank = NULL) {
   if (is.null(rank)) {
-    perform_svd <- function(m) svd(m)$u
+    perform_svd <- function(m) {
+      ret <- svd(m)$u
+      rownames(ret) <- rownames(m)
+      ret
+    }
   } else {
     if (!requireNamespace("irlba", quietly = TRUE)) {
       stop("Requires the irlba package")
     }
     perform_svd <- function(m) {
-      irlba::irlba(s, nv = rank)$u
+      ret <- irlba::irlba(m, nv = rank)$u
+      rownames(ret) <- rownames(m)
+      ret
     }
   }
 
-  ret <- tbl %>%
-    widely_(perform_svd)(item, feature, value) %>%
-    transmute(item = tbl[[item]][item1],
+  item_vals <- tbl[[item]]
+  item_u <- unique(item_vals)
+  tbl[[item]] <- match(item_vals, item_u)
+
+  ret <- widely_(perform_svd)(tbl, item, feature, value)
+
+  ret <- ret %>%
+    transmute(item = item_u[as.integer(item1)],
               dimension = item2,
               value)
+
+  colnames(ret)[1] <- item
 
   ret
 }
