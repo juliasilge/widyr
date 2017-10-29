@@ -29,7 +29,7 @@
 #' # count the number of times two letters appear together
 #' pairwise_count(dat, letter, group)
 #' pairwise_count(dat, letter, group, sort = TRUE)
-#' pairwise_count(dat, letter, group, sort = TRUE, diag = FALSE)
+#' pairwise_count(dat, letter, group, sort = TRUE, diag = TRUE)
 #'
 #' @export
 pairwise_count <- function(tbl, item, feature, wt = NULL, ...) {
