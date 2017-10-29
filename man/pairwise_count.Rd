@@ -42,7 +42,7 @@ dat <- data_frame(group = rep(1:5, each = 2),
 # count the number of times two letters appear together
 pairwise_count(dat, letter, group)
 pairwise_count(dat, letter, group, sort = TRUE)
-pairwise_count(dat, letter, group, sort = TRUE, diag = FALSE)
+pairwise_count(dat, letter, group, sort = TRUE, diag = TRUE)
 
 }
 \seealso{
