@@ -8,7 +8,8 @@
 #' @param item Item to perform dimensionality reduction on; will end up in \code{item} column
 #' @param feature Column describing the feature that links one item to others.
 #' @param value Value
-#' @param rank Optional; the maximum dimensionality of the data
+#' @param rank Optional; the maximum dimensionality of the data. Recommended for matrices
+#' with many features.
 #'
 #' @export
 widely_svd <- function(tbl, item, feature, value, rank = NULL) {
@@ -23,17 +24,22 @@ widely_svd <- function(tbl, item, feature, value, rank = NULL) {
 #' @rdname widely_svd
 #' @export
 widely_svd_ <- function(tbl, item, feature, value, rank = NULL) {
-  perform_svd <- function(m) svd(m)$u
+  if (is.null(rank)) {
+    perform_svd <- function(m) svd(m)$u
+  } else {
+    if (!requireNamespace("irlba", quietly = TRUE)) {
+      stop("Requires the irlba package")
+    }
+    perform_svd <- function(m) {
+      irlba::irlba(s, nv = rank)$u
+    }
+  }
 
   ret <- tbl %>%
     widely_(perform_svd)(item, feature, value) %>%
     transmute(item = tbl[[item]][item1],
               dimension = item2,
               value)
-
-  if (!is.null(rank)) {
-    ret <- filter(ret, dimension <= rank)
-  }
 
   ret
 }

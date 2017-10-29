@@ -36,5 +36,6 @@ Suggests:
     countrycode,
     fuzzyjoin,
     ggplot2,
-    maps
+    maps,
+    irlba
 RoxygenNote: 6.0.1

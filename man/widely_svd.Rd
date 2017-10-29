@@ -12,13 +12,14 @@ widely_svd_(tbl, item, feature, value, rank = NULL)
 \arguments{
 \item{tbl}{Table}
 
-\item{item}{Item to ; will end up in \code{item} column}
+\item{item}{Item to perform dimensionality reduction on; will end up in \code{item} column}
 
-\item{feature}{Column describing the feature that links one item to others}
+\item{feature}{Column describing the feature that links one item to others.}
 
 \item{value}{Value}
 
-\item{rank}{Optional; the maximum dimensionality of the data}
+\item{rank}{Optional; the maximum dimensionality of the data. Recommended for matrices
+with many features.}
 }
 \description{
 This is useful for dimensionality reduction. Work in progress.
