@@ -30,6 +30,7 @@ widely_svd_ <- function(tbl, item, feature, value, rank = NULL) {
       rownames(ret) <- rownames(m)
       ret
     }
+    sparse <- FALSE
   } else {
     if (!requireNamespace("irlba", quietly = TRUE)) {
       stop("Requires the irlba package")
@@ -39,13 +40,14 @@ widely_svd_ <- function(tbl, item, feature, value, rank = NULL) {
       rownames(ret) <- rownames(m)
       ret
     }
+    sparse <- TRUE
   }
 
   item_vals <- tbl[[item]]
   item_u <- unique(item_vals)
   tbl[[item]] <- match(item_vals, item_u)
 
-  ret <- widely_(perform_svd)(tbl, item, feature, value)
+  ret <- widely_(perform_svd, sparse = sparse)(tbl, item, feature, value)
 
   ret <- ret %>%
     transmute(item = item_u[as.integer(item1)],
