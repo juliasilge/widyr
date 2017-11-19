@@ -102,7 +102,7 @@ widely_ <- function(.f,
     } else {
       input <- tidytext::cast_sparse_(tbl, row, column, value)
     }
-    output <- .f(input, ...)
+    output <- purrr::as_mapper(.f)(input, ...)
 
     ret <- output %>%
       custom_melt() %>%

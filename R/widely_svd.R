@@ -1,7 +1,7 @@
 #' Turn into a wide matrix, perform SVD, return to tidy form
 #'
 #' This is useful for dimensionality reduction of items, especially when setting a
-#' lower rank.
+#' lower nv.
 #'
 #' @name widely_svd
 #'
@@ -9,7 +9,7 @@
 #' @param item Item to perform dimensionality reduction on; will end up in \code{item} column
 #' @param feature Column describing the feature that links one item to others.
 #' @param value Value
-#' @param rank Optional; the maximum dimensionality of the data. Recommended for matrices
+#' @param nv Optional; the number of principal components to estimate. Recommended for matrices
 #' with many features.
 #'
 #' @return A tbl_df with three columns. The first is retained from the \code{item} input,
@@ -39,21 +39,22 @@
 #'   geom_text(vjust = 1, hjust = 1)
 #'
 #' @export
-widely_svd <- function(tbl, item, feature, value, rank = NULL) {
+widely_svd <- function(tbl, item, feature, value, nv = NULL, ...) {
   widely_svd_(tbl,
               col_name(substitute(item)),
               col_name(substitute(feature)),
               col_name(substitute(value)),
-              rank = rank)
+              nv = nv,
+              ...)
 }
 
 
 #' @rdname widely_svd
 #' @export
-widely_svd_ <- function(tbl, item, feature, value, rank = NULL) {
-  if (is.null(rank)) {
+widely_svd_ <- function(tbl, item, feature, value, nv = NULL, ...) {
+  if (is.null(nv)) {
     perform_svd <- function(m) {
-      ret <- svd(m)$u
+      ret <- svd(m, ...)$u
       rownames(ret) <- rownames(m)
       ret
     }
@@ -63,7 +64,7 @@ widely_svd_ <- function(tbl, item, feature, value, rank = NULL) {
       stop("Requires the irlba package")
     }
     perform_svd <- function(m) {
-      ret <- irlba::irlba(m, nv = rank)$u
+      ret <- irlba::irlba(m, nv = nv, ...)$u
       rownames(ret) <- rownames(m)
       ret
     }
