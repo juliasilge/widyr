@@ -46,12 +46,12 @@ pairwise_pmi <- function(tbl, item, feature, sort = FALSE) {
 #' @export
 pairwise_pmi_ <- function(tbl, item, feature, sort = FALSE) {
   f <- function(m) {
-    row_sums <- rowSums(m) / sum(m)
+    row_sums <- log(rowSums(m) / sum(m))
 
     ret <- m %*% t(m)
-    ret <- ret / sum(ret)
-    ret <- ret / row_sums
-    ret <- t(t(ret) / (row_sums))
+    ret <- log(ret) - log(sum(ret))
+    ret <- ret - row_sums
+    ret <- t(t(ret) - (row_sums))
     ret
   }
   pmi_func <- squarely_(f, sparse = TRUE, sort = sort)
@@ -60,6 +60,5 @@ pairwise_pmi_ <- function(tbl, item, feature, sort = FALSE) {
     ungroup() %>%
     mutate(..value = 1) %>%
     pmi_func(item, feature, "..value") %>%
-    mutate(value = log(value)) %>%
     rename(pmi = value)
 }
