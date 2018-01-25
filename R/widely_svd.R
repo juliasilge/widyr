@@ -51,10 +51,17 @@ widely_svd <- function(tbl, item, feature, value, nv = NULL, ...) {
 
 #' @rdname widely_svd
 #' @export
-widely_svd_ <- function(tbl, item, feature, value, nv = NULL, ...) {
+widely_svd_ <- function(tbl, item, feature, value, nv = NULL, weight_d = FALSE, ...) {
   if (is.null(nv)) {
     perform_svd <- function(m) {
-      ret <- svd(m, ...)$u
+      s <- svd(m, ...)
+
+      if (weight_d) {
+        ret <- t(s$d * t(s$u))
+      } else {
+        ret <- s$u
+      }
+
       rownames(ret) <- rownames(m)
       ret
     }
@@ -64,7 +71,13 @@ widely_svd_ <- function(tbl, item, feature, value, nv = NULL, ...) {
       stop("Requires the irlba package")
     }
     perform_svd <- function(m) {
-      ret <- irlba::irlba(m, nv = nv, ...)$u
+      s <- irlba::irlba(m, nv = nv, ...)
+      if (weight_d) {
+        ret <- t(s$d * t(s$u))
+      } else {
+        ret <- s$u
+      }
+
       rownames(ret) <- rownames(m)
       ret
     }
