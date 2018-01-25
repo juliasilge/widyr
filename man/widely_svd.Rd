@@ -5,9 +5,9 @@
 \alias{widely_svd_}
 \title{Turn into a wide matrix, perform SVD, return to tidy form}
 \usage{
-widely_svd(tbl, item, feature, value, rank = NULL)
+widely_svd(tbl, item, feature, value, nv = NULL, ...)
 
-widely_svd_(tbl, item, feature, value, rank = NULL)
+widely_svd_(tbl, item, feature, value, nv = NULL, ...)
 }
 \arguments{
 \item{tbl}{Table}
@@ -18,8 +18,11 @@ widely_svd_(tbl, item, feature, value, rank = NULL)
 
 \item{value}{Value}
 
-\item{rank}{Optional; the maximum dimensionality of the data. Recommended for matrices
+\item{nv}{Optional; the number of principal components to estimate. Recommended for matrices
 with many features.}
+
+\item{...}{Extra arguments passed to \code{svd} (if \code{nv} is \code{NULL})
+or \code{irlba} (if \code{nv} is given)}
 }
 \value{
 A tbl_df with three columns. The first is retained from the \code{item} input,
@@ -28,7 +31,7 @@ value.
 }
 \description{
 This is useful for dimensionality reduction of items, especially when setting a
-lower rank.
+lower nv.
 }
 \examples{
 

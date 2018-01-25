@@ -11,6 +11,8 @@
 #' @param value Value
 #' @param nv Optional; the number of principal components to estimate. Recommended for matrices
 #' with many features.
+#' @param ... Extra arguments passed to \code{svd} (if \code{nv} is \code{NULL})
+#' or \code{irlba} (if \code{nv} is given)
 #'
 #' @return A tbl_df with three columns. The first is retained from the \code{item} input,
 #' then \code{dimension} and \code{value}. Each row represents one principal component
