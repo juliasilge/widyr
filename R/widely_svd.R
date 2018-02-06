@@ -11,6 +11,7 @@
 #' @param value Value
 #' @param nv Optional; the number of principal components to estimate. Recommended for matrices
 #' with many features.
+#' @param weight_d Whether to multiply each value by the \code{d} principal component.
 #' @param ... Extra arguments passed to \code{svd} (if \code{nv} is \code{NULL})
 #' or \code{irlba} (if \code{nv} is given)
 #'
@@ -41,12 +42,13 @@
 #'   geom_text(vjust = 1, hjust = 1)
 #'
 #' @export
-widely_svd <- function(tbl, item, feature, value, nv = NULL, ...) {
+widely_svd <- function(tbl, item, feature, value, nv = NULL, weight_d = FALSE, ...) {
   widely_svd_(tbl,
               col_name(substitute(item)),
               col_name(substitute(feature)),
               col_name(substitute(value)),
               nv = nv,
+              weight_d = weight_d,
               ...)
 }
 
