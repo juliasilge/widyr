@@ -42,14 +42,14 @@ multi_scale <- function(tbl, item1, item2, value, k = 2) {
 
 multi_scale_ <- function(tbl, item1, item2, value, k = 2) {
   tbl_matrix <- tbl %>%
-    spread(item2, col_name(value), fill = 0) %>%
+    tidyr::spread(item2, col_name(value), fill = 0) %>%
     as.data.frame() %>%
-    remove_rownames() %>%
-    column_to_rownames("item1") %>%
+    tibble::remove_rownames() %>%
+    tibble::column_to_rownames("item1") %>%
     as.matrix()
 
-  cmdscale(tbl_matrix, k = k) %>%
+  stats::cmdscale(tbl_matrix, k = k) %>%
     as.data.frame() %>%
-    rownames_to_column("item") %>%
+    tibble::rownames_to_column("item") %>%
     as.tibble()
 }

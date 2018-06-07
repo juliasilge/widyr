@@ -52,6 +52,8 @@ widely <- function(.f,
                    sparse = FALSE,
                    maximum_size = 1e7) {
   function(tbl, row, column, value, ...) {
+
+
     inner_func <- widely_(.f,
                           sort = sort,
                           sparse = sparse,
@@ -71,7 +73,7 @@ widely <- function(.f,
 widely_ <- function(.f,
                     sort = FALSE,
                     sparse = FALSE,
-                    maximum_size = 1e7) {
+                    maximum_size = 1e7, fill_value = 0) {
   f <- function(tbl, row, column, value, ...) {
     if (inherits(tbl, "grouped_df")) {
       # perform within each group, then restore groups
@@ -87,7 +89,7 @@ widely_ <- function(.f,
     if (!sparse) {
       if (!is.null(maximum_size)) {
         matrix_size <- (length(unique(tbl[[row]])) *
-                        length(unique(tbl[[column]])))
+                          length(unique(tbl[[column]])))
         if (matrix_size > maximum_size) {
           stop("Size of acast matrix, ", matrix_size,
                " will be too large. Set maximum_size = NULL to avoid ",
@@ -98,7 +100,8 @@ widely_ <- function(.f,
 
       form <- stats::as.formula(paste(row, column, sep = " ~ "))
 
-      input <- reshape2::acast(tbl, form, value.var = value, fill = 0)
+      input <- reshape2::acast(tbl, form, value.var = value, fill = fill_value)
+
     } else {
       input <- tidytext::cast_sparse_(tbl, row, column, value)
     }
