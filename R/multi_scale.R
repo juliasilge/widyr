@@ -51,5 +51,5 @@ multi_scale_ <- function(tbl, item1, item2, value, k = 2) {
   stats::cmdscale(tbl_matrix, k = k) %>%
     as.data.frame() %>%
     tibble::rownames_to_column("item") %>%
-    as.tibble()
+    tibble::as_tibble()
 }
