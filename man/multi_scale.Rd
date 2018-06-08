@@ -11,11 +11,18 @@ multi_scale(tbl, item1, item2, value, k = 2)
 
 \item{item1}{first item}
 
+\item{item2}{second item}
+
 \item{value}{Value}
 
 \item{k}{number of dimensions, defaults to 2}
-
-\item{item1}{second item}
+}
+\value{
+Returns a function that takes at least four arguments:
+  \item{item}{Column to store documents or items separated by various distances as used prior to calling \code{multi_scale()}}
+  \item{V1}{First Dimension}
+  \item{V2}{Second Dimension}
+  \item{...}{Other Dimensions as specified by k's value}
 }
 \description{
 Given a tbl or data frame of pairwise distances between documents, scale each document
