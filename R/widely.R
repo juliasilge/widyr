@@ -11,6 +11,7 @@
 #' non-sparse matrix to be created. Set to NULL to allow any size
 #' matrix.
 #' @param sparse Whether to cast to a sparse matrix
+#' @param fill_value value to be used to replace NAs when converted from long to wide format.
 #'
 #' @return Returns a function that takes at least four arguments:
 #'   \item{tbl}{A table}
@@ -50,14 +51,16 @@
 widely <- function(.f,
                    sort = FALSE,
                    sparse = FALSE,
-                   maximum_size = 1e7) {
+                   maximum_size = 1e7,
+                   fill_value = 0) {
   function(tbl, row, column, value, ...) {
 
 
     inner_func <- widely_(.f,
                           sort = sort,
                           sparse = sparse,
-                          maximum_size = maximum_size)
+                          maximum_size = maximum_size,
+                          fill_value = fill_value)
 
     inner_func(tbl,
                col_name(substitute(row)),
@@ -73,7 +76,8 @@ widely <- function(.f,
 widely_ <- function(.f,
                     sort = FALSE,
                     sparse = FALSE,
-                    maximum_size = 1e7, fill_value = 0) {
+                    maximum_size = 1e7,
+                    fill_value = 0) {
   f <- function(tbl, row, column, value, ...) {
     if (inherits(tbl, "grouped_df")) {
       # perform within each group, then restore groups

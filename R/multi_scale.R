@@ -6,9 +6,15 @@
 #'
 #' @param tbl Table obtained by running a pairwise distance method \code{pairwise_delta} or \code{pairwise_dist}
 #' @param item1 first item
-#' @param item1 second item
+#' @param item2 second item
 #' @param value Value
 #' @param k number of dimensions, defaults to 2
+#'
+#' @return Returns a function that takes at least four arguments:
+#'   \item{item}{Column to store documents or items separated by various distances as used prior to calling \code{multi_scale()}}
+#'   \item{V1}{First Dimension}
+#'   \item{V2}{Second Dimension}
+#'   \item{...}{Other Dimensions as specified by k's value}
 #'
 #' @examples
 #'
