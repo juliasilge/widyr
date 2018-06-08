@@ -35,7 +35,6 @@ library(janeaustenr)
 library(dplyr)
 library(tidyr)
 library(tidytext)
-library(tibble)
 
 # closest documents in terms of 1000 most frequent words
 austen_delta <- austen_books() \%>\%
