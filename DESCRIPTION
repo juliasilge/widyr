@@ -22,7 +22,8 @@ Imports:
     purrr,
     Matrix,
     broom,
-    methods
+    methods,
+    tibble
 Suggests:
     ggraph,
     igraph,
