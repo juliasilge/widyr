@@ -5,9 +5,9 @@
 \alias{pairwise_pmi_}
 \title{Pointwise mutual information of pairs of items}
 \usage{
-pairwise_pmi(tbl, item, feature, sort = FALSE)
+pairwise_pmi(tbl, item, feature, sort = FALSE, ...)
 
-pairwise_pmi_(tbl, item, feature, sort = FALSE)
+pairwise_pmi_(tbl, item, feature, sort = FALSE, ...)
 }
 \arguments{
 \item{tbl}{Table}
