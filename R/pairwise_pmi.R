@@ -34,17 +34,17 @@
 #' pairwise_pmi(dat, letter, group, sort = TRUE)
 #'
 #' @export
-pairwise_pmi <- function(tbl, item, feature, sort = FALSE) {
+pairwise_pmi <- function(tbl, item, feature, sort = FALSE, ...) {
   pairwise_pmi_(tbl,
                 col_name(substitute(item)),
                 col_name(substitute(feature)),
-                sort = sort)
+                sort = sort, ...)
 }
 
 
 #' @rdname pairwise_pmi
 #' @export
-pairwise_pmi_ <- function(tbl, item, feature, sort = FALSE) {
+pairwise_pmi_ <- function(tbl, item, feature, sort = FALSE, ...) {
   f <- function(m) {
     row_sums <- rowSums(m) / sum(m)
 
@@ -54,7 +54,7 @@ pairwise_pmi_ <- function(tbl, item, feature, sort = FALSE) {
     ret <- t(t(ret) / (row_sums))
     ret
   }
-  pmi_func <- squarely_(f, sparse = TRUE, sort = sort)
+  pmi_func <- squarely_(f, sparse = TRUE, sort = sort, ...)
 
   tbl %>%
     ungroup() %>%
