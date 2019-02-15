@@ -6,9 +6,11 @@
 \title{Adverb for functions that operate on matrices in "wide"
 format}
 \usage{
-widely(.f, sort = FALSE, sparse = FALSE, maximum_size = 1e+07)
+widely(.f, sort = FALSE, sparse = FALSE, maximum_size = 1e+07,
+  fill_value = 0)
 
-widely_(.f, sort = FALSE, sparse = FALSE, maximum_size = 1e+07)
+widely_(.f, sort = FALSE, sparse = FALSE, maximum_size = 1e+07,
+  fill_value = 0)
 }
 \arguments{
 \item{.f}{Function being wrapped}
@@ -20,6 +22,8 @@ widely_(.f, sort = FALSE, sparse = FALSE, maximum_size = 1e+07)
 \item{maximum_size}{To prevent crashing, a maximum size of a
 non-sparse matrix to be created. Set to NULL to allow any size
 matrix.}
+
+\item{fill_value}{value to be used to replace NAs when converted from long to wide format.}
 }
 \value{
 Returns a function that takes at least four arguments:

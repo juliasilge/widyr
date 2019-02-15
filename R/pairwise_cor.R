@@ -37,8 +37,8 @@
 #'
 #' @export
 pairwise_cor <- function(tbl, item, feature, value,
-                     method = c("pearson", "kendall", "spearman"),
-                     use = "everything", ...) {
+                         method = c("pearson", "kendall", "spearman"),
+                         use = "everything", ...) {
   if (missing(value)) {
     tbl$..value <- 1
     val <- "..value"
@@ -47,19 +47,19 @@ pairwise_cor <- function(tbl, item, feature, value,
   }
 
   pairwise_cor_(tbl,
-            col_name(substitute(item)),
-            col_name(substitute(feature)),
-            val,
-            method = method, use = use, ...)
+                col_name(substitute(item)),
+                col_name(substitute(feature)),
+                val,
+                method = method, use = use, ...)
 }
 
 
 #' @rdname pairwise_cor
 #' @export
 pairwise_cor_ <- function(tbl, item, feature, value,
-                      method = c("pearson", "kendall", "spearman"),
-                      use = "everything",
-                      ...) {
+                          method = c("pearson", "kendall", "spearman"),
+                          use = "everything",
+                          ...) {
   method <- match.arg(method)
 
   sparse <- (method == "pearson" & use == "everything")
@@ -68,7 +68,7 @@ pairwise_cor_ <- function(tbl, item, feature, value,
   } else {
     function(x) stats::cor(t(x), method = method, use = use)
   }
-  cor_func <- squarely_(f, sparse = sparse, ...)
+  cor_func <- squarely_(f, sparse = sparse, fill_value = NA, ...)
 
   tbl %>%
     ungroup() %>%
