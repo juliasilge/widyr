@@ -6,6 +6,8 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.path = "README-"
 )
+
+library(dplyr)
 ```
 
 # widyr: Widen, process, and re-tidy a dataset
@@ -19,9 +21,15 @@ knitr::opts_chunk$set(
 
 This package wraps the pattern of un-tidying data into a wide matrix, performing some processing, then turning it back into a tidy form. This is useful for several mathematical operations such as co-occurence counts, correlations, or clustering that are best done on a wide matrix.
 
-### Installation
+## Installation
 
-Install from Github with [devtools](https://github.com/hadley/devtools):
+Install from CRAN with:
+
+```{r eval = FALSE}
+install.packages("widyr")
+```
+
+Or install the development version from Github with [devtools](https://github.com/hadley/devtools):
 
 ```{r, eval = FALSE}
 library(devtools)
@@ -94,4 +102,4 @@ gapminder %>%
 
 ### Code of Conduct
 
-Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of Conduct](https://github.com/dgrtwo/widyr/blob/master/CONDUCT.md). By participating in this project you agree to abide by its terms.
