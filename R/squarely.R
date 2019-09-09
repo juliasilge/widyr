@@ -58,7 +58,8 @@ squarely_ <- function(.f, diag = FALSE,
         tidyr::nest() %>%
         mutate(data = purrr::map(data, f, item, feature, value)) %>%
         filter(purrr::map_lgl(data, ~ nrow(.) > 0)) %>%
-        tidyr::unnest(data)
+        tidyr::unnest(data) %>%
+        dplyr::group_by_at(dplyr::group_vars(tbl))
 
       return(ret)
     }

@@ -10,5 +10,13 @@ addons:
       - libgsl0-dev # for topicmodels
       - libudunits2-dev # for ggraph
 
-after_success:
-  - Rscript -e 'covr::codecov()'
+matrix:
+  include:
+  - r: devel
+  - r: release
+    after_success:
+    - Rscript -e 'covr::codecov()'
+  - r: release
+    name: tidyr-devel
+    before_script: Rscript -e "remotes::install_github('tidyverse/tidyr')"
+  - r: oldrel

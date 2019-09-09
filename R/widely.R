@@ -75,10 +75,12 @@ widely_ <- function(.f,
   f <- function(tbl, row, column, value, ...) {
     if (inherits(tbl, "grouped_df")) {
       # perform within each group
+      # (group_by_at isn't necessary since 1.0.0, but is in earlier versions)
       ret <- tbl %>%
         tidyr::nest() %>%
         mutate(data = purrr::map(data, f, row, column, value)) %>%
-        tidyr::unnest(data)
+        tidyr::unnest(data) %>%
+        dplyr::group_by_at(dplyr::group_vars(tbl))
 
       return(ret)
     }
