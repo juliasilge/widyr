@@ -1,7 +1,7 @@
 Package: widyr
 Type: Package
 Title: Widen, Process, then Re-Tidy Data
-Version: 0.1.0.9000
+Version: 0.1.2
 Authors@R: c(person("David", "Robinson", email = "admiral.david@gmail.com", role = c("aut", "cre")),
              person("Kanishka", "Misra", role = "ctb"))
 Description: Encapsulates the pattern of untidying data into a wide matrix,
@@ -21,8 +21,7 @@ Imports:
     tidytext,
     purrr,
     Matrix,
-    broom,
-    methods
+    broom
 Suggests:
     ggraph,
     igraph,
@@ -39,4 +38,4 @@ Suggests:
     ggplot2,
     maps,
     irlba
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
