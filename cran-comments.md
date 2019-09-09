@@ -1,6 +1,7 @@
 ## Changes
 
 * Fixes to be compatible with tidyr v1.0.0, while also being reverse-compatible with previous versions of tidyr.
+* Fix intro vignette index entry
 
 ## Test environments
 * local OS X install, R 3.5.0

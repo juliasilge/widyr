@@ -1,6 +1,7 @@
 # widyr 0.1.2
 
 * Fixes to be compatible with tidyr v1.0.0, while also being reverse-compatible with previous versions of tidyr.
+* Fix intro vignette index entry
 
 # widyr 0.1.1
 
