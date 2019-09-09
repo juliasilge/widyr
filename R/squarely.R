@@ -55,10 +55,10 @@ squarely_ <- function(.f, diag = FALSE,
     if (inherits(tbl, "grouped_df")) {
       # perform within each group, then restore groups
       ret <- tbl %>%
-        tidyr::nest_("..data", nest_cols = c(item, feature, value)) %>%
-        mutate(..data = purrr::map(..data, f, item, feature, value)) %>%
-        tidyr::unnest_("..data") %>%
-        group_by_(.dots = dplyr::groups(tbl))
+        tidyr::nest() %>%
+        mutate(data = purrr::map(data, f, item, feature, value)) %>%
+        filter(purrr::map_lgl(data, ~ nrow(.) > 0)) %>%
+        tidyr::unnest(data)
 
       return(ret)
     }

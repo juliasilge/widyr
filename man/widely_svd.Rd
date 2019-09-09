@@ -7,7 +7,8 @@
 \usage{
 widely_svd(tbl, item, feature, value, nv = NULL, weight_d = FALSE, ...)
 
-widely_svd_(tbl, item, feature, value, nv = NULL, weight_d = FALSE, ...)
+widely_svd_(tbl, item, feature, value, nv = NULL, weight_d = FALSE,
+  ...)
 }
 \arguments{
 \item{tbl}{Table}
