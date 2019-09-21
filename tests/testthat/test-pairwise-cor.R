@@ -2,9 +2,9 @@ context("pairwise_cor")
 
 suppressPackageStartupMessages(library(dplyr))
 
-d <- data_frame(col = rep(c("a", "b", "c"), each = 3),
-                row = rep(c("d", "e", "f"), 3),
-                value = c(1, 2, 3, 6, 5, 4, 7, 9, 8))
+d <- tibble(col = rep(c("a", "b", "c"), each = 3),
+            row = rep(c("d", "e", "f"), 3),
+            value = c(1, 2, 3, 6, 5, 4, 7, 9, 8))
 
 test_that("pairwise_cor computes pairwise correlations", {
   ret <- d %>%
