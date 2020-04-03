@@ -2,9 +2,9 @@ context("pairwise_similarity")
 
 suppressPackageStartupMessages(library(dplyr))
 
-d <- data_frame(col = rep(c("a", "b", "c"), each = 3),
-                row = rep(c("d", "e", "f"), 3),
-                value = c(1, 2, 3, 6, 5, 4, 7, 9, 8))
+d <- tibble(col = rep(c("a", "b", "c"), each = 3),
+            row = rep(c("d", "e", "f"), 3),
+            value = c(1, 2, 3, 6, 5, 4, 7, 9, 8))
 
 cosine_similarity <- function(x, y) {
   sum(x * y) / (sqrt(sum(x^2)) * sqrt(sum(y^2)))

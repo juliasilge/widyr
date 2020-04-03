@@ -19,12 +19,12 @@
 #' @examples
 #'
 #' library(dplyr)
-#' dat <- data_frame(group = rep(1:5, each = 2),
-#'                   letter = c("a", "b",
-#'                              "a", "c",
-#'                              "a", "c",
-#'                              "b", "e",
-#'                              "b", "f"))
+#' dat <- tibble(group = rep(1:5, each = 2),
+#'               letter = c("a", "b",
+#'                          "a", "c",
+#'                          "a", "c",
+#'                          "b", "e",
+#'                          "b", "f"))
 #'
 #' # count the number of times two letters appear together
 #' pairwise_count(dat, letter, group)
