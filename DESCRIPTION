@@ -38,4 +38,4 @@ Suggests:
     ggplot2,
     maps,
     irlba
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
