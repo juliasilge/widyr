@@ -88,12 +88,14 @@ widely_ <- function(.f,
     if (!sparse) {
       if (!is.null(maximum_size)) {
         matrix_size <- (length(unique(tbl[[row]])) *
-                        length(unique(tbl[[column]])))
+                          length(unique(tbl[[column]])))
         if (matrix_size > maximum_size) {
-          stop("Size of acast matrix, ", matrix_size,
-               " will be too large. Set maximum_size = NULL to avoid ",
-               "this error (make sure your memory is sufficient), ",
-               "or consider using sparse = TRUE.")
+          rlang::abort(
+            paste0("Size of acast matrix, ", matrix_size,
+                   " will be too large. Set maximum_size = NULL to avoid ",
+                   "this error (make sure your memory is sufficient), ",
+                   "or consider using sparse = TRUE.")
+          )
         }
       }
 
@@ -101,7 +103,7 @@ widely_ <- function(.f,
 
       input <- reshape2::acast(tbl, form, value.var = value, fill = 0)
     } else {
-      input <- tidytext::cast_sparse_(tbl, row, column, value)
+      input <- tidytext::cast_sparse(tbl, !!row, !!column, !!value)
     }
     output <- purrr::as_mapper(.f)(input, ...)
 
@@ -123,7 +125,7 @@ widely_ <- function(.f,
 #' @noRd
 custom_melt <- function(m) {
   if (inherits(m, "data.frame")) {
-    stop("Output is a data frame: don't know how to fix")
+    rlang::abort("Output is a data frame: don't know how to fix")
   }
   if (inherits(m, "matrix")) {
     ret <- reshape2::melt(m, varnames = c("item1", "item2"), as.is = TRUE)
