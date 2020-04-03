@@ -9,12 +9,14 @@ Description: Encapsulates the pattern of untidying data into a wide matrix,
   is useful for several operations such as co-occurrence counts,
   correlations, or clustering that are mathematically convenient on wide matrices.
 License: MIT + file LICENSE
+Encoding: UTF-8
 LazyData: TRUE
 Maintainer: David Robinson <admiral.david@gmail.com>
 URL: http://github.com/dgrtwo/widyr
 BugReports: http://github.com/dgrtwo/widyr/issues
 VignetteBuilder: knitr
 Imports:
+    rlang,
     dplyr,
     tidyr,
     reshape2,
