@@ -8,7 +8,7 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
+  
 ```{r setup, echo = FALSE}
 library(knitr)
 
@@ -102,9 +102,9 @@ library(igraph)
 cors_filtered <- cors %>%
   filter(correlation > .6)
 
-continents <- data_frame(country = unique(un_votes$country)) %>%
+continents <- tibble(country = unique(un_votes$country)) %>%
   filter(country %in% cors_filtered$item1 |
-         country %in% cors_filtered$item2) %>%
+           country %in% cors_filtered$item2) %>%
   mutate(continent = countrycode(country, "country.name", "continent"))
 
 set.seed(2017)
