@@ -1,3 +1,9 @@
+# widyr 0.1.3
+
+* Update to work with the latest version of tidytext's cast_sparse. Adds rlang to IMPORTs. (@juliasilge, #30)
+* Update from data_frame() to tibble() in examples
+* Removed topicmodels from SUGGESTS (hasn't been required for several versions)
+
 # widyr 0.1.2
 
 * Fixes to be compatible with tidyr v1.0.0, while also being reverse-compatible with previous versions of tidyr.

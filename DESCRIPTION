@@ -3,7 +3,8 @@ Type: Package
 Title: Widen, Process, then Re-Tidy Data
 Version: 0.1.2
 Authors@R: c(person("David", "Robinson", email = "admiral.david@gmail.com", role = c("aut", "cre")),
-             person("Kanishka", "Misra", role = "ctb"))
+             person("Kanishka", "Misra", role = "ctb"),
+             person("Julia", "Silge", role = "ctb", email = "julia.silge@gmail.com"))
 Description: Encapsulates the pattern of untidying data into a wide matrix,
   performing some processing, then turning it back into a tidy form. This
   is useful for several operations such as co-occurrence counts,
@@ -31,7 +32,6 @@ Suggests:
     testthat,
     covr,
     knitr,
-    topicmodels,
     janeaustenr,
     rmarkdown,
     unvotes (>= 0.2.0),
