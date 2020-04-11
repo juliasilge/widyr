@@ -27,7 +27,7 @@ test_that("pairing and counting works", {
 
   # test additional arguments
 
-  # for self-pairs, the number of occurences should be the number of distinct
+  # for self-pairs, the number of occurrences should be the number of distinct
   # lines
   d2 <- original %>%
     pairwise_count(char, line, sort = TRUE, upper = FALSE, diag = TRUE)
@@ -70,7 +70,7 @@ test_that("We can count with a weight column", {
 })
 
 
-test_that("Counts co-occurences of words in Pride & Prejudice", {
+test_that("Counts co-occurrences of words in Pride & Prejudice", {
   if (require("janeaustenr", quietly = TRUE)) {
     words <- tibble(text = prideprejudice) %>%
       mutate(line = row_number()) %>%
@@ -82,7 +82,7 @@ test_that("Counts co-occurences of words in Pride & Prejudice", {
     # check it is sorted in descending order
     expect_false(is.unsorted(rev(pairs$n)))
 
-    # check occurences of words that appear with "elizabeth"
+    # check occurrences of words that appear with "elizabeth"
     words_with_elizabeth <- words %>%
       filter(word == "elizabeth") %>%
       select(line) %>%

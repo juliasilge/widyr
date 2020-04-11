@@ -1,11 +1,18 @@
 ## Changes
 
-* Fixes to be compatible with tidyr v1.0.0, while also being reverse-compatible with previous versions of tidyr.
-* Fix intro vignette index entry
+### Fixes
+
+* Update to work with the latest version of tidytext's cast_sparse. Adds rlang to IMPORTs. (@juliasilge, #30)
+* Update from data_frame() to tibble() in examples
+
+### Maintenance
+
+* Removed topicmodels from SUGGESTS (hasn't been required for several versions)
+* Fixed spelling mistakes of occurence->occurrence
 
 ## Test environments
-* local OS X install, R 3.5.0
-* ubuntu 12.04 (on travis-ci), devel, release, oldrel, and with development tidyr
+* local OS X install, R 3.6.1
+* ubuntu 12.04 (on travis-ci), devel, release, oldrel
 * win-builder (devel and release)
 
 ## R CMD check results
@@ -14,4 +21,7 @@
 
 ## Reverse dependencies
 
-There are no reverse dependencies.
+Reverse imports: akc and saotd
+Reverse depends: wikisourcer
+
+All passed R CMD CHECK with the new version of widyr.

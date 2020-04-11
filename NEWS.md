@@ -3,6 +3,7 @@
 * Update to work with the latest version of tidytext's cast_sparse. Adds rlang to IMPORTs. (@juliasilge, #30)
 * Update from data_frame() to tibble() in examples
 * Removed topicmodels from SUGGESTS (hasn't been required for several versions)
+* Fixed spelling mistakes of occurence->occurrence
 
 # widyr 0.1.2
 

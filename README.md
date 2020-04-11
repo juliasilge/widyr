@@ -11,7 +11,7 @@
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/dgrtwo/widyr?branch=master&svg=true)](https://ci.appveyor.com/project/dgrtwo/widyr)
 [![Coverage Status](https://img.shields.io/codecov/c/github/dgrtwo/widyr/master.svg)](https://codecov.io/github/dgrtwo/widyr?branch=master)
 
-This package wraps the pattern of un-tidying data into a wide matrix, performing some processing, then turning it back into a tidy form. This is useful for several mathematical operations such as co-occurence counts, correlations, or clustering that are best done on a wide matrix.
+This package wraps the pattern of un-tidying data into a wide matrix, performing some processing, then turning it back into a tidy form. This is useful for several mathematical operations such as co-occurrence counts, correlations, or clustering that are best done on a wide matrix.
 
 ## Installation
 
