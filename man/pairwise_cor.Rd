@@ -5,11 +5,25 @@
 \alias{pairwise_cor_}
 \title{Correlations of pairs of items}
 \usage{
-pairwise_cor(tbl, item, feature, value, method = c("pearson", "kendall",
-  "spearman"), use = "everything", ...)
+pairwise_cor(
+  tbl,
+  item,
+  feature,
+  value,
+  method = c("pearson", "kendall", "spearman"),
+  use = "everything",
+  ...
+)
 
-pairwise_cor_(tbl, item, feature, value, method = c("pearson", "kendall",
-  "spearman"), use = "everything", ...)
+pairwise_cor_(
+  tbl,
+  item,
+  feature,
+  value,
+  method = c("pearson", "kendall", "spearman"),
+  use = "everything",
+  ...
+)
 }
 \arguments{
 \item{tbl}{Table}
