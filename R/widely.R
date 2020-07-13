@@ -109,7 +109,7 @@ widely_ <- function(.f,
 
     ret <- output %>%
       custom_melt() %>%
-      tbl_df()
+      as_tibble()
 
     if (sort) {
       ret <- arrange(ret, desc(value))
