@@ -1,3 +1,8 @@
+# widyr 0.1.4
+
+* Fix bug in United Nations vignette (caused by unvotes update).
+* Also changes the vignettes to render conditionally on package installation.
+
 # widyr 0.1.3
 
 * Update to work with the latest version of tidytext's cast_sparse. Adds rlang to IMPORTs. (@juliasilge, #30)
