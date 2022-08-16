@@ -133,7 +133,30 @@ custom_melt <- function(m) {
   }
   # default to broom/tidytext's tidy
   ret <- suppressWarnings(purrr::possibly(broom::tidy, NULL)(m))
-
+  if (is.null(ret)) {
+    ret <- sparse_matrix_to_df(m)
+  }
   colnames(ret) <- c("item1", "item2", "value")
   ret
 }
+
+sparse_matrix_to_df <- function(x) {
+  s <- Matrix::summary(x)
+
+  row <- s$i
+  if (!is.null(rownames(x))) {
+    row <- rownames(x)[row]
+  }
+  col <- s$j
+  if (!is.null(colnames(x))) {
+    col <- colnames(x)[col]
+  }
+
+  ret <- data.frame(
+    row = row, column = col, value = s$x,
+    stringsAsFactors = FALSE
+  )
+
+  ret
+}
+
