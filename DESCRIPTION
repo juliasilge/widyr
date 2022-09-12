@@ -1,45 +1,49 @@
-Package: widyr
 Type: Package
+Package: widyr
 Title: Widen, Process, then Re-Tidy Data
 Version: 0.1.3.9000
-Authors@R: c(person("David", "Robinson", email = "admiral.david@gmail.com", role = c("aut", "cre")),
-             person("Kanishka", "Misra", role = "ctb"),
-             person("Julia", "Silge", role = "ctb", email = "julia.silge@gmail.com"))
-Description: Encapsulates the pattern of untidying data into a wide matrix,
-  performing some processing, then turning it back into a tidy form. This
-  is useful for several operations such as co-occurrence counts,
-  correlations, or clustering that are mathematically convenient on wide matrices.
+Authors@R: c(
+    person("David", "Robinson", , "admiral.david@gmail.com", role = "aut"),
+    person("Kanishka", "Misra", role = "ctb"),
+    person("Julia", "Silge", , "julia.silge@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-3671-836X"))
+  )
+Description: Encapsulates the pattern of untidying data into a wide
+    matrix, performing some processing, then turning it back into a tidy
+    form. This is useful for several operations such as co-occurrence
+    counts, correlations, or clustering that are mathematically convenient
+    on wide matrices.
 License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: TRUE
-Maintainer: David Robinson <admiral.david@gmail.com>
-URL: http://github.com/dgrtwo/widyr
-BugReports: http://github.com/dgrtwo/widyr/issues
-VignetteBuilder: knitr
+URL: http://github.com/juliasilge/widyr
+BugReports: http://github.com/juliasilge/widyr/issues
 Imports:
-    rlang,
-    dplyr,
-    tidyr,
-    reshape2,
-    tidytext,
-    purrr,
-    Matrix,
     broom,
+    dplyr,
+    gapminder,
+    Matrix,
+    purrr,
+    reshape2,
+    rlang,
     tibble,
-    gapminder
+    tidyr,
+    tidytext
 Suggests:
-    ggraph,
-    igraph,
-    testthat,
-    covr,
-    knitr,
-    janeaustenr,
-    rmarkdown,
-    unvotes (>= 0.3.0),
     countrycode,
+    covr,
     fuzzyjoin,
     ggplot2,
+    ggraph,
+    igraph,
+    irlba,
+    janeaustenr,
+    knitr,
     maps,
-    irlba
-RoxygenNote: 7.2.1
+    rmarkdown,
+    testthat,
+    unvotes (>= 0.3.0)
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+LazyData: TRUE
 Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
