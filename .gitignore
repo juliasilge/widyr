@@ -4,3 +4,6 @@
 .Ruserdata
 inst/doc
 docs
+checks.noindex
+cloud.noindex
+library.noindex

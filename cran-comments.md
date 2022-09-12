@@ -1,27 +1,17 @@
-## Changes
+## Release Summary
 
-### Fixes
-
-* Update to work with the latest version of tidytext's cast_sparse. Adds rlang to IMPORTs. (@juliasilge, #30)
-* Update from data_frame() to tibble() in examples
-
-### Maintenance
-
-* Removed topicmodels from SUGGESTS (hasn't been required for several versions)
-* Fixed spelling mistakes of occurence->occurrence
-
-## Test environments
-* local OS X install, R 3.6.1
-* ubuntu 12.04 (on travis-ci), devel, release, oldrel
-* win-builder (devel and release)
+This release updates widyr for recent changes in the Matrix package and switches the maintainer.
 
 ## R CMD check results
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note
 
-## Reverse dependencies
+This release updates the maintainer from David Robinson to Julia Silge.
 
-Reverse imports: akc and saotd
-Reverse depends: wikisourcer
 
-All passed R CMD CHECK with the new version of widyr.
+## revdepcheck results
+
+We checked 2 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 0 new problems
+ * We failed to check 0 packages
