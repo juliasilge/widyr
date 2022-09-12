@@ -19,7 +19,6 @@ BugReports: http://github.com/dgrtwo/widyr/issues
 Imports:
     broom,
     dplyr,
-    gapminder,
     Matrix,
     purrr,
     reshape2,
@@ -31,6 +30,7 @@ Suggests:
     countrycode,
     covr,
     fuzzyjoin,
+    gapminder,
     ggplot2,
     ggraph,
     igraph,
