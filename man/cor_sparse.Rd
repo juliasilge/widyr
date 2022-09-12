@@ -5,7 +5,7 @@
 \title{Find the Pearson correlation of a sparse matrix efficiently}
 \source{
 This code comes from mike on this Stack Overflow answer:
-\url{http://stackoverflow.com/a/9626089/712603}.
+\url{https://stackoverflow.com/a/9626089/712603}.
 }
 \usage{
 cor_sparse(x)

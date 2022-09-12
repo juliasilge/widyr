@@ -8,7 +8,7 @@
 #' @param x A matrix, potentially a sparse matrix such as a "dgTMatrix" object
 #'
 #' @source This code comes from mike on this Stack Overflow answer:
-#' <http://stackoverflow.com/a/9626089/712603>.
+#' <https://stackoverflow.com/a/9626089/712603>.
 cor_sparse <- function(x) {
   n <- nrow(x)
   covmat <- (as.matrix(crossprod(x)) - n * tcrossprod(colMeans(x))) / (n - 1)
