@@ -1,0 +1,15 @@
+url: https://juliasilge.github.io/widyr/
+
+home:
+  title: "widyr: an R package to widen, process, and re-tidy a dataset"
+  description: Compute co-occurrence counts, correlations, or clusters using tidy data principles
+
+template:
+  bootstrap: 5
+  bootswatch: pulse
+  bslib:
+    pkgdown-nav-height: 100px
+  opengraph:
+    twitter:
+      creator: "@juliasilge"
+      card: summary_large_image

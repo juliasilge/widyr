@@ -14,7 +14,8 @@ Description: Encapsulates the pattern of untidying data into a wide
     counts, correlations, or clustering that are mathematically convenient
     on wide matrices.
 License: MIT + file LICENSE
-URL: https://github.com/juliasilge/widyr
+URL: https://github.com/juliasilge/widyr,
+    http://juliasilge.github.io/widyr/
 BugReports: https://github.com/juliasilge/widyr/issues
 Imports:
     broom,
