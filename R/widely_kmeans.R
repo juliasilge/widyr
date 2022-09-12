@@ -1,7 +1,7 @@
 #' Cluster items based on k-means across features
 #'
 #' Given a tidy table of features describing each item, perform k-means
-#' clustering using \code{\link{kmeans}} and retidy the data into
+#' clustering using [kmeans()] and retidy the data into
 #' one-row-per-cluster.
 #'
 #' @param tbl Table
@@ -10,9 +10,9 @@
 #' @param value Value column
 #' @param k Number of clusters
 #' @param fill What to fill in for missing values
-#' @param ... Other arguments passed on to \code{\link{kmeans}}
+#' @param ... Other arguments passed on to [kmeans()]
 #'
-#' @seealso \code{\link{widely_hclust}}
+#' @seealso [widely_hclust()]
 #'
 #' @importFrom rlang :=
 #'

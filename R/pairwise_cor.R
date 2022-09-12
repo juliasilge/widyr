@@ -4,16 +4,16 @@
 #' that links them together. This is an example of the spread-operate-retidy pattern.
 #'
 #' @param tbl Table
-#' @param item Item to compare; will end up in \code{item1} and
-#' \code{item2} columns
+#' @param item Item to compare; will end up in `item1` and
+#' `item2` columns
 #' @param feature Column describing the feature that links one item to others
 #' @param value Value column. If not given, defaults to all values being 1 (thus
 #' a binary correlation)
 #' @param method Correlation method
 #' @param use Character string specifying the behavior of correlations
-#' with missing values; passed on to \code{cor}
-#' @param ... Extra arguments passed on to \code{squarely},
-#' such as \code{diag} and \code{upper}
+#' with missing values; passed on to `cor`
+#' @param ... Extra arguments passed on to `squarely`,
+#' such as `diag` and `upper`
 #'
 #' @examples
 #'

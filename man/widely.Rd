@@ -23,11 +23,11 @@ matrix.}
 }
 \value{
 Returns a function that takes at least four arguments:
-  \item{tbl}{A table}
-  \item{row}{Name of column to use as rows in wide matrix}
-  \item{column}{Name of column to use as columns in wide matrix}
-  \item{value}{Name of column to use as values in wide matrix}
-  \item{...}{Arguments passed on to inner function}
+\item{tbl}{A table}
+\item{row}{Name of column to use as rows in wide matrix}
+\item{column}{Name of column to use as columns in wide matrix}
+\item{value}{Name of column to use as values in wide matrix}
+\item{...}{Arguments passed on to inner function}
 
 \code{widely} creates a function that takes those columns as
 bare names, \code{widely_} a function that takes them as strings.

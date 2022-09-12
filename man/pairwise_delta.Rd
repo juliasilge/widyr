@@ -19,9 +19,9 @@ pairwise_delta_(tbl, item, feature, value, method = "burrows", ...)
 
 \item{value}{Value}
 
-\item{method}{Distance measure to be used; see \code{\link{dist}}}
+\item{method}{Distance measure to be used; see \code{\link[=dist]{dist()}}}
 
-\item{...}{Extra arguments passed on to \code{\link{squarely}},
+\item{...}{Extra arguments passed on to \code{\link[=squarely]{squarely()}},
 such as \code{diag} and \code{upper}}
 }
 \description{
@@ -64,5 +64,5 @@ closest <- austen_books() \%>\%
 
 }
 \seealso{
-\code{\link{squarely}}
+\code{\link[=squarely]{squarely()}}
 }

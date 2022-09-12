@@ -19,11 +19,11 @@ widely_kmeans(tbl, item, feature, value, k, fill = 0, ...)
 
 \item{fill}{What to fill in for missing values}
 
-\item{...}{Other arguments passed on to \code{\link{kmeans}}}
+\item{...}{Other arguments passed on to \code{\link[=kmeans]{kmeans()}}}
 }
 \description{
 Given a tidy table of features describing each item, perform k-means
-clustering using \code{\link{kmeans}} and retidy the data into
+clustering using \code{\link[=kmeans]{kmeans()}} and retidy the data into
 one-row-per-cluster.
 }
 \examples{
@@ -45,5 +45,5 @@ clusters \%>\% filter(cluster == 2)
 
 }
 \seealso{
-\code{\link{widely_hclust}}
+\code{\link[=widely_hclust]{widely_hclust()}}
 }

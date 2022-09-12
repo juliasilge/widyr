@@ -6,17 +6,17 @@
 #' @name widely_svd
 #'
 #' @param tbl Table
-#' @param item Item to perform dimensionality reduction on; will end up in \code{item} column
+#' @param item Item to perform dimensionality reduction on; will end up in `item` column
 #' @param feature Column describing the feature that links one item to others.
 #' @param value Value
 #' @param nv Optional; the number of principal components to estimate. Recommended for matrices
 #' with many features.
-#' @param weight_d Whether to multiply each value by the \code{d} principal component.
-#' @param ... Extra arguments passed to \code{svd} (if \code{nv} is \code{NULL})
-#' or \code{irlba} (if \code{nv} is given)
+#' @param weight_d Whether to multiply each value by the `d` principal component.
+#' @param ... Extra arguments passed to `svd` (if `nv` is `NULL`)
+#' or `irlba` (if `nv` is given)
 #'
-#' @return A tbl_df with three columns. The first is retained from the \code{item} input,
-#' then \code{dimension} and \code{value}. Each row represents one principal component
+#' @return A tbl_df with three columns. The first is retained from the `item` input,
+#' then `dimension` and `value`. Each row represents one principal component
 #' value.
 #'
 #' @examples

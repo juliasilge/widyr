@@ -1,7 +1,7 @@
 #' Cluster pairs of items into groups using hierarchical clustering
 #'
 #' Reshape a table that represents pairwise distances into hierarchical clusters,
-#' returning a table with \code{item} and \code{cluster} columns.
+#' returning a table with `item` and `cluster` columns.
 #'
 #' @param tbl Table
 #' @param item1 First item
@@ -30,7 +30,7 @@
 #' clusters %>% filter(cluster == 1)
 #' clusters %>% filter(cluster == 2)
 #'
-#' @seealso \link{cutree}
+#' @seealso [cutree]
 #'
 #' @export
 widely_hclust <- function(tbl, item1, item2, distance, k = NULL, h = NULL) {

@@ -3,14 +3,14 @@
 #' Compute cosine similarity of all pairs of items in a tidy table.
 #'
 #' @param tbl Table
-#' @param item Item to compare; will end up in \code{item1} and
-#' \code{item2} columns
+#' @param item Item to compare; will end up in `item1` and
+#' `item2` columns
 #' @param feature Column describing the feature that links one item to others
 #' @param value Value
-#' @param ... Extra arguments passed on to \code{\link{squarely}},
-#' such as \code{diag} and \code{upper}
+#' @param ... Extra arguments passed on to [squarely()],
+#' such as `diag` and `upper`
 #'
-#' @seealso \code{\link{squarely}}
+#' @seealso [squarely()]
 #'
 #' @examples
 #'
