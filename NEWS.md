@@ -2,6 +2,7 @@
 
 * Change maintainer to Julia Silge
 * Updates for new Matrix package version (@simonpcouch, #41)
+* Update use of `distinct()`
 
 # widyr 0.1.4
 
