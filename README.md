@@ -11,6 +11,8 @@ Robinson](http://varianceexplained.org/)<br/> **License:**
 
 [![R-CMD-check](https://github.com/juliasilge/widyr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/juliasilge/widyr/actions/workflows/R-CMD-check.yaml)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/widyr)](https://cran.r-project.org/package=widyr)
+[![Codecov test
+coverage](https://codecov.io/gh/juliasilge/widyr/branch/main/graph/badge.svg)](https://app.codecov.io/gh/juliasilge/widyr?branch=main)
 <!-- badges: end -->
 
 This package wraps the pattern of un-tidying data into a wide matrix,
