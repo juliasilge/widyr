@@ -22,14 +22,14 @@ duplicated}
 }
 \value{
 Returns a function that takes at least four arguments:
-  \item{tbl}{A table}
-  \item{item}{Name of column to use as rows in wide matrix}
-  \item{feature}{Name of column to use as columns in wide matrix}
-  \item{feature}{Name of column to use as values in wide matrix}
-  \item{...}{Arguments passed on to inner function}
+\item{tbl}{A table}
+\item{item}{Name of column to use as rows in wide matrix}
+\item{feature}{Name of column to use as columns in wide matrix}
+\item{feature}{Name of column to use as values in wide matrix}
+\item{...}{Arguments passed on to inner function}
 }
 \description{
-A special case of \code{\link{widely}}. Used to pre-prepare and
+A special case of \code{\link[=widely]{widely()}}. Used to pre-prepare and
 post-tidy functions that take an m x n (m items, n features)
 matrix and return an m x m (item x item) matrix, such as a
 distance or correlation matrix.
@@ -45,6 +45,6 @@ closest_continent <- gapminder \%>\%
 
 }
 \seealso{
-\code{\link{widely}}, \code{\link{pairwise_count}},
-\code{\link{pairwise_cor}}, \code{\link{pairwise_dist}}
+\code{\link[=widely]{widely()}}, \code{\link[=pairwise_count]{pairwise_count()}},
+\code{\link[=pairwise_cor]{pairwise_cor()}}, \code{\link[=pairwise_dist]{pairwise_dist()}}
 }

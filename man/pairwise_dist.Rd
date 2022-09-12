@@ -19,9 +19,9 @@ pairwise_dist_(tbl, item, feature, value, method = "euclidean", ...)
 
 \item{value}{Value}
 
-\item{method}{Distance measure to be used; see \code{\link{dist}}}
+\item{method}{Distance measure to be used; see \code{\link[=dist]{dist()}}}
 
-\item{...}{Extra arguments passed on to \code{\link{squarely}},
+\item{...}{Extra arguments passed on to \code{\link[=squarely]{squarely()}},
 such as \code{diag} and \code{upper}}
 }
 \description{
@@ -54,5 +54,5 @@ gapminder \%>\%
 
 }
 \seealso{
-\code{\link{squarely}}
+\code{\link[=squarely]{squarely()}}
 }

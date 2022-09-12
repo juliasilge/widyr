@@ -19,7 +19,7 @@ pairwise_similarity_(tbl, item, feature, value, ...)
 
 \item{value}{Value}
 
-\item{...}{Extra arguments passed on to \code{\link{squarely}},
+\item{...}{Extra arguments passed on to \code{\link[=squarely]{squarely()}},
 such as \code{diag} and \code{upper}}
 }
 \description{
@@ -50,5 +50,5 @@ closest \%>\%
 
 }
 \seealso{
-\code{\link{squarely}}
+\code{\link[=squarely]{squarely()}}
 }
