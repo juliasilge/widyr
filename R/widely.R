@@ -126,14 +126,36 @@ widely_ <- function(.f,
 custom_melt <- function(m) {
   if (inherits(m, "data.frame")) {
     rlang::abort("Output is a data frame: don't know how to fix")
-  }
-  if (inherits(m, "matrix")) {
+  } else if (inherits(m, "matrix")) {
     ret <- reshape2::melt(m, varnames = c("item1", "item2"), as.is = TRUE)
     return(ret)
+  } else if (inherits(m, "Matrix")) {
+    ret <- sparse_matrix_to_df(m)
+  } else {
+    ret <- tidy(m)
   }
-  # default to broom/tidytext's tidy
-  ret <- suppressWarnings(purrr::possibly(broom::tidy, NULL)(m))
 
   colnames(ret) <- c("item1", "item2", "value")
   ret
 }
+
+sparse_matrix_to_df <- function(x) {
+  s <- Matrix::summary(x)
+
+  row <- s$i
+  if (!is.null(rownames(x))) {
+    row <- rownames(x)[row]
+  }
+  col <- s$j
+  if (!is.null(colnames(x))) {
+    col <- colnames(x)[col]
+  }
+
+  ret <- data.frame(
+    row = row, column = col, value = s$x,
+    stringsAsFactors = FALSE
+  )
+
+  ret
+}
+
