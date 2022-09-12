@@ -1,40 +1,46 @@
+---
+output: github_document
+---
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, echo = FALSE}
+
+```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  message = FALSE,
-  fig.path = "README-"
+  fig.path = "man/figures/README-",
+  out.width = "100%",
+  message = FALSE
 )
-
 suppressPackageStartupMessages(library(dplyr))
 ```
 
 # widyr: Widen, process, and re-tidy a dataset
 
+**Authors:** [Julia Silge](https://juliasilge.com/), [David Robinson](http://varianceexplained.org/)<br/>
 **License:** [MIT](https://opensource.org/licenses/MIT)
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/juliasilge/widyr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/juliasilge/widyr/actions/workflows/R-CMD-check.yaml)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/widyr)](https://cran.r-project.org/package=widyr)
-[![Travis-CI Build Status](https://travis-ci.org/dgrtwo/widyr.svg?branch=master)](https://travis-ci.org/dgrtwo/widyr)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/dgrtwo/widyr?branch=master&svg=true)](https://ci.appveyor.com/project/dgrtwo/widyr)
-[![Coverage Status](https://img.shields.io/codecov/c/github/dgrtwo/widyr/master.svg)](https://codecov.io/github/dgrtwo/widyr?branch=master)
+<!-- badges: end -->
 
 This package wraps the pattern of un-tidying data into a wide matrix, performing some processing, then turning it back into a tidy form. This is useful for several mathematical operations such as co-occurrence counts, correlations, or clustering that are best done on a wide matrix.
 
 ## Installation
 
-Install from CRAN with:
+You can install the released version of widyr from [CRAN](https://CRAN.R-project.org) with:
 
-```{r eval = FALSE}
+``` r
 install.packages("widyr")
 ```
 
-Or install the development version from Github with [devtools](https://github.com/hadley/devtools):
+And the development version from [GitHub](https://github.com/) with:
 
-```{r, eval = FALSE}
-library(devtools)
-install_github("dgrtwo/widyr")
+``` r
+# install.packages("devtools")
+devtools::install_github("juliasilge/widyr")
 ```
 
 ## Towards a precise definition of "wide" data
@@ -103,4 +109,4 @@ gapminder %>%
 
 ### Code of Conduct
 
-Please note that this project is released with a [Contributor Code of Conduct](https://github.com/dgrtwo/widyr/blob/master/CONDUCT.md). By participating in this project you agree to abide by its terms.
+This project is released with a [Contributor Code of Conduct](https://www.contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
