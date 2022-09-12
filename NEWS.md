@@ -1,7 +1,9 @@
 # widyr 0.1.4
 
+* Change maintainer to Julia Silge
 * Fix bug in United Nations vignette (caused by unvotes update).
 * Also changes the vignettes to render conditionally on package installation.
+* Updates for new Matrix package version (@simonpcouch, #41)
 
 # widyr 0.1.3
 
