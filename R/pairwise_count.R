@@ -52,7 +52,7 @@ pairwise_count_ <- function(tbl, item, feature, wt = NULL, ...) {
   }
 
   tbl %>%
-    distinct_(.dots = c(item, feature), .keep_all = TRUE) %>%
+    distinct( .data[[item]], .data[[feature]], .keep_all = TRUE) %>%
     mutate(..value = 1) %>%
     func(item, feature, wt) %>%
     rename(n = value)
