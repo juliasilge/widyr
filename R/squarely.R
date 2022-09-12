@@ -1,7 +1,7 @@
 #' A special case of the widely adverb for creating tidy
 #' square matrices
 #'
-#' A special case of \code{\link{widely}}. Used to pre-prepare and
+#' A special case of [widely()]. Used to pre-prepare and
 #' post-tidy functions that take an m x n (m items, n features)
 #' matrix and return an m x m (item x item) matrix, such as a
 #' distance or correlation matrix.
@@ -10,7 +10,7 @@
 #' @param diag Whether to include diagonal (i = j) in output
 #' @param upper Whether to include upper triangle, which may be
 #' duplicated
-#' @param ... Extra arguments passed on to \code{widely}
+#' @param ... Extra arguments passed on to `widely`
 #'
 #' @return Returns a function that takes at least four arguments:
 #'   \item{tbl}{A table}
@@ -19,8 +19,8 @@
 #'   \item{feature}{Name of column to use as values in wide matrix}
 #'   \item{...}{Arguments passed on to inner function}
 #'
-#' @seealso \code{\link{widely}}, \code{\link{pairwise_count}},
-#' \code{\link{pairwise_cor}}, \code{\link{pairwise_dist}}
+#' @seealso [widely()], [pairwise_count()],
+#' [pairwise_cor()], [pairwise_dist()]
 #'
 #' @examples
 #'

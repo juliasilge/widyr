@@ -5,16 +5,16 @@
 #' two words appear within documents).
 #'
 #' @param tbl Table
-#' @param item Item to count pairs of; will end up in \code{item1} and
-#' \code{item2} columns
+#' @param item Item to count pairs of; will end up in `item1` and
+#' `item2` columns
 #' @param feature Column within which to count pairs
-#' \code{item2} columns
+#' `item2` columns
 #' @param wt Optionally a weight column, which should have a consistent weight
 #' for each feature
-#' @param ... Extra arguments passed on to \code{squarely},
-#' such as \code{diag}, \code{upper}, and \code{sort}
+#' @param ... Extra arguments passed on to `squarely`,
+#' such as `diag`, `upper`, and `sort`
 #'
-#' @seealso \code{\link{squarely}}
+#' @seealso [squarely()]
 #'
 #' @examples
 #'

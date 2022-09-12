@@ -5,18 +5,18 @@
 #' This is an example of the spread-operate-retidy pattern.
 #'
 #' @param tbl Table
-#' @param item Item to compare; will end up in \code{item1} and
-#' \code{item2} columns
+#' @param item Item to compare; will end up in `item1` and
+#' `item2` columns
 #' @param feature Column describing the feature that links one item to others
 #' @param sort Whether to sort in descending order of the pointwise mutual
 #' information
-#' @param ... Extra arguments passed on to \code{squarely},
-#' such as \code{diag} and \code{upper}
+#' @param ... Extra arguments passed on to `squarely`,
+#' such as `diag` and `upper`
 #'
 #' @name pairwise_pmi
 #'
-#' @return A tbl_df with three columns, \code{item1}, \code{item2}, and
-#' \code{pmi}.
+#' @return A tbl_df with three columns, `item1`, `item2`, and
+#' `pmi`.
 #'
 #' @examples
 #'

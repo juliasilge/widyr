@@ -6,7 +6,7 @@
 #' re-tidy (e.g. melt) the output into a tidy table.
 #'
 #' @param .f Function being wrapped
-#' @param sort Whether to sort in descending order of \code{value}
+#' @param sort Whether to sort in descending order of `value`
 #' @param maximum_size To prevent crashing, a maximum size of a
 #' non-sparse matrix to be created. Set to NULL to allow any size
 #' matrix.
@@ -19,8 +19,8 @@
 #'   \item{value}{Name of column to use as values in wide matrix}
 #'   \item{...}{Arguments passed on to inner function}
 #'
-#' \code{widely} creates a function that takes those columns as
-#' bare names, \code{widely_} a function that takes them as strings.
+#' `widely` creates a function that takes those columns as
+#' bare names, `widely_` a function that takes them as strings.
 #'
 #' @import dplyr
 #' @import Matrix
