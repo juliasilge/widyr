@@ -126,14 +126,37 @@ widely_ <- function(.f,
 custom_melt <- function(m) {
   if (inherits(m, "data.frame")) {
     rlang::abort("Output is a data frame: don't know how to fix")
-  }
-  if (inherits(m, "matrix")) {
+  } else if (inherits(m, "matrix")) {
     ret <- reshape2::melt(m, varnames = c("item1", "item2"), as.is = TRUE)
     return(ret)
+  } else if (inherits(m, "Matrix")) {
+    triplets <- Matrix::summary(m)
+    ret <- tidy_triplet(m, triplets)
+  } else {
+    ret <- tidy(m)
   }
-  # default to broom/tidytext's tidy
-  ret <- suppressWarnings(purrr::possibly(broom::tidy, NULL)(m))
 
   colnames(ret) <- c("item1", "item2", "value")
+  ret
+}
+
+
+## Utility function to tidy a simple triplet matrix
+## Copied from tidytext
+tidy_triplet <- function(x, triplets, row_names = NULL, col_names = NULL) {
+  row <- triplets$i
+  if (!is.null(row_names)) {
+    row <- row_names[row]
+  } else if (!is.null(rownames(x))) {
+    row <- rownames(x)[row]
+  }
+  col <- triplets$j
+  if (!is.null(col_names)) {
+    col <- col_names[col]
+  } else if (!is.null(colnames(x))) {
+    col <- colnames(x)[col]
+  }
+
+  ret <- tibble(row = row, column = col, value = triplets$x)
   ret
 }
