@@ -76,10 +76,10 @@ squarely_ <- function(.f, diag = FALSE,
     ret$item2 <- as.integer(ret$item2)
 
     if (!upper) {
-      ret <- filter(ret, item1 <= item2)
+      ret <- dplyr::filter(ret, item1 <= item2)
     }
     if (!diag) {
-      ret <- filter(ret, item1 != item2)
+      ret <- dplyr::filter(ret, item1 != item2)
     }
 
     ret$item1 <- item_u[ret$item1]
