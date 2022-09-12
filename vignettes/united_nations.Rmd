@@ -73,7 +73,7 @@ US_cors %>%
 
 This can be particularly useful when visualized on a map.
 
-```{r US_cors_map, fig.width = 6, fig.height = 6}
+```{r US_cors_map, fig.width = 10, fig.height = 6}
 if (require("maps", quietly = TRUE) &&
     require("fuzzyjoin", quietly = TRUE) &&
     require("countrycode", quietly = TRUE) &&
@@ -100,7 +100,7 @@ if (require("maps", quietly = TRUE) &&
 
 Another useful kind of visualization is a network plot, which can be created with Thomas Pedersen's [ggraph package](https://github.com/thomasp85/ggraph). We can filter for pairs of countries with correlations above a particular threshold.
 
-```{r country_network, fig.width = 6, fig.height = 6}
+```{r country_network, fig.width = 10, fig.height = 6}
 if (require("ggraph", quietly = TRUE) &&
     require("igraph", quietly = TRUE) &&
     require("countrycode", quietly = TRUE)) {
