@@ -1,7 +1,7 @@
 Type: Package
 Package: widyr
 Title: Widen, Process, then Re-Tidy Data
-Version: 0.1.5
+Version: 0.1.5.9000
 Authors@R: c(
     person("David", "Robinson", , "admiral.david@gmail.com", role = "aut"),
     person("Kanishka", "Misra", role = "ctb"),

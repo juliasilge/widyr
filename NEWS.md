@@ -1,3 +1,5 @@
+# widyr (development version)
+
 # widyr 0.1.5
 
 * Change maintainer to Julia Silge
