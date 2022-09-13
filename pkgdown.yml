@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   intro: intro.html
   united_nations: united_nations.html
-last_built: 2022-09-13T13:59Z
+last_built: 2022-09-13T14:02Z
 urls:
   reference: https://juliasilge.github.io/widyr/reference
   article: https://juliasilge.github.io/widyr/articles
