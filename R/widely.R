@@ -51,6 +51,10 @@ widely <- function(.f,
                    sort = FALSE,
                    sparse = FALSE,
                    maximum_size = 1e7) {
+  force(.f)
+  force(sort)
+  force(sparse)
+  force(maximum_size)
   function(tbl, row, column, value, ...) {
     inner_func <- widely_(.f,
                           sort = sort,
