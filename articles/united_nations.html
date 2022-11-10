@@ -76,9 +76,10 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>United Nations Voting Correlations</h1>
-                        <h4 data-toc-skip class="author">David Robinson</h4>
+                        <h4 data-toc-skip class="author">David
+Robinson</h4>
             
-            <h4 data-toc-skip class="date">2022-09-13</h4>
+            <h4 data-toc-skip class="date">2022-11-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/juliasilge/widyr/blob/HEAD/vignettes/united_nations.Rmd" class="external-link"><code>vignettes/united_nations.Rmd</code></a></small>
       <div class="d-none name"><code>united_nations.Rmd</code></div>
@@ -86,7 +87,11 @@
 
     
     
-<p>Here we’ll examine an example application of the widyr package, particularly the <code>pairwise_cor</code> and <code>pairwise_dist</code> functions. We’ll use the data on United Nations General Assembly voting from the <code>unvotes</code> package:</p>
+<p>Here we’ll examine an example application of the widyr package,
+particularly the <code>pairwise_cor</code> and
+<code>pairwise_dist</code> functions. We’ll use the data on United
+Nations General Assembly voting from the <code>unvotes</code>
+package:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dgrtwo/unvotes" class="external-link">unvotes</a></span><span class="op">)</span></span>
@@ -106,15 +111,20 @@
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span>     3 El Salvador        SV           yes  </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span>     3 Nicaragua          NI           yes  </span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 869,927 more rows</span></span></span></code></pre>
-<p>This dataset has one row for each country for each roll call vote. We’re interested in finding pairs of countries that tended to vote similarly.</p>
+<p>This dataset has one row for each country for each roll call vote.
+We’re interested in finding pairs of countries that tended to vote
+similarly.</p>
 <div class="section level3">
 <h3 id="pairwise-correlations">Pairwise correlations<a class="anchor" aria-label="anchor" href="#pairwise-correlations"></a>
 </h3>
-<p>Notice that the <code>vote</code> column is a factor, with levels (in order) “yes”, “abstain”, and “no”:</p>
+<p>Notice that the <code>vote</code> column is a factor, with levels (in
+order) “yes”, “abstain”, and “no”:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">un_votes</span><span class="op">$</span><span class="va">vote</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "yes"     "abstain" "no"</span></span></code></pre>
-<p>We may then be interested in obtaining a measure of country-to-country agreement for each vote, using the <code>pairwise_cor</code> function.</p>
+<p>We may then be interested in obtaining a measure of
+country-to-country agreement for each vote, using the
+<code>pairwise_cor</code> function.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/juliasilge/widyr" class="external-link">widyr</a></span><span class="op">)</span></span>
 <span></span>
@@ -137,7 +147,8 @@
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> Slovakia  Slovenia        0.972</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> Slovenia  Slovakia        0.972</span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 39,790 more rows</span></span></span></code></pre>
-<p>We could, for example, find the countries that the US is most and least in agreement with:</p>
+<p>We could, for example, find the countries that the US is most and
+least in agreement with:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">US_cors</span> <span class="op">&lt;-</span> <span class="va">cors</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">item1</span> <span class="op">==</span> <span class="st">"United States"</span><span class="op">)</span></span>
@@ -203,7 +214,10 @@
 <div class="section level3">
 <h3 id="visualizing-clusters-in-a-network">Visualizing clusters in a network<a class="anchor" aria-label="anchor" href="#visualizing-clusters-in-a-network"></a>
 </h3>
-<p>Another useful kind of visualization is a network plot, which can be created with Thomas Pedersen’s <a href="https://github.com/thomasp85/ggraph" class="external-link">ggraph package</a>. We can filter for pairs of countries with correlations above a particular threshold.</p>
+<p>Another useful kind of visualization is a network plot, which can be
+created with Thomas Pedersen’s <a href="https://github.com/thomasp85/ggraph" class="external-link">ggraph package</a>. We can
+filter for pairs of countries with correlations above a particular
+threshold.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://ggraph.data-imaginist.com" class="external-link">"ggraph"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">&amp;&amp;</span></span>
 <span>    <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://igraph.org" class="external-link">"igraph"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">&amp;&amp;</span></span>
@@ -228,7 +242,10 @@
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Network of countries with correlated United Nations votes"</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p><img src="united_nations_files/figure-html/country_network-1.png" width="960"></p>
-<p>Choosing the threshold for filtering correlations (or other measures of similarity) typically requires some trial and error. Setting too high a threshold will make a graph too sparse, while too low a threshold will make a graph too crowded.</p>
+<p>Choosing the threshold for filtering correlations (or other measures
+of similarity) typically requires some trial and error. Setting too high
+a threshold will make a graph too sparse, while too low a threshold will
+make a graph too crowded.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

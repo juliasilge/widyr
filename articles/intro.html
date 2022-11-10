@@ -76,9 +76,10 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>widyr: Widen, process, and re-tidy a dataset</h1>
-                        <h4 data-toc-skip class="author">David Robinson</h4>
+                        <h4 data-toc-skip class="author">David
+Robinson</h4>
             
-            <h4 data-toc-skip class="date">2022-09-13</h4>
+            <h4 data-toc-skip class="date">2022-11-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/juliasilge/widyr/blob/HEAD/vignettes/intro.Rmd" class="external-link"><code>vignettes/intro.Rmd</code></a></small>
       <div class="d-none name"><code>intro.Rmd</code></div>
@@ -86,11 +87,17 @@
 
     
     
-<p>This package wraps the pattern of un-tidying data into a wide matrix, performing some processing, then turning it back into a tidy form. This is useful for several mathematical operations such as co-occurrence counts, correlations, or clustering that are best done on a wide matrix.</p>
+<p>This package wraps the pattern of un-tidying data into a wide matrix,
+performing some processing, then turning it back into a tidy form. This
+is useful for several mathematical operations such as co-occurrence
+counts, correlations, or clustering that are best done on a wide
+matrix.</p>
 <div class="section level2">
 <h2 id="towards-a-precise-definition-of-wide-data">Towards a precise definition of “wide” data<a class="anchor" aria-label="anchor" href="#towards-a-precise-definition-of-wide-data"></a>
 </h2>
-<p>The term “wide data” has gone out of fashion as being “imprecise” <a href="http://vita.had.co.nz/papers/tidy-data.pdf" class="external-link">(Wickham 2014)</a>), but I think with a proper definition the term could be entirely meaningful and useful.</p>
+<p>The term “wide data” has gone out of fashion as being “imprecise” <a href="http://vita.had.co.nz/papers/tidy-data.pdf" class="external-link">(Wickham 2014)</a>),
+but I think with a proper definition the term could be entirely
+meaningful and useful.</p>
 <p>A <strong>wide</strong> dataset is one or more matrices where:</p>
 <ul>
 <li>Each row is one <strong>item</strong>
@@ -102,13 +109,22 @@
 <li>Each matrix is one <strong>variable</strong>
 </li>
 </ul>
-<p>When would you want data to be wide rather than tidy? Notable examples include classification, clustering, correlation, factorization, or other operations that can take advantage of a matrix structure. In general, when you want to <strong>compare between items</strong> rather than compare between variables, this is a useful structure.</p>
-<p>The widyr package is based on the observation that during a tidy data analysis, you often want data to be wide only <em>temporarily</em>, before returning to a tidy structure for visualization and further analysis. widyr makes this easy through a set of <code>pairwise_</code> functions.</p>
+<p>When would you want data to be wide rather than tidy? Notable
+examples include classification, clustering, correlation, factorization,
+or other operations that can take advantage of a matrix structure. In
+general, when you want to <strong>compare between items</strong> rather
+than compare between variables, this is a useful structure.</p>
+<p>The widyr package is based on the observation that during a tidy data
+analysis, you often want data to be wide only <em>temporarily</em>,
+before returning to a tidy structure for visualization and further
+analysis. widyr makes this easy through a set of <code>pairwise_</code>
+functions.</p>
 </div>
 <div class="section level2">
 <h2 id="example-gapminder">Example: gapminder<a class="anchor" aria-label="anchor" href="#example-gapminder"></a>
 </h2>
-<p>Consider the gapminder dataset in the <a href="https://CRAN.R-project.org/package=gapminder" class="external-link">gapminder package</a>.</p>
+<p>Consider the gapminder dataset in the <a href="https://CRAN.R-project.org/package=gapminder" class="external-link">gapminder
+package</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## </span></span>
@@ -137,11 +153,18 @@
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> Afghanistan Asia       <span style="text-decoration: underline;">1</span>992    41.7 16<span style="text-decoration: underline;">317</span>921      649.</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> Afghanistan Asia       <span style="text-decoration: underline;">1</span>997    41.8 22<span style="text-decoration: underline;">227</span>415      635.</span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 1,694 more rows</span></span></span></code></pre>
-<p>This tidy format (one-row-per-country-per-year) is very useful for grouping, summarizing, and filtering operations. But if we want to <em>compare pairs of countries</em> (for example, to find countries that are similar to each other), we would have to reshape this dataset. Note that here, country is the <strong>item</strong>, while year is the <strong>feature</strong> column.</p>
+<p>This tidy format (one-row-per-country-per-year) is very useful for
+grouping, summarizing, and filtering operations. But if we want to
+<em>compare pairs of countries</em> (for example, to find countries that
+are similar to each other), we would have to reshape this dataset. Note
+that here, country is the <strong>item</strong>, while year is the
+<strong>feature</strong> column.</p>
 <div class="section level4">
 <h4 id="pairwise-operations">Pairwise operations<a class="anchor" aria-label="anchor" href="#pairwise-operations"></a>
 </h4>
-<p>The widyr package offers <code>pairwise_</code> functions that operate on pairs of items within data. An example is <code>pairwise_dist</code>:</p>
+<p>The widyr package offers <code>pairwise_</code> functions that
+operate on pairs of items within data. An example is
+<code>pairwise_dist</code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/juliasilge/widyr" class="external-link">widyr</a></span><span class="op">)</span></span>
 <span></span>
@@ -161,7 +184,10 @@
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> Belgium    Afghanistan   125.  </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> Benin      Afghanistan    39.3 </span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 20,012 more rows</span></span></span></code></pre>
-<p>In a single step, this finds the Euclidean distance between the <code>lifeExp</code> value in each pair of countries, matching pairs based on year. We could find the closest pairs of countries overall with <code><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange()</a></code>:</p>
+<p>In a single step, this finds the Euclidean distance between the
+<code>lifeExp</code> value in each pair of countries, matching pairs
+based on year. We could find the closest pairs of countries overall with
+<code><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange()</a></code>:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gapminder</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/pairwise_dist.html">pairwise_dist</a></span><span class="op">(</span><span class="va">country</span>, <span class="va">year</span>, <span class="va">lifeExp</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -180,7 +206,9 @@
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> Finland        Austria            1.94</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> Austria        Finland            1.94</span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 20,012 more rows</span></span></span></code></pre>
-<p>Notice that this includes duplicates (Germany/Belgium and Belgium/Germany). To avoid those (the upper triangle of the distance matrix), use <code>upper = FALSE</code>:</p>
+<p>Notice that this includes duplicates (Germany/Belgium and
+Belgium/Germany). To avoid those (the upper triangle of the distance
+matrix), use <code>upper = FALSE</code>:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gapminder</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/pairwise_dist.html">pairwise_dist</a></span><span class="op">(</span><span class="va">country</span>, <span class="va">year</span>, <span class="va">lifeExp</span>, upper <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -199,7 +227,8 @@
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> Belgium     United States      2.09</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> Germany     Ireland            2.10</span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 10,001 more rows</span></span></span></code></pre>
-<p>In some analyses, we may be interested in correlation rather than distance of pairs. For this we would use <code>pairwise_cor</code>:</p>
+<p>In some analyses, we may be interested in correlation rather than
+distance of pairs. For this we would use <code>pairwise_cor</code>:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gapminder</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/pairwise_cor.html">pairwise_cor</a></span><span class="op">(</span><span class="va">country</span>, <span class="va">year</span>, <span class="va">lifeExp</span>, upper <span class="op">=</span> <span class="cn">FALSE</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
