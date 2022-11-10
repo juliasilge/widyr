@@ -1,5 +1,7 @@
 # widyr (development version)
 
+* Now force evaluation for `widely()` function factory (thanks to @lhdjung, #44)
+
 # widyr 0.1.5
 
 * Change maintainer to Julia Silge

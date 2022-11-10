@@ -53,3 +53,19 @@ test_that("widely's maximum size argument works", {
   }
   expect_error(f(), "1704.*large")
 })
+
+test_that("widely's arguments are evaluated when widely itself is called", {
+  skip_if_not_installed("gapminder")
+  library(gapminder)
+
+  sort <- FALSE
+  dist_widely <- widely(dist, sort = sort)
+  sort <- TRUE
+  ret1 <- dist_widely(gapminder, country, year, lifeExp)
+
+  sort <- FALSE
+  dist_widely <- widely(dist, sort = sort)
+  ret2 <- dist_widely(gapminder, country, year, lifeExp)
+
+  expect_equal(ret1, ret2)
+})
