@@ -17,18 +17,18 @@
 #'
 #' # Construct Euclidean distances between countries based on life
 #' # expectancy over time
-#' country_distances <- gapminder %>%
+#' country_distances <- gapminder |>
 #'   pairwise_dist(country, year, lifeExp)
 #'
 #' country_distances
 #'
 #' # Turn this into 5 hierarchical clusters
-#' clusters <- country_distances %>%
+#' clusters <- country_distances |>
 #'   widely_hclust(item1, item2, distance, k = 8)
 #'
 #' # Examine a few such clusters
-#' clusters %>% filter(cluster == 1)
-#' clusters %>% filter(cluster == 2)
+#' clusters |> filter(cluster == 1)
+#' clusters |> filter(cluster == 2)
 #'
 #' @seealso [cutree]
 #'
@@ -46,13 +46,13 @@ widely_hclust <- function(tbl, item1, item2, distance, k = NULL, h = NULL) {
 
   tibble(item1 = match(tbl[[col1_str]], unique_items),
          item2 = match(tbl[[col2_str]], unique_items),
-         distance = tbl[[dist_str]]) %>%
-    reshape2::acast(item1 ~ item2, value.var = "distance", fill = max_distance) %>%
-    stats::as.dist() %>%
-    stats::hclust() %>%
-    stats::cutree(k = k, h = h) %>%
-    tibble::enframe("item", "cluster") %>%
+         distance = tbl[[dist_str]]) |>
+    reshape2::acast(item1 ~ item2, value.var = "distance", fill = max_distance) |>
+    stats::as.dist() |>
+    stats::hclust() |>
+    stats::cutree(k = k, h = h) |>
+    tibble::enframe("item", "cluster") |>
     dplyr::mutate(item = unique_items[as.integer(item)],
-                  cluster = factor(cluster)) %>%
+                  cluster = factor(cluster)) |>
     dplyr::arrange(cluster)
 }

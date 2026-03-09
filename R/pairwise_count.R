@@ -51,9 +51,9 @@ pairwise_count_ <- function(tbl, item, feature, wt = NULL, ...) {
     func <- squarely_(function(m) m %*% t(m > 0), sparse = TRUE, ...)
   }
 
-  tbl %>%
-    distinct(.data[[item]], .data[[feature]], .keep_all = TRUE) %>%
-    mutate(..value = 1) %>%
-    func(item, feature, wt) %>%
+  tbl |>
+    distinct(.data[[item]], .data[[feature]], .keep_all = TRUE) |>
+    mutate(..value = 1) |>
+    func(item, feature, wt) |>
     rename(n = value)
 }

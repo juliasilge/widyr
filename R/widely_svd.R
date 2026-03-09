@@ -25,7 +25,7 @@
 #' library(gapminder)
 #'
 #' # principal components driving change
-#' gapminder_svd <- gapminder %>%
+#' gapminder_svd <- gapminder |>
 #'   widely_svd(country, year, lifeExp)
 #'
 #' gapminder_svd
@@ -34,9 +34,9 @@
 #' library(ggplot2)
 #' library(tidyr)
 #'
-#' gapminder_svd %>%
-#'   spread(dimension, value) %>%
-#'   inner_join(distinct(gapminder, country, continent), by = "country") %>%
+#' gapminder_svd |>
+#'   spread(dimension, value) |>
+#'   inner_join(distinct(gapminder, country, continent), by = "country") |>
 #'   ggplot(aes(`1`, `2`, label = country)) +
 #'   geom_point(aes(color = continent)) +
 #'   geom_text(vjust = 1, hjust = 1)
@@ -94,7 +94,7 @@ widely_svd_ <- function(tbl, item, feature, value, nv = NULL, weight_d = FALSE, 
 
   ret <- widely_(perform_svd, sparse = sparse)(tbl, item, feature, value)
 
-  ret <- ret %>%
+  ret <- ret |>
     transmute(item = item_u[as.integer(item1)],
               dimension = item2,
               value)

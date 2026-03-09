@@ -79,7 +79,7 @@ The widyr package offers `pairwise_` functions that operate on pairs of items wi
 ```{r}
 library(widyr)
 
-gapminder %>%
+gapminder |>
   pairwise_dist(country, year, lifeExp)
 ```
 
@@ -88,23 +88,23 @@ This finds the Euclidean distance between the `lifeExp` value in each pair of co
 We could find the closest pairs of countries overall with `arrange()`:
 
 ```{r}
-gapminder %>%
-  pairwise_dist(country, year, lifeExp) %>%
+gapminder |>
+  pairwise_dist(country, year, lifeExp) |>
   arrange(distance)
 ```
 
 Notice that this includes duplicates (Germany/Belgium and Belgium/Germany). To avoid those (the upper triangle of the distance matrix), use `upper = FALSE`:
 
 ```{r}
-gapminder %>%
-  pairwise_dist(country, year, lifeExp, upper = FALSE) %>%
+gapminder |>
+  pairwise_dist(country, year, lifeExp, upper = FALSE) |>
   arrange(distance)
 ```
 
 In some analyses, we may be interested in correlation rather than distance of pairs. For this we would use `pairwise_cor`:
 
 ```{r}
-gapminder %>%
+gapminder |>
   pairwise_cor(country, year, lifeExp, upper = FALSE)
 ```
 

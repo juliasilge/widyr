@@ -27,8 +27,8 @@
 #' library(dplyr)
 #' library(gapminder)
 #'
-#' closest_continent <- gapminder %>%
-#'   group_by(continent) %>%
+#' closest_continent <- gapminder |>
+#'   group_by(continent) |>
 #'   squarely(dist)(country, year, lifeExp)
 #'
 #' @export
@@ -54,11 +54,11 @@ squarely_ <- function(.f, diag = FALSE,
   f <- function(tbl, item, feature, value, ...) {
     if (inherits(tbl, "grouped_df")) {
       # perform within each group, then restore groups
-      ret <- tbl %>%
-        tidyr::nest() %>%
-        mutate(data = purrr::map(data, f, item, feature, value)) %>%
-        filter(purrr::map_lgl(data, ~ nrow(.) > 0)) %>%
-        tidyr::unnest(data) %>%
+      ret <- tbl |>
+        tidyr::nest() |>
+        mutate(data = purrr::map(data, f, item, feature, value)) |>
+        filter(purrr::map_lgl(data, ~ nrow(.) > 0)) |>
+        tidyr::unnest(data) |>
         dplyr::group_by_at(dplyr::group_vars(tbl))
 
       return(ret)

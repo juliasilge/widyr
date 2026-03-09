@@ -56,10 +56,10 @@ pairwise_pmi_ <- function(tbl, item, feature, sort = FALSE, ...) {
   }
   pmi_func <- squarely_(f, sparse = TRUE, sort = sort, ...)
 
-  tbl %>%
-    ungroup() %>%
-    mutate(..value = 1) %>%
-    pmi_func(item, feature, "..value") %>%
-    mutate(value = log(value)) %>%
+  tbl |>
+    ungroup() |>
+    mutate(..value = 1) |>
+    pmi_func(item, feature, "..value") |>
+    mutate(value = log(value)) |>
     rename(pmi = value)
 }
