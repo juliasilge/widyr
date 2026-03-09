@@ -47,7 +47,7 @@ library(dplyr)
 
 # Construct Euclidean distances between countries based on life
 # expectancy over time
-country_distances <- gapminder %>%
+country_distances <- gapminder |>
   pairwise_dist(country, year, lifeExp)
 
 country_distances
@@ -67,11 +67,11 @@ country_distances
 #> # ℹ 20,012 more rows
 
 # Turn this into 5 hierarchical clusters
-clusters <- country_distances %>%
+clusters <- country_distances |>
   widely_hclust(item1, item2, distance, k = 8)
 
 # Examine a few such clusters
-clusters %>% filter(cluster == 1)
+clusters |> filter(cluster == 1)
 #> # A tibble: 27 × 2
 #>    item                   cluster
 #>    <chr>                  <fct>  
@@ -86,7 +86,7 @@ clusters %>% filter(cluster == 1)
 #>  9 Hungary                1      
 #> 10 Jamaica                1      
 #> # ℹ 17 more rows
-clusters %>% filter(cluster == 2)
+clusters |> filter(cluster == 2)
 #> # A tibble: 26 × 2
 #>    item        cluster
 #>    <chr>       <fct>  

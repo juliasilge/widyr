@@ -50,8 +50,8 @@ library(gapminder)
 library(dplyr)
 
 # closest countries in terms of life expectancy over time
-closest <- gapminder %>%
-  pairwise_dist(country, year, lifeExp) %>%
+closest <- gapminder |>
+  pairwise_dist(country, year, lifeExp) |>
   arrange(distance)
 
 closest
@@ -70,7 +70,7 @@ closest
 #> 10 Austria        Finland            1.94
 #> # ℹ 20,012 more rows
 
-closest %>%
+closest |>
   filter(item1 == "United States")
 #> # A tibble: 141 × 3
 #>    item1         item2          distance
@@ -88,8 +88,8 @@ closest %>%
 #> # ℹ 131 more rows
 
 # to remove duplicates, use upper = FALSE
-gapminder %>%
-  pairwise_dist(country, year, lifeExp, upper = FALSE) %>%
+gapminder |>
+  pairwise_dist(country, year, lifeExp, upper = FALSE) |>
   arrange(distance)
 #> # A tibble: 10,011 × 3
 #>    item1       item2          distance
@@ -107,8 +107,8 @@ gapminder %>%
 #> # ℹ 10,001 more rows
 
 # Can also use Manhattan distance
-gapminder %>%
-  pairwise_dist(country, year, lifeExp, method = "manhattan", upper = FALSE) %>%
+gapminder |>
+  pairwise_dist(country, year, lifeExp, method = "manhattan", upper = FALSE) |>
   arrange(distance)
 #> # A tibble: 10,011 × 3
 #>    item1       item2          distance

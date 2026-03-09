@@ -85,7 +85,7 @@ items within data. An example is `pairwise_dist`:
 ``` r
 library(widyr)
 
-gapminder %>%
+gapminder |>
   pairwise_dist(country, year, lifeExp)
 ```
 
@@ -110,8 +110,8 @@ We could find the closest pairs of countries overall with
 [`arrange()`](https://dplyr.tidyverse.org/reference/arrange.html):
 
 ``` r
-gapminder %>%
-  pairwise_dist(country, year, lifeExp) %>%
+gapminder |>
+  pairwise_dist(country, year, lifeExp) |>
   arrange(distance)
 ```
 
@@ -135,8 +135,8 @@ Belgium/Germany). To avoid those (the upper triangle of the distance
 matrix), use `upper = FALSE`:
 
 ``` r
-gapminder %>%
-  pairwise_dist(country, year, lifeExp, upper = FALSE) %>%
+gapminder |>
+  pairwise_dist(country, year, lifeExp, upper = FALSE) |>
   arrange(distance)
 ```
 
@@ -159,7 +159,7 @@ In some analyses, we may be interested in correlation rather than
 distance of pairs. For this we would use `pairwise_cor`:
 
 ``` r
-gapminder %>%
+gapminder |>
   pairwise_cor(country, year, lifeExp, upper = FALSE, sort = TRUE)
 ```
 

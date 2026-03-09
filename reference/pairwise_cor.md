@@ -74,7 +74,7 @@ library(dplyr)
 #>     intersect, setdiff, setequal, union
 library(gapminder)
 
-gapminder %>%
+gapminder |>
   pairwise_cor(country, year, lifeExp)
 #> # A tibble: 20,022 × 3
 #>    item1      item2       correlation
@@ -91,7 +91,7 @@ gapminder %>%
 #> 10 Benin      Afghanistan       0.997
 #> # ℹ 20,012 more rows
 
-gapminder %>%
+gapminder |>
   pairwise_cor(country, year, lifeExp, sort = TRUE)
 #> # A tibble: 20,022 × 3
 #>    item1              item2              correlation
@@ -110,8 +110,8 @@ gapminder %>%
 
 # United Nations voting data
 if (require("unvotes", quietly = TRUE)) {
-  country_cors <- un_votes %>%
-    mutate(vote = as.numeric(vote)) %>%
+  country_cors <- un_votes |>
+    mutate(vote = as.numeric(vote)) |>
     pairwise_cor(country, rcid, vote, sort = TRUE)
 }
 #> If you use data from the unvotes package, please cite the following:

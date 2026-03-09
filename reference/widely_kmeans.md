@@ -51,7 +51,7 @@ widely_kmeans(tbl, item, feature, value, k, fill = 0, ...)
 library(gapminder)
 library(dplyr)
 
-clusters <- gapminder %>%
+clusters <- gapminder |>
   widely_kmeans(country, year, lifeExp, k = 5)
 
 clusters
@@ -70,7 +70,7 @@ clusters
 #> 10 Greece         1      
 #> # ℹ 132 more rows
 
-clusters %>%
+clusters |>
   count(cluster)
 #> # A tibble: 5 × 2
 #>   cluster     n
@@ -82,7 +82,7 @@ clusters %>%
 #> 5 5          31
 
 # Examine a few clusters
-clusters %>% filter(cluster == 1)
+clusters |> filter(cluster == 1)
 #> # A tibble: 29 × 2
 #>    country        cluster
 #>    <fct>          <fct>  
@@ -97,7 +97,7 @@ clusters %>% filter(cluster == 1)
 #>  9 Germany        1      
 #> 10 Greece         1      
 #> # ℹ 19 more rows
-clusters %>% filter(cluster == 2)
+clusters |> filter(cluster == 2)
 #> # A tibble: 27 × 2
 #>    country            cluster
 #>    <fct>              <fct>  

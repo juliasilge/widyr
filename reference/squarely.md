@@ -69,7 +69,7 @@ Returns a function that takes at least four arguments:
 library(dplyr)
 library(gapminder)
 
-closest_continent <- gapminder %>%
-  group_by(continent) %>%
+closest_continent <- gapminder |>
+  group_by(continent) |>
   squarely(dist)(country, year, lifeExp)
 ```

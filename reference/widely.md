@@ -80,7 +80,7 @@ gapminder
 #> 10 Afghanistan Asia       1997    41.8 22227415      635.
 #> # ℹ 1,694 more rows
 
-gapminder %>%
+gapminder |>
   widely(dist)(country, year, lifeExp)
 #> # A tibble: 10,011 × 3
 #>    item1       item2       value
@@ -98,8 +98,8 @@ gapminder %>%
 #> # ℹ 10,001 more rows
 
 # can perform within groups
-closest_continent <- gapminder %>%
-  group_by(continent) %>%
+closest_continent <- gapminder |>
+  group_by(continent) |>
   widely(dist)(country, year, lifeExp)
 closest_continent
 #> # A tibble: 2,590 × 4
@@ -119,7 +119,7 @@ closest_continent
 #> # ℹ 2,580 more rows
 
 # for example, find the closest pair in each
-closest_continent %>%
+closest_continent |>
   top_n(1, -value)
 #> # A tibble: 5 × 4
 #> # Groups:   continent [5]

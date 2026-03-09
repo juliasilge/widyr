@@ -47,8 +47,8 @@ agreement for each vote, using the `pairwise_cor` function.
 ``` r
 library(widyr)
 
-cors <- un_votes %>%
-  mutate(vote = as.numeric(vote)) %>%
+cors <- un_votes |>
+  mutate(vote = as.numeric(vote)) |>
   pairwise_cor(country, rcid, vote, use = "pairwise.complete.obs", sort = TRUE)
 
 cors
@@ -73,7 +73,7 @@ We could, for example, find the countries that the US is most and least
 in agreement with:
 
 ``` r
-US_cors <- cors %>%
+US_cors <- cors |>
   filter(item1 == "United States")
 
 # Most in agreement
@@ -97,7 +97,7 @@ US_cors
 
 ``` r
 # Least in agreement
-US_cors %>%
+US_cors |>
   arrange(correlation)
 ```
 
@@ -123,13 +123,13 @@ if (require("maps", quietly = TRUE) &&
     require("fuzzyjoin", quietly = TRUE) &&
     require("countrycode", quietly = TRUE) &&
     require("ggplot2", quietly = TRUE)) {
-  world_data <- map_data("world") %>%
-    regex_full_join(iso3166, by = c("region" = "mapname")) %>%
+  world_data <- map_data("world") |>
+    regex_full_join(iso3166, by = c("region" = "mapname")) |>
     filter(region != "Antarctica")
   
-  US_cors %>%
-    mutate(a2 = countrycode(item2, "country.name", "iso2c")) %>%
-    full_join(world_data, by = "a2") %>%
+  US_cors |>
+    mutate(a2 = countrycode(item2, "country.name", "iso2c")) |>
+    full_join(world_data, by = "a2") |>
     ggplot(aes(long, lat, group = group, fill = correlation)) +
     geom_polygon(color = "gray", size = .1) +
     scale_fill_gradient2() +
@@ -154,18 +154,18 @@ of countries with correlations above a particular threshold.
 if (require("ggraph", quietly = TRUE) &&
     require("igraph", quietly = TRUE) &&
     require("countrycode", quietly = TRUE)) {
-  cors_filtered <- cors %>%
+  cors_filtered <- cors |>
     filter(correlation > .6)
   
-  continents <- tibble(country = unique(un_votes$country)) %>%
+  continents <- tibble(country = unique(un_votes$country)) |>
     filter(country %in% cors_filtered$item1 |
-             country %in% cors_filtered$item2) %>%
+             country %in% cors_filtered$item2) |>
     mutate(continent = countrycode(country, "country.name", "continent"))
   
   set.seed(2017)
   
-  cors_filtered %>%
-    graph_from_data_frame(vertices = continents) %>%
+  cors_filtered |>
+    graph_from_data_frame(vertices = continents) |>
     ggraph() +
     geom_edge_link(aes(edge_alpha = correlation)) +
     geom_node_point(aes(color = continent), size = 3) +
