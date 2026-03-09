@@ -21,17 +21,17 @@
 #' library(gapminder)
 #' library(dplyr)
 #'
-#' clusters <- gapminder %>%
+#' clusters <- gapminder |>
 #'   widely_kmeans(country, year, lifeExp, k = 5)
 #'
 #' clusters
 #'
-#' clusters %>%
+#' clusters |>
 #'   count(cluster)
 #'
 #' # Examine a few clusters
-#' clusters %>% filter(cluster == 1)
-#' clusters %>% filter(cluster == 2)
+#' clusters |> filter(cluster == 1)
+#' clusters |> filter(cluster == 2)
 #'
 #' @export
 widely_kmeans <- function(tbl, item, feature, value, k, fill = 0, ...) {
@@ -41,7 +41,7 @@ widely_kmeans <- function(tbl, item, feature, value, k, fill = 0, ...) {
 
   form <- stats::as.formula(paste(item_str, "~", feature_str))
 
-  m <- tbl %>%
+  m <- tbl |>
     reshape2::acast(form, value.var = value_str, fill = fill)
 
   clustered <- stats::kmeans(m, k, ...)
@@ -49,6 +49,6 @@ widely_kmeans <- function(tbl, item, feature, value, k, fill = 0, ...) {
   # Add the clusters to the original table
   i <- match(rownames(m), as.character(tbl[[item_str]]))
   tibble::tibble(!!sym(item_str) := tbl[[item_str]][i],
-                 cluster = factor(clustered$cluster)) %>%
+                 cluster = factor(clustered$cluster)) |>
     dplyr::arrange(cluster)
 }

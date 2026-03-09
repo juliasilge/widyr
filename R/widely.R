@@ -33,17 +33,17 @@
 #'
 #' gapminder
 #'
-#' gapminder %>%
+#' gapminder |>
 #'   widely(dist)(country, year, lifeExp)
 #'
 #' # can perform within groups
-#' closest_continent <- gapminder %>%
-#'   group_by(continent) %>%
+#' closest_continent <- gapminder |>
+#'   group_by(continent) |>
 #'   widely(dist)(country, year, lifeExp)
 #' closest_continent
 #'
 #' # for example, find the closest pair in each
-#' closest_continent %>%
+#' closest_continent |>
 #'   top_n(1, -value)
 #'
 #' @export
@@ -80,10 +80,10 @@ widely_ <- function(.f,
     if (inherits(tbl, "grouped_df")) {
       # perform within each group
       # (group_by_at isn't necessary since 1.0.0, but is in earlier versions)
-      ret <- tbl %>%
-        tidyr::nest() %>%
-        mutate(data = purrr::map(data, f, row, column, value)) %>%
-        tidyr::unnest(data) %>%
+      ret <- tbl |>
+        tidyr::nest() |>
+        mutate(data = purrr::map(data, f, row, column, value)) |>
+        tidyr::unnest(data) |>
         dplyr::group_by_at(dplyr::group_vars(tbl))
 
       return(ret)
@@ -111,8 +111,8 @@ widely_ <- function(.f,
     }
     output <- purrr::as_mapper(.f)(input, ...)
 
-    ret <- output %>%
-      custom_melt() %>%
+    ret <- output |>
+      custom_melt() |>
       as_tibble()
 
     if (sort) {

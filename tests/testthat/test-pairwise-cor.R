@@ -7,7 +7,7 @@ d <- tibble(col = rep(c("a", "b", "c"), each = 3),
             value = c(1, 2, 3, 6, 5, 4, 7, 9, 8))
 
 test_that("pairwise_cor computes pairwise correlations", {
-  ret <- d %>%
+  ret <- d |>
     pairwise_cor(col, row, value)
 
   ret1 <- ret$correlation[ret$item1 == "a" & ret$item2 == "b"]
@@ -20,7 +20,7 @@ test_that("pairwise_cor computes pairwise correlations", {
 })
 
 test_that("pairwise_cor can compute Spearman correlations", {
-  ret <- d %>%
+  ret <- d |>
     pairwise_cor(col, row, value, method = "spearman")
 
   ret1 <- ret$correlation[ret$item1 == "a" & ret$item2 == "b"]
@@ -29,7 +29,7 @@ test_that("pairwise_cor can compute Spearman correlations", {
 
 test_that("pairwise_cor works on binary matrices", {
   cors <- data.frame(x = c("a", "a", "a", "b", "b", "b", "c", "c", "c"),
-                     y = c(1, 2, 3, 1, 2, 3, 1, 3, 4)) %>%
+                     y = c(1, 2, 3, 1, 2, 3, 1, 3, 4)) |>
     pairwise_cor(x, y, sort = TRUE)
 
   expect_equal(colnames(cors), c("item1", "item2", "correlation"))
@@ -39,7 +39,7 @@ test_that("pairwise_cor works on binary matrices", {
 test_that("pairwise_cor retains factor levels", {
   d$col <- factor(d$col, levels = c("b", "c", "a"))
 
-  ret <- d %>%
+  ret <- d |>
     pairwise_cor(col, row, value, method = "spearman")
 
   expect_is(ret$item1, "factor")

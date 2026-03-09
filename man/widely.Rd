@@ -44,17 +44,17 @@ library(gapminder)
 
 gapminder
 
-gapminder \%>\%
+gapminder |>
   widely(dist)(country, year, lifeExp)
 
 # can perform within groups
-closest_continent <- gapminder \%>\%
-  group_by(continent) \%>\%
+closest_continent <- gapminder |>
+  group_by(continent) |>
   widely(dist)(country, year, lifeExp)
 closest_continent
 
 # for example, find the closest pair in each
-closest_continent \%>\%
+closest_continent |>
   top_n(1, -value)
 
 }

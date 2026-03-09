@@ -31,17 +31,17 @@ one-row-per-cluster.
 library(gapminder)
 library(dplyr)
 
-clusters <- gapminder \%>\%
+clusters <- gapminder |>
   widely_kmeans(country, year, lifeExp, k = 5)
 
 clusters
 
-clusters \%>\%
+clusters |>
   count(cluster)
 
 # Examine a few clusters
-clusters \%>\% filter(cluster == 1)
-clusters \%>\% filter(cluster == 2)
+clusters |> filter(cluster == 1)
+clusters |> filter(cluster == 2)
 
 }
 \seealso{

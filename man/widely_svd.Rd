@@ -41,7 +41,7 @@ library(dplyr)
 library(gapminder)
 
 # principal components driving change
-gapminder_svd <- gapminder \%>\%
+gapminder_svd <- gapminder |>
   widely_svd(country, year, lifeExp)
 
 gapminder_svd
@@ -50,9 +50,9 @@ gapminder_svd
 library(ggplot2)
 library(tidyr)
 
-gapminder_svd \%>\%
-  spread(dimension, value) \%>\%
-  inner_join(distinct(gapminder, country, continent), by = "country") \%>\%
+gapminder_svd |>
+  spread(dimension, value) |>
+  inner_join(distinct(gapminder, country, continent), by = "country") |>
   ggplot(aes(`1`, `2`, label = country)) +
   geom_point(aes(color = continent)) +
   geom_text(vjust = 1, hjust = 1)

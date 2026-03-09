@@ -53,16 +53,16 @@ that links them together. This is an example of the spread-operate-retidy patter
 library(dplyr)
 library(gapminder)
 
-gapminder \%>\%
+gapminder |>
   pairwise_cor(country, year, lifeExp)
 
-gapminder \%>\%
+gapminder |>
   pairwise_cor(country, year, lifeExp, sort = TRUE)
 
 # United Nations voting data
 if (require("unvotes", quietly = TRUE)) {
-  country_cors <- un_votes \%>\%
-    mutate(vote = as.numeric(vote)) \%>\%
+  country_cors <- un_votes |>
+    mutate(vote = as.numeric(vote)) |>
     pairwise_cor(country, rcid, vote, sort = TRUE)
 }
 

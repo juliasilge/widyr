@@ -45,10 +45,10 @@ useful.
 
 A **wide** dataset is one or more matrices where:
 
--   Each row is one **item**
--   Each column is one **feature**
--   Each value is one **observation**
--   Each matrix is one **variable**
+- Each row is one **item**
+- Each column is one **feature**
+- Each value is one **observation**
+- Each matrix is one **variable**
 
 When would you want data to be wide rather than tidy? Notable examples
 include classification, clustering, correlation, factorization, or other
@@ -85,8 +85,7 @@ gapminder
 #>  8 Afghanistan Asia       1987    40.8 13867957      852.
 #>  9 Afghanistan Asia       1992    41.7 16317921      649.
 #> 10 Afghanistan Asia       1997    41.8 22227415      635.
-#> # … with 1,694 more rows
-#> # ℹ Use `print(n = ...)` to see more rows
+#> # ℹ 1,694 more rows
 ```
 
 This tidy format (one-row-per-country-per-year) is very useful for
@@ -103,7 +102,7 @@ items within data. An example is `pairwise_dist`:
 ``` r
 library(widyr)
 
-gapminder %>%
+gapminder |>
   pairwise_dist(country, year, lifeExp)
 #> # A tibble: 20,022 × 3
 #>    item1      item2       distance
@@ -118,8 +117,7 @@ gapminder %>%
 #>  8 Bangladesh Afghanistan    45.3 
 #>  9 Belgium    Afghanistan   125.  
 #> 10 Benin      Afghanistan    39.3 
-#> # … with 20,012 more rows
-#> # ℹ Use `print(n = ...)` to see more rows
+#> # ℹ 20,012 more rows
 ```
 
 This finds the Euclidean distance between the `lifeExp` value in each
@@ -129,8 +127,8 @@ with `year`, which is the feature column.
 We could find the closest pairs of countries overall with `arrange()`:
 
 ``` r
-gapminder %>%
-  pairwise_dist(country, year, lifeExp) %>%
+gapminder |>
+  pairwise_dist(country, year, lifeExp) |>
   arrange(distance)
 #> # A tibble: 20,022 × 3
 #>    item1          item2          distance
@@ -145,8 +143,7 @@ gapminder %>%
 #>  8 Israel         Italy              1.66
 #>  9 Finland        Austria            1.94
 #> 10 Austria        Finland            1.94
-#> # … with 20,012 more rows
-#> # ℹ Use `print(n = ...)` to see more rows
+#> # ℹ 20,012 more rows
 ```
 
 Notice that this includes duplicates (Germany/Belgium and
@@ -154,8 +151,8 @@ Belgium/Germany). To avoid those (the upper triangle of the distance
 matrix), use `upper = FALSE`:
 
 ``` r
-gapminder %>%
-  pairwise_dist(country, year, lifeExp, upper = FALSE) %>%
+gapminder |>
+  pairwise_dist(country, year, lifeExp, upper = FALSE) |>
   arrange(distance)
 #> # A tibble: 10,011 × 3
 #>    item1       item2          distance
@@ -170,15 +167,14 @@ gapminder %>%
 #>  8 Comoros     Mauritania         2.01
 #>  9 Belgium     United States      2.09
 #> 10 Germany     Ireland            2.10
-#> # … with 10,001 more rows
-#> # ℹ Use `print(n = ...)` to see more rows
+#> # ℹ 10,001 more rows
 ```
 
 In some analyses, we may be interested in correlation rather than
 distance of pairs. For this we would use `pairwise_cor`:
 
 ``` r
-gapminder %>%
+gapminder |>
   pairwise_cor(country, year, lifeExp, upper = FALSE)
 #> # A tibble: 10,011 × 3
 #>    item1       item2     correlation
@@ -193,8 +189,7 @@ gapminder %>%
 #>  8 Albania     Argentina       0.949
 #>  9 Algeria     Argentina       0.991
 #> 10 Angola      Argentina       0.936
-#> # … with 10,001 more rows
-#> # ℹ Use `print(n = ...)` to see more rows
+#> # ℹ 10,001 more rows
 ```
 
 ### Code of Conduct
