@@ -25,6 +25,12 @@ such as \code{diag} and \code{upper}}
 \description{
 Compute cosine similarity of all pairs of items in a tidy table.
 }
+\details{
+This function uses sparse matrices internally for efficiency, which means
+pairs with zero similarity are excluded from the output. To include
+zero-similarity pairs, use \code{\link[tidyr:complete]{tidyr::complete()}} on your result:
+\code{complete(item1, item2, fill = list(similarity = 0))}.
+}
 \examples{
 
 library(janeaustenr)
