@@ -1,6 +1,7 @@
 # widyr (development version)
 
 * Now force evaluation for `widely()` function factory (thanks to @lhdjung, #44)
+* Explain how to handle zero-similarity pairs in `pairwise_similarity()` (#47)
 
 # widyr 0.1.5
 
