@@ -8,12 +8,12 @@ suppressPackageStartupMessages(library(tidytext))
 original <- tibble(txt = c("I felt a funeral in my brain,",
                            "And mourners, to and fro,",
                            "Kept treading, treading, till it seemed",
-                           "That sense was breaking through.")) %>%
-  mutate(line = row_number()) %>%
+                           "That sense was breaking through.")) |>
+  mutate(line = row_number()) |>
   unnest_tokens(char, txt, token = "characters")
 
 test_that("pairing and counting works", {
-  d <- original %>%
+  d <- original |>
     pairwise_count(char, line, sort = TRUE, upper = FALSE, diag = FALSE)
 
   expect_equal(nrow(d), 164)
@@ -29,25 +29,25 @@ test_that("pairing and counting works", {
 
   # for self-pairs, the number of occurrences should be the number of distinct
   # lines
-  d2 <- original %>%
+  d2 <- original |>
     pairwise_count(char, line, sort = TRUE, upper = FALSE, diag = TRUE)
 
   expect_equal(nrow(d2), nrow(d) + 20)
 
-  self_pairs <- d2 %>%
-    filter(item1 == item2) %>%
+  self_pairs <- d2 |>
+    filter(item1 == item2) |>
     arrange(item1)
 
-  char_counts <- original %>%
-    distinct(line, char) %>%
-    count(char) %>%
+  char_counts <- original |>
+    distinct(line, char) |>
+    count(char) |>
     arrange(char)
 
   expect_true(all(self_pairs$item1 == char_counts$char))
   expect_true(all(self_pairs$n == char_counts$n))
 
   # when upper is TRUE, should include twice as many items as original
-  d3 <- original %>%
+  d3 <- original |>
     pairwise_count(char, line, sort = TRUE, upper = TRUE)
 
   expect_equal(nrow(d) * 2, nrow(d3))
@@ -72,27 +72,27 @@ test_that("We can count with a weight column", {
 
 test_that("Counts co-occurrences of words in Pride & Prejudice", {
   if (require("janeaustenr", quietly = TRUE)) {
-    words <- tibble(text = prideprejudice) %>%
-      mutate(line = row_number()) %>%
+    words <- tibble(text = prideprejudice) |>
+      mutate(line = row_number()) |>
       unnest_tokens(word, text)
 
-    pairs <- words %>%
+    pairs <- words |>
       pairwise_count(word, line, upper = TRUE, diag = TRUE, sort = TRUE)
 
     # check it is sorted in descending order
     expect_false(is.unsorted(rev(pairs$n)))
 
     # check occurrences of words that appear with "elizabeth"
-    words_with_elizabeth <- words %>%
-      filter(word == "elizabeth") %>%
-      select(line) %>%
-      inner_join(words, by = "line") %>%
-      distinct(word, line) %>%
-      count(word) %>%
+    words_with_elizabeth <- words |>
+      filter(word == "elizabeth") |>
+      select(line) |>
+      inner_join(words, by = "line", relationship = "many-to-many") |>
+      distinct(word, line) |>
+      count(word) |>
       arrange(n, word)
 
-    pairs_with_elizabeth <- pairs %>%
-      filter(item1 == "elizabeth") %>%
+    pairs_with_elizabeth <- pairs |>
+      filter(item1 == "elizabeth") |>
       arrange(n, item2)
 
     expect_true(all(words_with_elizabeth$word == pairs_with_elizabeth$item2))
@@ -101,8 +101,8 @@ test_that("Counts co-occurrences of words in Pride & Prejudice", {
 })
 
 test_that("Can count within groups", {
-  grouped_result <- mtcars %>%
-    group_by(cyl) %>%
+  grouped_result <- mtcars |>
+    group_by(cyl) |>
     pairwise_count(vs, am)
 
   expect_equal(as.character(groups(grouped_result)), c("cyl"))

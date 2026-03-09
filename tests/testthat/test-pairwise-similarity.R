@@ -11,7 +11,7 @@ cosine_similarity <- function(x, y) {
 }
 
 test_that("pairwise_similarity computes pairwise cosine similarity", {
-  ret <- d %>%
+  ret <- d |>
     pairwise_similarity(col, row, value)
 
   ret1 <- ret$similarity[ret$item1 == "a" & ret$item2 == "b"]
@@ -26,7 +26,7 @@ test_that("pairwise_similarity computes pairwise cosine similarity", {
 test_that("pairwise_similarity retains factor levels", {
   d$col <- factor(d$col, levels = c("b", "c", "a"))
 
-  ret <- d %>%
+  ret <- d |>
     pairwise_similarity(col, row, value)
 
   expect_is(ret$item1, "factor")

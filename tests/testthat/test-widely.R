@@ -4,7 +4,7 @@ test_that("widely can widen, operate, and re-tidy", {
   skip_if_not_installed("gapminder")
   library(gapminder)
 
-  ret <- gapminder %>%
+  ret <- gapminder |>
     widely(cor)(year, country, lifeExp)
 
   expect_is(ret$item1, "character")
@@ -17,7 +17,7 @@ test_that("widely can widen, operate, and re-tidy", {
 
   expect_equal(nrow(ret), length(unique(gapminder$country)) ^ 2)
 
-  ret2 <- gapminder %>%
+  ret2 <- gapminder |>
     widely(cor, sort = TRUE)(year, country, lifeExp)
 
   expect_equal(sort(ret$value, decreasing = TRUE), ret2$value)
@@ -27,8 +27,8 @@ test_that("widely works within groups", {
   skip_if_not_installed("gapminder")
   library(gapminder)
 
-  ret <- gapminder %>%
-    group_by(continent) %>%
+  ret <- gapminder |>
+    group_by(continent) |>
     widely(cor)(year, country, lifeExp)
 
   expect_equal(colnames(ret), c("continent", "item1", "item2", "value"))

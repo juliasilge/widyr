@@ -7,7 +7,7 @@ test_that("pairwise_dist computes a distance matrix", {
                   row = rep(c("d", "e", "f"), 3),
                   value = c(1, 2, 3, 6, 5, 4, 7, 9, 8))
 
-  ret <- d %>%
+  ret <- d |>
     pairwise_dist(col, row, value)
 
   ret1 <- ret$distance[ret$item1 == "a" & ret$item2 == "b"]

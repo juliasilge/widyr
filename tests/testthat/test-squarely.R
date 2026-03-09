@@ -6,7 +6,7 @@ test_that("Can perform 'squarely' operations on pairs of items", {
   if (require("gapminder", quietly = TRUE)) {
     ncountries <- length(unique(gapminder$country))
 
-    closest <- gapminder %>%
+    closest <- gapminder |>
       squarely(dist)(country, year, lifeExp)
 
     expect_equal(colnames(closest), c("item1", "item2", "value"))
@@ -17,8 +17,8 @@ test_that("Can perform 'squarely' operations on pairs of items", {
 
 test_that("Can perform 'squarely' within groups", {
   if (require("gapminder", quietly = TRUE)) {
-    closest_continent <- gapminder %>%
-      group_by(continent) %>%
+    closest_continent <- gapminder |>
+      group_by(continent) |>
       squarely(dist)(country, year, lifeExp)
 
     expect_equal(colnames(closest_continent), c("continent", "item1", "item2", "value"))
