@@ -39,8 +39,8 @@ distance or correlation matrix.
 library(dplyr)
 library(gapminder)
 
-closest_continent <- gapminder \%>\%
-  group_by(continent) \%>\%
+closest_continent <- gapminder |>
+  group_by(continent) |>
   squarely(dist)(country, year, lifeExp)
 
 }
