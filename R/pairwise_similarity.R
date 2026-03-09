@@ -2,6 +2,12 @@
 #'
 #' Compute cosine similarity of all pairs of items in a tidy table.
 #'
+#' @details
+#' This function uses sparse matrices internally for efficiency, which means
+#' pairs with zero similarity are excluded from the output. To include
+#' zero-similarity pairs, use [tidyr::complete()] on your result:
+#' `complete(item1, item2, fill = list(similarity = 0))`.
+#'
 #' @param tbl Table
 #' @param item Item to compare; will end up in `item1` and
 #' `item2` columns
